@@ -1,0 +1,7395 @@
+--hello.hs 
+x=
+
+ghc hello.hs
+[1 of 1] Compiling Main
+Linking hello ...
+
+hello (Windows hello.exe);
+hello.hi;
+hello.o.
+
+$ ghci
+GHCi> :q
+Leaving GHCi.
+
+ghci> 1+1
+2
+
+ghci> x=2+2
+ghci> x
+4
+
+ghci> let f x = x+x
+ghci> f 2
+4
+
+ghci hello.hs
+[1 of 1] Compiling Main
+Ok, modules loaded: Main.
+
+:l :load
+ghci
+GHCi> :l hello.hs
+[1 of 1] Compiling Main
+Ok, modules loaded: Main.
+
+ghci> :l hello.hs
+ghci> main
+Hello!
+
+
+main = do
+putStrLn "Hello, Will!"
+GHCi> :l hello.hs
+GHCi> main
+Hello, Will!
+
+x = 
+
+$ ghci
+GHCi> :l first_prog.hs
+[1 of 1] Compiling Main ( first_prog.hs, interpreted)
+Ok, modules loaded: Main.
+
+GHCi> messyMain
+Кто получатель этого письма?
+×èòàòåëü
+Íàçâàíèå êíèãè:
+Ïðîãðàììèðóé íà Haskell
+Êòî àâòîð ýòîãî ïèñüìà?
+Óèëë
+Äîðîãîé ×èòàòåëü!
+Ñïàñèáî çà òî, ÷òî êóïèëè "Ïðîãðàììèðóé íà Haskell"!
+Ñ óâàæåíèåì,
+Óèëë
+
+simple x = x
+
+GHCi> simple 2
+2
+GHCi> simple "dog"
+"dog"
+
+x=2
+
+calcChange owed given = if given - owed > 0
+                        then given - owed
+                        else 0
+
+calcChange owed given = if change > 0
+                        then change
+                        else 0
+           where change = given - owed
+
+doublePlusTwo x = doubleX + 2
+      where doubleX = x*2
+
+GHCi> x = 7
+GHCi> x
+7
+GHCi> x = [1,2,3]
+GHCi> x
+[1,2,3]
+
+GHCi> let x = 7
+GHCi> x
+7
+
+GHCi> let f x = x^2
+GHCi> f 8
+64
+
+GHCi> let x = simple simple
+GHCi> let x = 6
+GHCi> x
+6
+
+\x -> x
+GHCi> (\x -> x) 4
+4
+GHCi> (\x -> x) "привет"
+привет
+GHCi> (\x -> x) [1,2,3]
+[1,2,3]
+
+GHCi> (\x -> x*2) 2
+4
+GHCi> (\x -> x*2) 4
+8
+
+sumSquareOrSquareSum x y = if sumSquare > squareSum
+                           then sumSquare
+                           else squareSum
+    where sumSquare = x^2 + y^2
+          squareSum = (x+y)^2
+
+sumSquareOrSquareSum x y = if (x^2 + y^2) > ((x+y)^2)
+                           then (x^2 + y^2)
+                           else (x+y)^2
+
+body sumSquare squareSum = if sumSquare > squareSum
+                           then sumSquare
+                           else squareSum
+
+sumSquareOrSquareSum x y = body (x^2 + y^2) ((x+y)^2)
+
+body = (\sumSquare squareSum ->
+         if sumSquare > squareSum
+         then sumSquare
+         else squareSum)
+
+sumSquareOrSquareSum x y = (\sumSquare squareSum ->
+                             if sumSquare > squareSum
+                             then sumSquare
+                             else squareSum) (x^2 + y^2) ((x+y)^2)
+
+doubleDouble x = dubs*2
+    where dubs = x*2
+
+sumSquareOrSquareSum x y = let sumSquare = (x^2 + y^2)
+                               squareSum = (x+y)^2
+                           in
+			     if sumSquare > squareSum
+                             then sumSquare:}:
+                             else squareSum
+
+doubleDouble x = (\dubs -> dubs*2) (x*2)
+
+overwrite x = let x = 2
+              in let x = 3
+               in let x = 4
+                in x
+
+GHCi> let x = 2
+GHCi> x
+2
+GHCi> let x = 3
+GHCi> x
+3
+
+overwrite x = (\x ->
+                (\x ->
+                  (\x -> x) 4) 3) 2
+
+x = 4
+add1 y = y + x
+add2 y = (\x -> y + x) 3
+add3 y = (\y ->
+             (\x -> y + x) 1 ) 2
+
+GHCi> add1 1
+5
+GHCi> add2 1
+4
+GHCi> add3 1
+3
+
+error
+auth
+
+ifEvenInc n = if even n
+              then n+1
+              else n
+
+ifEvenDouble n = if even n
+                 then n*2
+                 else n
+
+ifEvenSquare n = if even n
+                 then n^2
+                 else n
+
+ifEven myFunction x = if even x
+                      then myFunction x
+                      else x
+
+inc n = n + 1
+double n = n * 2
+square n = n^2
+
+ifEvenInc n = ifEven inc n
+ifEvenDouble n = ifEven double n
+ifEvenSquare n = ifEven square n
+
+GHCi> 1 + 2 * 3
+7
+GHCi> inc 2 * 3
+9
+GHCi> add x y = x + y
+GHCi> add 1 2 * 3
+9
+
+GHCi> ifEven (\x -> x*2) 6
+12
+
+GHCi> ifEven (\x -> x^3) 4
+
+author = ("Уилл","Курт")
+GHCi> fst author
+"Уилл"
+GHCi> snd author
+"Курт"
+
+names = [("Иэн","Кертис"),
+         ("Бернард","Самнер"),
+         ("Питер","Хук"),
+         ("Стивен","Моррис")]
+
+names = [("Ian", "Curtis"),
+          ("Bernard", "Sumner"),
+          ("Peter", "Hook"),
+          ("Stephen", "Morris")]
+
+Prelude Data.List> :{
+Prelude Data.List| names = [("Ian", "Curtis"),
+Prelude Data.List|           ("Bernard", "Sumner"),
+Prelude Data.List|           ("Peter", "Hook"),
+Prelude Data.List|           ("Stephen", "Morris")]
+Prelude Data.List| :}
+Prelude Data.List> sort names
+[("Bernard","Sumner"),("Ian","Curtis"),("Peter","Hook"),("Stephen","Morris")]
+
+
+import Data.List
+GHCi> sort names
+[("Бернард","Самнер"),("Иэн","Кертис"),("Питер","Хук"), ("Стивен","Моррис")]
+
+compareLastNames name1 name2 = if lastName1 > lastName2
+                               then GT
+                               else
+                                 if lastName1 < lastName2
+                                 then LT
+                                 else EQ
+   where lastName1 = snd name1
+         lastName2 = snd name2
+
+GHCi> sortBy compareLastNames names
+[("Иэн","Кертис"),("Стивен","Моррис"),("Бернард","Самнер"),
+ (""Питер","Хук"")]
+
+Prelude Data.List> sortBy compareLastNames names
+[("Ian","Curtis"),("Peter","Hook"),("Stephen","Morris"),("Bernard","Sumner")]
+
+compareLastNames name1 name2 =
+       if lastName1 > lastName2
+       then GT
+       else if lastName1 < lastName2
+       then LT
+       else if firstName1 > firstName2
+          then GT
+          else if firstName1 < firstName2
+               then LT
+               else EQ
+  where lastName1 = snd name1
+        lastName2 = snd name2
+        firstName1 = fst name1
+        firstName2 = fst name2
+
+relude Data.List> sortBy compareLastNames names
+[("Ian","Curtis"),("Peter","Hook"),("Stephen","Morris"),("Bernard","Sumner")]
+
+
+addressLetter name location = nameText ++ " - " ++ location
+      where nameText = (fst name) ++ " " ++ (snd name)
+
+GHCi> addressLetter ("Боб","Смит") "А/я 1234, Сан-Франциско, штат Калифорния, 94111"
+"Боб Смит - А/я 1234, Сан-Франциско, штат Калифорния, 94111"
+
+Prelude Data.List> addressLetter ("Bob", "Smith") "PO Box 1234, San Francisco, CA 94111"
+"Bob Smith - PO Box 1234, San Francisco, CA 94111"
+
+sfOffice name =
+   if lastName < "Ë"
+   then nameText ++
+        " - А/я 1234, Сан-Франциско, штат Калифорния, 94111"
+   else nameText ++
+        " - А/я 1010, Сан-Франциско, штат Калифорния, 94109"
+
+  where lastName = snd name
+        nameText = (fst name) ++ " " ++ lastName
+
+nyOffice = nameText ++
+           ": А/я 789, Нью-Йорк, штат Нью-Йорк, 10013"
+   where nameText = (fst name) ++ " " ++ (snd name)
+
+renoOffice = nameText ++ " - А/я 456, Рино, штат Невада, 89523"
+   where nameText = snd name
+
+getLocationFunction location =
+      case location of
+        "ny" -> nyOffice
+        "sf" -> sfOffice
+        "reno" -> renoOffice
+          _ -> (\name ->
+                (fst name) ++ " " ++ (snd name))
+
+addressLetter name location = locationFunction name
+   where locationFunction = getlocationFunction location
+
+GHCi> addressLetter ("Боб","Смит") "ny"
+"Боб Смит: А/я 789, Нью-Йорк, штат Нью-Йорк, 10013"
+GHCi> addressLetter ("Боб","Джонс") "ny"
+"Боб Джонс: А/я 789, Нью-Йорк, штат Нью-Йорк, 10013"
+GHCi> addressLetter ("Дейзи","Смит") "sf"
+"Дейзи Смит - А/я 1010, Сан-Франциско, штат Калифорния, 94109"
+GHCi> addressLetter ("Боб","Смит") "reno"
+"Смит - А/я 456, Рино, штат Невада, 89523"
+GHCi> addressLetter ("Боб","Смит") "la"
+"Боб Смит"
+
+Замыкания — создание функций функциями
+ifEvenInc n = ifEven inc n
+ifEvenDouble n = ifEven double n
+ifEvenSquare n = ifEven square n
+
+genIfEven f = (\x -> ifEven f x)
+
+ifEvenInc = genIfEven inc
+(\x -> ifEven f x)
+(\x -> ifEven inc x)
+ifEvenInc = (\x -> ifEven inc x)
+
+ifEven f x = if even x
+             then f x
+             else x
+genIfEvenX x = (\f -> ifEven f x)
+
+http://example.com/book/1234?token=1337hAsk3ll
+
+getRequestUrl host apiKey resource id =
+   host ++ "/" ++ resource ++ "/" ++ id ++ "?token=" ++ apiKey
+
+GHCi> getRequestUrl "http://example.com" "1337hAsk3ll" "book" "1234"
+"http://example.com/book/1234?token=1337hAsk3ll"
+
+genHostRequestBuilder host = (\apiKey resource id ->
+                               getRequestUrl host apikey resource id)
+
+exampleUrlBuilder = genHostRequestBuilder "http://example.com"
+
+GHCi> exampleUrlBuilder "1337hAsk3ll" "book" "1234"
+"http://example.com/book/1234?token=1337hAsk3ll"
+
+genApiRequestBuilder hostBuilder apiKey =
+      (\resource id -> hostBuilder apiKey resource id)
+
+myExampleUrlBuilder = genApiRequestBuilder exampleUrlBuilder
+                      "1337hAsk3ll"
+
+GHCi> myExampleUrlBuilder "book" "1234"
+"http://example.com/book/1234?token=1337hAsk3ll"
+
+add4 a b c d = a + b + c + d
+addXto3 x = (\b c d -> add4 x b c d)
+genApiRequestBuilder hostBuilder apiKey resource =
+                     (\id -> hostBuilder apiKey resource id)
+
+addXYto2 x y = (\c d -> add4 x y c d)
+GHCi> mystery = add4 3
+
+GHCi> mystery 2 3 4
+12
+GHCi> mystery 5 6 7
+21
+
+GHCi> anotherMystery = add4 2 3
+GHCi> anotherMystery 1 2
+8
+GHCi> anotherMystery 4 5
+14
+
+exampleUrlBuilder = getRequestUrl "http://example.com"
+myExampleUrlBuilder = exampleUrlBuilder "1337hAsk3ll"
+
+exampleUrlBuilder = getRequestUrl "http://example.com" ? ? ?
+myExampleUrlBuilder = exampleUrlBuilder "1337hAsk3ll" ? ?
+myExampleUrlBuilder resource id
+
+exampleBuilder = getRequestUrl "http://example.com"
+                               "1337hAsk3ll"
+                               "book"
+
+addressLetter name location = locationFunction name
+   where locationFunction = getLocationFunction location
+
+addressLetterV2 location name = addressLetter name location
+
+flipBinaryArgs binaryFunction = (\x y -> binaryFunction y x)
+
+addressLetterV2 = flipBinaryArgs addressLetter
+addressLetterNY = addressLetterV2 "ny"
+
+GHCi> addressLetterNY ("Боб", "Смит")
+Боб Смит: А/я 789, Нью-Йорк, штат Нью-Йорк, 10013
+
+GHCi> 2 + 3
+5
+GHCi> (+) 2 3
+5
+GHCi> 10 / 2
+5.0
+GHCi> (/) 10 2
+5.0
+
+subtract2 = flip (-) 2
+
+GHCi> head [1,2,3]
+1
+GHCi> head [[1,2],[3,4],[5,6]]
+[1,2]
+
+GHCi> tail [1,2,3]
+[2,3]
+GHCi> tail [3]
+[]
+
+GHCi> 1:[]
+[1]
+
+GHCi> 1:2:3:4:[]
+[1,2,3,4]
+
+GHCi> (1,2):(3,4):(5,6):[]
+[(1,2),(3,4),(5,6)]
+
+GHCi> 1:[2,3,4]
+[1,2,3,4]
+
+GHCi>[’п’,’р’,’и’,’в’,’е’,’т’]
+"привет"
+GHCi> ’п’:’р’:’и’:’в’:’е’:’т’:[]
+"привет"
+
+GHCi> ’п’:"ривет"
+"привет"
+
+GHCi> "п":"ривет"
+GHCi> [’п’]:[’р’,’и’,’в’,’е’,’т’]
+GHCi> ’п’:[]:’р’:’и’:’в’:’е’:’’т":[]
+
+GHCi> "п" ++ "ривет"
+"привет"
+GHCi> [1] ++ [2,3,4]
+[1,2,3,4]
+
+GHCi> [1 .. 10]
+[1,2,3,4,5,6,7,8,9,10]
+GHCi> [1,3 .. 10]
+[1,3,5,7,9]
+GHCi> [1, 1.5 .. 5]
+[1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0]
+GHCi> [1,0 .. -10]
+[1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10]
+
+GHCi> [1..]
+[1,2,3,4,5,6,7,8,9,10,11,12 ..
+
+simple x = x
+longList = [1 .. ]
+stillLongList = simple longList
+
+backwardsInfinity = reverse [1..] compiled
+GHCi> backwardsInfinity problem
+
+GHCi> [1,2,3] !! 0
+1
+GHCi> "щенки" !! 3
+’к’
+GHCi> [1..10] !! 11
+*** Exception: Prelude.!!: index too large
+
+GHCi> (!!) [1,2,3] 0
+1
+
+GHCi> paExample1 = (!!) "собака"
+GHCi> paExample1 2
+’б’
+сечение
+GHCi> paExample2 = ("собака" !!)
+GHCi> paExample2 2
+’б’
+
+GHCi> length [1..20]
+20
+GHCi> length [(10,20),(1,2),(15,16)]
+3
+GHCi> length "Программируй на Haskell"
+23
+
+GHCi> reverse [1,2,3]
+[3,2,1]
+GHCi> reverse " сыр"
+"рыс"
+
+isPalindrome word = word == reverse word
+GHCi> isPalindrome "сыр"
+False
+GHCi> isPalindrome "топот"
+True
+GHCi> isPalindrome [1,2,3]
+False
+GHCi> isPalindrome [1,2,1]
+True
+
+GHCi> elem 13 [0,13 .. 100]
+True
+GHCi> elem ’п’ " сыр"
+False
+
+respond phrase = if ’!’ ‘elem‘ phrase
+                 then "Ого!"
+                 else "Ну, ок"
+GHCi> respond "привет"
+"Ну, ок"
+GHCi> respond "привет!"
+"Ого!"
+
+GHCi> take 5 [2,4..100]
+[2,4,6,8,10]
+GHCi> take 3 "замечательно"
+"зам"
+
+GHCi> take 1000000 [1]
+[1]
+
+takeLast n aList = reverse (take n (reverse aList))
+GHCi> takeLast 10 [1..100]
+[91,92,93,94,95,96,97,98,99,100]
+
+GHCi> drop 2 [1,2,3,4,5]
+[3,4,5]
+GHCi> drop 6 "Очень здорово"
+"здорово"
+
+GHCi> zip [1,2,3] [2,4,6]
+[(1,2),(2,4),(3,6)]
+GHCi> zip "пёс" "кролик"
+[(’п’,’к’),(’ё’,’р’),(’с’,’о’)]
+GHCi> zip [’a’ .. ’f’] [1 .. ]
+[(’a’,1),(’b’,2),(’c’,3),(’d’,4),(’e’,5),(’f’,6)]
+
+ones n = take n (cycle [1])
+GHCi> ones 2
+[1,1]
+GHCi> ones 4
+[1,1,1,1]
+
+assignToGroups n aList = zip groups aList
+where groups = cycle [1..n]
+GHCi> assignToGroups 3 ["файл1.txt","файл2.txt","файл3.txt"
+ ,"файл4.txt","файл5.txt","файл6.txt"
+ ,"файл7.txt","файл8.txt","файл9.txt"]
+[(1,"файл1.txt"),(2,"файл2.txt"),(3,"файл3.txt"),
+Ç (1,"файл4.txt"),(2,"файл5.txt"),(3,"файл6.txt"),
+Ç (1,"файл7.txt"),(2,"файл8.txt"),(3,"файл9.txt")]
+GHCi> assignToGroups 2 ["Боб","Кэт","Сью","Джоан","Майк"]
+[(1,"Боб"),(2,"Кэт"),(1,"Сью"),(2,"Джоан"),(1,"Майк")]
+
+GHCi> take 3 [1,2,3,4]
+[1,2,3]
+
+myGCD a b = if remainder == 0
+            then b
+            else myGCD b remainder
+   where remainder = a ‘mod‘ b
+
+sayAmount n = case n of
+    1 -> "один"
+    2 -> "два"
+    n -> "много"
+
+sayAmount 1 = "один"
+sayAmount 2 = "два"
+sayAmount n = "много"
+
+isEmpty [] = True
+isEmpty aList = False
+
+isEmpty [] = True
+isEmpty _ = False
+
+myHead (x:xs) = x
+
+myHead [1,2,3]
+myHead (1:[2,3])
+myHead (x:xs) = x 
+(x=1)
+
+myHead (x:xs) = x
+myHead [] = error "Голова у пустого списка отсутсвует"
+
+myTail (_:xs) = xs
+
+GHCi> drop 3 [1, 2, 3, 4]
+[4]
+
+myLength [] = 0
+myLength xs = 1 + myLength (tail xs)
+
+myLength [] = 0
+myLength (x:xs) = 1 + myLength xs
+
+myTake _ [] = []
+myTake 0 _ = []
+myTake n (x:xs) = x:rest
+where rest = myTake (n - 1) xs
+
+finiteCycle (first:rest) = first:rest ++ [first]
+myCycle (first:rest) = first : myCycle (rest++[first])
+
+ackermann 0 n = n + 1
+ackermann m 0 = ackermann (m - 1) 1
+ackermann m n = ackermann (m - 1) (ackermann m (n - 1))
+
+GHCi> :set +s
+GHCi> ackermann 3 3
+61
+(0.01 secs)
+GHCi> ackermann 3 8
+2045
+(3.15 secs)
+GHCi> ackermann 3 9
+4093
+(12.97 secs)
+
+collatz 1 = 1
+collatz n =
+if even n
+then 1 + collatz (n ‘div‘ 2)
+else 1 + collatz (n*3 + 1)
+
+GHCi> collatz 9
+20
+GHCi> collatz 999
+50
+GHCi> collatz 92
+18
+GHCi> collatz 91
+93
+
+GHCi> map collatz [100 .. 120]
+[26,26,26,88,13,39,13,101,114,114,114,70, 21, 13, 34, 34, 21, 21, 34, 34, 21]
+
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n - 1) + fib (n - 2)
+
+add3ToAll [] = []
+add3ToAll (x:xs) = (3 + x) : add3ToAll xs
+mul3ByAll [] = []
+mul3ByAll (x:xs) = (3 * x) : mul3ByAll xs
+
+GHCi> map reverse ["собака", "кот", "лось"]
+["акабос","ток","ьсол"]
+GHCi> map head ["собака", "кот", "лось"]
+"скл"
+GHCi> map (take 4) ["тыква", "пирог", "арахисовое масло"]
+["такв","пиро","арах"]
+
+GHCi> map (++"!") ["поезд","самолёт","лодка"]
+["поезд!","самолёт!","лодка!"]
+GHCi> map (^2) [1,2,3] [1,4,9]
+[1,4,9]
+
+addBang [] = []
+addBang (x:xs) = (x ++ "!") : addBang xs
+
+squareAll [] = []
+squareAll (x:xs) = x^2 : squareAll xs
+
+myMap f [] = []
+myMap f (x:xs) = (f x) : myMap f xs
+
+GHCi> filter even [1,2,3,4]
+[2,4]
+GHCi> filter (\(x:xs) -> x == ’a’) ["арбуз","банан","авокадо"]
+["арбуз","авокадо"]
+
+myFilter test [] = []
+myFilter test (x:xs) = if test x
+                       then x:myFilter test xs
+                       else myFilter test xs
+
+GHCi> foldl (+) 0 [1,2,3,4]
+10
+
+foldl (+) 0 [1,2,3,4]
+0 + 1 = 1
+foldl (+) 1 [2,3,4]
+1 + 2 = 3
+foldl (+) 3 [3,4]
+3 + 3 = 6
+foldl (+) 6 [4]
+6 + 4 = 10
+foldl (+) 10 [] = 10
+
+concatAll xs = foldl (++) "" xs
+
+remove test [] = []
+remove test (x:xs) = if test x
+                     then remove test xs
+                     else x:remove test xs
+
+sumOfSquares xs = foldl (+) 0 (map (^2) xs)
+
+rcons xs y = y:xs
+myReverse xs = foldl rcons [] xs
+
+foldl rcons [] [1,2,3]
+1:[]
+foldl rcons [1] [2,3]
+2:[1]
+foldl rcons [2,1] [3]
+3:[2,1]
+foldl rcons [3,2,1] [] = [3,2,1]
+
+myFoldl f init [] = init
+myProduct xs = foldl (*) 1 xs
+
+myFoldl f init [] = init
+myFoldl f init (x:xs) = myFoldl f newInit xs
+   where newInit = f init x
+
+myFoldr f init [] = init
+myFoldr f init (x:xs) = f x rightResult
+  where rightResult = myFoldr f init xs
+
+GHCi> foldl (+) 0 [1,2,3,4]
+10
+GHCi> foldr (+) 0 [1,2,3,4]
+10
+
+GHCi> foldl (-) 0 [1,2,3,4]
+-10
+GHCi> foldr (-) 0 [1,2,3,4]
+-2
+
+foldl
+foldl’ — неленивая версия
+foldr
+
+cup ml = \_ -> ml
+cup ml = \message -> message ml
+GHCi> aCup = cup 180
+coffeeCup = cup 500
+getMl aCup = aCup (\ml -> ml)
+GHCi> getMl coffeeCup
+500
+
+drink aCup mlDrank = cup (ml - mlDrank)
+      where ml = getMl aCup 
+
+GHCi> afterASip = drink coffeeCup 30
+GHCi> getMl afterASip
+470
+GHCi> afterTwoSips = drink afterASip 30
+GHCi> getMl afterTwoSips
+440
+
+GHCi> afterGulp = drink afterTwoSips 120
+GHCi> getMl afterGulp
+320
+
+drink aCup mlDrank = if mlDiff >= 0
+                     then cup mlDiff
+                     else cup 0
+    where ml = getMl aCup
+          mlDiff = ml - mlDrank
+
+GHCi> afterBigGulp = drink coffeeCup 1000
+GHCi> getMl afterBigGulp
+0
+
+isEmpty aCup = getMl aCup == 0
+afterManySips = foldl drink coffeeCup [30, 30, 30, 30, 30]
+
+GHCi> getMl afterManySips
+350
+
+robot (name, attack, hp) = \message ->
+                              message (name, attack, hp)
+
+killerRobot = robot ("убийца", 25, 200)
+
+name (n, _, _) = n
+attack (_, a, _) = a
+hp (_, _, hp) = hp
+
+getName aRobot = aRobot name
+getAttack aRobot = aRobot attack
+getHP aRobot = aRobot hp
+
+GHCi> getAttack killerRobot
+25
+GHCi> getHP killerRobot
+200
+
+setName aRobot newName = aRobot (\(n, a, h) ->
+                                  robot (newName, a, h))
+setAttack aRobot newAttack = aRobot (\(n, a, h) ->
+                                       robot (n, newAttack, h))
+setHP aRobot newHP = aRobot (\(n, a, h) ->
+                                robot (n, a, newHP))
+
+nicerRobot = setName killerRobot "котёнок"
+gentlerRobot = setAttack killerRobot 5
+softerRobot = setHP killerRobot 50
+
+printRobot aRobot = aRobot (\(n, a, h) ->
+                              n ++
+                              " атака:" ++ (show a) ++
+                              " здоровье:" ++ (show h))
+
+GHCi> printRobot killerRobot
+"убийца атака:25 здоровье:200"
+GHCi> printRobot nicerRobot
+"котёнок атака:25 здоровье:200"
+GHCi> printRobot gentlerRobot
+"убийца атака:5 здоровье:200"
+GHCi> printRobot softerRobot
+"убийца атака:25 здоровье:50"
+
+damage aRobot attackDamage =
+         aRobot (\(n, a, h) -> robot (n, a, h - attackDamage))
+
+GHCi> afterHit = damage killerRobot 90
+GHCi> getHP afterHit
+110
+
+fight aRobot defender = damage defender attack
+  where attack = if getHP aRobot > 10
+                 then getAttack aRobot
+                 else 0
+
+gentleGiant = robot ("Мистер Дружелюбный", 10, 300)
+
+gentleGiantRound1 = fight killerRobot gentleGiant
+killerRobotRound1 = fight gentleGiant killerRobot
+gentleGiantRound2 = fight killerRobotRound1 gentleGiantRound1
+killerRobotRound2 = fight gentleGiantRound1 killerRobotRound1
+gentleGiantRound3 = fight killerRobotRound2 gentleGiantRound2
+killerRobotRound3 = fight gentleGiantRound2 killerRobotRound2
+
+GHCi> printRobot gentleGiantRound3
+"Мистер Дружелюбный атака:10 здоровье:225"
+GHCi> printRobot killerRobotRound3
+"убийца атака:25 здоровье:170"
+
+fastRobot = robot ("быстрый", 15, 40)
+slowRobot = robot ("тормоз", 20, 30)
+
+fastRobotRound1 = fight slowRobot fastRobot
+slowRobotRound1 = fight fastRobot slowRobot
+fastRobotRound2 = fight slowRobotRound1 fastRobotRound1
+slowRobotRound2 = fight fastRobotRound1 slowRobotRound1
+fastRobotRound3 = fight slowRobotRound2 fastRobotRound2
+slowRobotRound3 = fight fastRobotRound2 slowRobotRound2
+
+GHCi> printRobot fastRobotRound3
+"быстрый атака:15 здоровье:0"
+GHCi> printRobot slowRobotRound3
+"тормоз атака:20 здоровье:0"
+
+slowRobotRound1 = fight fastRobot slowRobot
+fastRobotRound1 = fight slowRobotRound1 fastRobot
+fastRobotRound2 = fight fastRobotRound1 slowRobotRound1
+fastRobotRound2 = fight slowRobotRound2 fastRobotRound1
+fastRobotRound2 = fight fastRobotRound2 slowRobotRound2
+fastRobotRound2 = fight slowRobotRound3 fastRobotRound2
+
+GHCi> printRobot fastRobotRound3
+"быстрый атака:15 здоровье:20"
+GHCi> printRobot slowRobotRound3
+"тормоз атака:20 здоровье:-15"
+
+fastRobotRound3 = fight slowRobotRound3 fastRobotRound2
+fastRobotRound2 = fight slowRobotRound2 fastRobotRound1
+fastRobotRound1 = fight slowRobotRound1 fastRobot
+slowRobotRound2 = fight fastRobotRound1 slowRobotRound1
+slowRobotRound3 = fight fastRobotRound2 slowRobotRound2
+slowRobotRound1 = fight fastRobot slowRobot
+
+GHCi> printRobot fastRobotRound3
+"быстрый атака:15 здоровье:20"
+GHCi> printRobot slowRobotRound3
+"тормоз атака:20 здоровье:-15"
+
+
+x :: Int
+x = 2
+
+x :: Int
+x = 2
+GHCi> x*2000
+4000
+GHCi> x^2000
+0
+
+y :: Integer
+y = 2
+
+GHCi> y*2000
+4000
+GHCi> y^2000
+11481306952742545242328332011776819840223177020886952004776427
+36825766261392370313856659486316506269918445964638987462773447
+11896086305533142593135616665318539129989145312280000688779148
+24004487142892699006348624478161546364638836394731702604046635
+39709049965581623988089446296056233116495361642219703326813441
+68908984458505602379484807914058900934776500429002716706625830
+52200813223628129176126788331720659899539641812702177985840404
+21598531832515408894339020919205549577835896720391600819572166
+30582755380425583726015528348786419432054508915275783882625175
+435528800822842770817965453762184851149029376
+
+letter :: Char
+letter = ’a’
+
+interestRate :: Double
+interestRate = 0.375
+
+isFun :: Bool
+isFun = True
+
+values :: [Int]
+values = [1,2,3]
+
+testScores :: [Double]
+testScores = [0.99,0.7,0.8]
+
+letters :: [Char]
+letters = [’a’,’b’,’c’]
+
+GHCi> letters == "abc"
+True
+
+aPet :: [Char]
+aPet = "кошка"
+
+anotherPet :: String
+anotherPet = "собака"
+
+ageAndHeight ::(Int,Int)
+ageAndHeight = (34,74)
+
+firstLastMiddle :: (String,String,Char)
+firstLastMiddle = ("Оскар","Гроуш",’Д’)
+
+streetAddress :: (Int,String)
+streetAddress = (123,"ул. Счастья")
+
+double :: Int -> Int
+double n = n * 2
+
+half :: Int -> Double
+half n = n/2
+
+half n = (fromIntegral n) / 2
+GHCi> 5/2
+2.5
+
+halve :: Integer -> Integer
+halve value = value ‘div‘ 2
+
+GHCi> show 6
+"6"
+GHCi> show ’c’
+"’c’"
+GHCi> show 6.0
+"6.0"
+
+z = read "6"
+q = z / 2
+
+printDouble :: Int -> String
+printDouble value = show (value*2)
+
+anotherNumber :: Int
+anotherNumber = read "6"
+
+GHCi> read "6" :: Int
+6
+GHCi> read "6" :: Double
+6.0
+
+makeAddress :: Int -> String -> String -> (Int, String, String)
+makeAddress number street town = (number,street,town)
+
+makeAddress number street town = (number, street, town)
+
+makeAddressLambda = (\number ->
+                      (\street ->
+                       (\town -> (number, street, town)))
+
+GHCi> (((makeAddressLambda 123) "ул. Счастья") "Хаскельтаун")
+(123,"ул. Счастья","Хаскельтаун")
+
+GHCi> (((makeAddress 123) "ул. Счастья") "Хаскельтаун")
+(123,"ул. Счастья","Хаскельтаун")
+
+GHCi> makeAddressLambda 123 "ул. Счастья" "Хаскельтаун"
+(123,"ул. Счастья","Хаскельтаун")
+
+ifEven :: (Int -> Int) -> Int -> Int
+          ifEven f n = if even n
+                       then f n
+                       else n
+
+makeAddress :: Int -> String -> String -> (Int,String,String)
+
+String -> String -> (Int,String,String)
+
+((makeAddress 123) "ул. Счастья")
+
+String -> (Int,String,String)
+
+(((makeAddress 123) "ул. Счастья") "Хаскельтаун")
+(Int,String,String)
+
+simpleInt :: Int -> Int
+simpleInt n = n
+
+simpleChar :: Char -> Char
+simpleChar c = c
+
+simple :: a -> a
+simple x = x
+
+makeTriple :: a -> b -> c -> (a,b,c)
+makeTriple x y z = (x,y,z)
+
+nameTriple = makeTriple "Оскар" ’Г’ "Гроуш"
+
+makeTriple :: String -> Char -> String -> (String,Char,String)
+
+f1 :: a -> a
+f2 :: a -> b
+
+map :: (a -> b) -> [a] -> [b]
+map :: (a -> a) -> [a] -> [a] ? Why not
+map show [1,2,3,4]
+
+myFoldl f init [] = init
+myFoldl f init (x:xs) = myFoldl f newInit xs
+  where newInit = f init x
+
+areaOfCircle :: Double -> Double
+areaOfCircle :: Diameter -> Area
+
+patientInfo :: String -> String -> Int -> Int -> String
+patientInfo fname lname age height = name ++ " " ++ ageHeight
+   where name = lname ++ ", " ++ fname
+         ageHeight = "(Возраст: " ++ show age ++
+                     "; рост: " ++ show height ++ "см)"
+
+GHCi> patientInfo "Джон" "Доу" 43 188
+"Доу, Джон (Возраст: 43; рост: 188см)"
+GHCi> patientInfo "Джейн" "Смит" 25 156
+"Смит, Джейн (Возраст: 25; рост: 156см)"
+
+type FirstName = String
+type LastName = String
+type Age = Int
+type Height = Int
+
+patientInfo :: FirstName -> LastName -> Age -> Height -> String
+
+type PatientName = (String, String)
+
+firstName :: PatientName -> String
+firstName patient = fst patient
+
+lastName :: PatientName -> String
+lastName patient = snd patient
+
+
+GHCi> testPatient = ("Джон", "Доу")
+GHCi> firstName testPatient
+"Джон"
+GHCi> lastName testPatient
+"Доу"
+
+data Sex = Male | Female
+
+patientInfoV2 :: PatientName -> Int -> Int -> String
+patientInfoV2 (fname, lname) age height = name ++ " " ++
+                                          ageHeight
+   where name = lname ++ ", " ++ fname
+         ageHeight = "(Возраст: " ++ show age ++
+                     "; рост: " ++ show height ++ "см)"
+
+data Bool = True | False
+sexInitial :: Sex -> Char
+sexInitial Male = ’M’
+sexInitial Female = ’F’
+
+data RhType = Pos | Neg
+data ABOType = A | B | AB | O
+
+data BloodType = BloodType ABOType RhType
+
+patient1BT :: BloodType
+patient1BT = BloodType A Pos
+
+patient2BT :: BloodType
+patient2BT = BloodType O Neg
+
+patient3BT :: BloodType
+patient3BT = BloodType AB Pos
+
+showRh :: RhType -> String
+showRh Pos = "+"
+showRh Neg = "-"
+
+showABO :: ABOType -> String
+showABO A = "A"
+showABO B = "B"
+showABO AB = "AB"
+showABO O = "O"
+
+showBloodType :: BloodType -> String
+showBloodType (BloodType abo rh) = showABO abo ++ showRh rh
+
+canDonateTo :: BloodType -> BloodType -> Bool
+canDonateTo (BloodType O _) _ = True
+canDonateTo _ (BloodType AB _) = True
+canDonateTo (BloodType A _) (BloodType A _) = True
+canDonateTo (BloodType B _) (BloodType B _) = True
+canDonateTo _ _ = False
+
+GHCi> canDonateTo patient1BT patient2BT
+False
+GHCi> canDonateTo patient2BT patient1BT
+True
+GHCi> canDonateTo patient2BT patient3BT
+True
+GHCi> canDonateTo patient1BT patient3BT
+True
+GHCi> canDonateTo patient3BT patient1BT
+False
+
+type MiddleName = String
+data Name = Name FirstName LastName
+          | NameWithMiddle FirstName MiddleName LastName  
+
+showName :: Name -> String
+showName (Name f l) = f ++ " " ++ l
+showName (NameWithMiddle f m l) = f ++ " " ++ m ++ " " ++ l
+
+name1 = Name "Джером" "Сэлинджер"
+name2 = NameWithMiddle "Джером" "Дэвид" "Сэлинджер"
+
+GHCi> showName name1
+"Джером Сэлинджер"
+GHCi> showName name2
+"Джером Дэвид Сэлинджер"
+
+patientInfo :: String -> String -> Int -> Int -> String
+patientInfo fname lname age height = name ++ " " ++ ageHeight
+where name = lname ++ ", " ++ fname
+ageHeight = "(Возраст: " ++ show age ++
+            "; рост: " ++ show height ++ "см)"
+
+data Patient = Patient Name Sex Int Int Int BloodType
+
+johnDoe :: Patient
+johnDoe = Patient (Name "Джон" "Доу") Male 43 188 92
+                                      (BloodType AB Pos)
+
+janeESmith :: Patient
+janeESmith = Patient
+               (NameWithMiddle "Джейн" "Элизабет" "Смит")
+               Female 28 157 64
+               (BloodType O Neg)
+
+getName :: Patient -> Name
+getName (Patient n _ _ _ _ _) = n
+
+getAge :: Patient -> Int
+getAge (Patient _ _ a _ _ _) = a
+
+getBloodType :: Patient -> BloodType
+getBloodType (Patient _ _ _ _ _ bt) = bt
+
+
+data Patient = Patient { name :: Name
+                         , sex :: Sex
+                         , age :: Int
+                         , height :: Int
+                         , weight :: Int
+                         , bloodType :: BloodType}
+
+jackieSmith :: Patient
+jackieSmith = Patient { name = Name "Джеки" "Смит"
+                      , age = 43
+                      , sex = Female
+                      , height = 157
+                      , weight = 52
+                      , bloodType = BloodType O Neg }
+
+GHCi> height jackieSmith
+157
+GHCi> showBloodType (bloodType jackieSmith)
+"O-"
+
+jackieSmithUpdated = jackieSmith { age = 44 }
+showName (name jackieSmith)
+
+simple x = x
+GHCi> :t simple
+simple :: t -> t
+
+GHCi> :t (\x -> x)
+(\x -> x) :: r -> r
+
+GHCi> :t (+)
+(+) :: Num a => a -> a -> a
+
+aList = ["кот","собака","мышь"]
+GHCi> :t aList
+aList :: [[Char]]
+
+GHCi> :info Num
+class Num a where
+    (+) :: a -> a -> a
+    (-) :: a -> a -> a
+    (*) :: a -> a -> a
+    negate :: a -> a
+    abs :: a -> a
+    signum :: a -> a
+
+myAdd :: a -> a -> a
+addThenDouble :: Num a => a -> a -> a
+addThenDouble x y = (x + y)*2
+
+class TypeName a where
+   fun1 :: a -> a
+   fun2 :: a -> String
+   fun3 :: a -> a -> Bool
+
+GHCi> describe True
+"Значение типа Bool, True - это обратное значение к False"
+GHCi> describe False
+"Значение типа Bool, False - это обратное значение к True"
+
+class Describable a where
+      describe :: a -> String
+
+GHCi> :t (>)
+(>) :: Ord a => a -> a -> Bool
+
+class Eq a => Ord a where
+  compare :: a -> a -> Ordering
+  (<) :: a -> a -> Bool
+  (<=) :: a -> a -> Bool
+  (>) :: a -> a -> Bool
+  (>=) :: a -> a -> Bool
+  max :: a -> a -> a
+  min :: a -> a -> a
+
+class Eq a where
+  (==) :: a -> a -> Bool
+  (/=) :: a -> a -> Bool
+
+GHCi> :info Int
+data Int = GHC.Types.I# GHC.Prim.Int# -- Defined in ’GHC.Types’
+instance Bounded Int -- Defined in ’GHC.Enum’
+instance Enum Int -- Defined in ’GHC.Enum’
+instance Eq Int -- Defined in ’GHC.Classes’
+instance Integral Int -- Defined in ’GHC.Real’
+instance Num Int -- Defined in ’GHC.Num’
+instance Ord Int -- Defined in ’GHC.Classes’
+instance Read Int -- Defined in ’GHC.Read’
+instance Real Int -- Defined in ’GHC.Real’
+instance Show Int -- Defined in ’GHC.Show’
+
+class Bounded a where
+   minBound :: a
+   maxBound :: a
+
+GHCi> minBound :: Int
+-9223372036854775808
+GHCi> maxBound :: Int
+9223372036854775807
+GHCi> minBound :: Char
+’\NUL’
+GHCi> maxBound :: Char
+’\1114111’
+
+class Show a where
+  show :: a -> String
+
+data Icecream = Chocolate | Vanilla
+
+GHCi> True
+True
+GHCi> False
+False
+
+GHCi> Chocolate
+<interactive>:404
+:1:
+No instance for (Show Icecream) arising from a use of ‘print’
+In a stmt of an interactive GHCi command: print it
+
+data Icecream = Chocolate | Vanilla deriving (Show)
+
+GHCi> Chocolate
+Chocolate
+GHCi> Vanilla
+Vanilla
+
+data Icecream = Chocolate | Vanilla deriving (Show, Eq)
+
+GHCi> Vanilla == Vanilla
+True
+GHCi> Chocolate == Vanilla
+False
+GHCi> Chocolate /= Vanilla
+True
+
+inc :: Int -> Int
+inc x = x + 1
+
+data NewEngland = ME | VT | NH | MA | RI | CT
+
+data SixSidedDie = S1 | S2 | S3 | S4 | S5 | S6
+data SixSidedDie = S1 | S2 | S3 | S4 | S5 | S6 deriving (Show)
+GHCi> S1
+S1
+GHCi> S2
+S2
+GHCi> S3
+S3
+
+instance Show SixSidedDie where
+   show S1 = "один"
+   show S2 = "два"
+   show S3 = "три"
+   show S4 = "четыре"
+   show S5 = "пять"
+   show S6 = "шесть"
+
+GHCi> S1
+один
+GHCi> S2
+два
+GHCi> S6
+шесть
+
+data SixSidedDie = S1 | S2 | S3 | S4 | S5 | S6
+
+instance Show SixSidedDie where
+  show S1 = "I"
+  show S2 = "II"
+  show S3 = "III"
+  show S4 = "IV"
+  show S5 = "V"
+  show S6 = "VI"
+
+show :: SixSidedDie -> String
+show S1 = "один"
+show S2 = "два"
+show S3 = "три"
+show S4 = "четыре"
+show S5 = "пять"
+show S6 = "шесть"
+
+"Ambiguous occurrence ’show’"
+
+data TwoSidedDie = One | Two
+
+show :: TwoSidedDie -> String
+show One = "один"
+show Two = "два"
+
+Multiple declarations of ’show’
+
+read "10" :: Int 10
+read "10" :: Double 10.0
+
+class Eq a where
+  (==) :: a -> a -> Bool
+  (/=) :: a -> a -> Bool
+
+instance Eq SixSidedDie where
+   (==) S6 S6 = True
+   (==) S5 S5 = True
+   (==) S4 S4 = True
+   (==) S3 S3 = True
+   (==) S2 S2 = True
+   (==) S1 S1 = True
+   (==) _ _ = False
+
+GHCi> S6 == S6
+True
+GHCi> S6 == S5
+False
+GHCi> S5 == S6
+False
+GHCi> S5 /= S6
+True
+GHCi> S6 /= S6
+False
+
+class Eq a => Ord a where
+   compare :: a -> a -> Ordering
+   (<) :: a -> a -> Bool
+   (<=) :: a -> a -> Bool
+   (>) :: a -> a -> Bool
+   (>=) :: a -> a -> Bool
+   max :: a -> a -> a
+   min :: a -> a -> a
+
+data Ordering = LT | EQ | GT
+
+instance Ord SixSidedDie where
+   compare S6 S6 = EQ
+   compare S6 _ = GT
+   compare _ S6 = LT
+   compare S5 S5 = EQ
+   compare S5 _ = GT
+   compare _ S5 = LT
+
+data Test1 = AA | ZZ deriving (Eq, Ord)
+data Test2 = ZZZ | AAA deriving (Eq, Ord)
+
+GHCi> AA < ZZ
+True
+GHCi> AA > ZZ
+False
+GHCi> AAA > ZZZ
+True
+GHCi> AAA < ZZZ
+False
+
+data SixSidedDie = S1 | S2 | S3 | S4 | S5 | S6
+   deriving (Show,Eq,Ord)
+
+class Enum a where
+  succ :: a -> a
+  pred :: a -> a
+  toEnum :: Int -> a
+  fromEnum :: a -> Int
+  enumFrom :: a -> [a]
+  enumFromThen :: a -> a -> [a]
+  enumFromTo :: a -> a -> [a]
+  enumFromThenTo :: a -> a -> a -> [a]
+
+instance Enum SixSidedDie where
+  toEnum 0 = S1
+  toEnum 1 = S2
+  toEnum 2 = S3
+  toEnum 3 = S4
+  toEnum 4 = S5
+  toEnum 5 = S6
+  toEnum _ = error "Такого значения нет"
+
+  fromEnum S1 = 0
+  fromEnum S2 = 1
+  fromEnum S3 = 2
+  fromEnum S4 = 3
+  fromEnum S5 = 4
+  fromEnum S6 = 5
+
+GHCi> [S1 .. S6]
+[îäèí,äâà,òðè,÷åòûðå,ïÿòü,øåñòü]
+
+GHCi> [S2,S4 .. S6]
+[äâà,÷åòûðå,øåñòü]
+GHCi> [S4 .. S6]
+[÷åòûðå,ïÿòü,øåñòü]
+
+GHCi> [S1..]
+[îäèí,äâà,òðè,÷åòûðå,ïÿòü,øåñòü***
+                Exception: Òàêîãî çíà÷åíèÿ íåò
+
+data SixSidedDie = S1 | S2 | S3 | S4 | S5 | S6 deriving (Enum)
+GHCi> [S1..]
+[îäèí,äâà,òðè,÷åòûðå,ïÿòü,øåñòü]
+
+
+type Name = (String,String)
+names :: [Name]
+names = [("Иэн","Кертис"),
+         ("Бернард","Самнер"),
+         ("Питер","Хук"),
+         ("Стивен","Моррис")]
+
+GHCi> import Data.List
+GHCi> sort names
+[("Бернард","Самнер"),("Иэн","Кертис"),("Питер","Хук"),
+ ("Стивен","Моррис")]
+
+instance Ord Name where
+   compare (f1,l1) (f2,l2) = compare (l1,f1) (l2,f2)
+
+data Name = Name (String, String) deriving (Show, Eq)
+
+instance Ord Name where
+   compare (Name (f1,l1)) (Name (f2,l2)) =
+                                         compare (l1,f1) (l2,f2)
+
+names :: [Name]
+names = [("Иэн","Кертис"),
+         ("Бернард","Самнер"),
+         ("Питер","Хук"),
+         ("Стивен","Моррис")]
+
+GHCi> import Data.List
+GHCi> sort names
+[Name ("Иэн","Кертис"), Name ("Стивен","Моррис"),
+ Name ("Бернард","Самнер"), Name ("Питер","Хук")]
+
+newtype Name = Name (String, String) deriving (Show, Eq)
+
+data FourLetterAlphabet = L1 | L2 | L3 | L4
+   deriving (Show,Enum,Bounded)
+
+rotN :: (Bounded a, Enum a) => Int -> a -> a
+rotN alphabetSize c = toEnum rotation
+  where halfAlphabet = n ‘div‘ 2
+      offset = fromEnum c + halfAlphabet
+      rotation = offset ‘mod‘ alphabetSize
+
+GHCi> rotN 4 L1
+L3
+GHCi> rotN 4 L2
+L4
+GHCi> rotN 4 L3
+L1
+GHCi> rotN 4 L4
+L2
+
+largestCharNumber :: Int
+largestCharNumber = fromEnum (maxBound :: Char)
+
+rotChar :: Char -> Char
+rotChar charToEncrypt = rotN sizeOfAlphabet charToEncrypt
+   where sizeOfAlphabet = 1 + fromEnum (maxBound :: Char)
+
+message :: [FourLetterAlphabet]
+message = [L1,L3,L4,L1,L1,L2]
+
+fourLetterAlphabetEncoder :: [FourLetterAlphabet] ->
+                             [FourLetterAlphabet]
+
+fourLetterEncoder vals = map rot4l vals
+   where
+       alphaSize = 1 + fromEnum (maxBound :: FourLetterAlphabet)
+       rot4l = rotN alphaSize
+
+GHCi> fourLetterEncoder message
+[L3,L1,L2,L3,L3,L4]
+
+data ThreeLetterAlphabet = Alpha
+                           | Beta
+                           | Kappa deriving (Show,Enum,Bounded)
+
+threeLetterMessage :: [ThreeLetterAlphabet]
+threeLetterMessage =  [Alpha,Alpha,Beta,Alpha,Kappa]
+
+threeLetterEncoder :: [ThreeLetterAlphabet] ->
+                      [ThreeLetterAlphabet]
+threeLetterEncoder vals = map rot3l vals
+   where
+     alphaSize = 1 + fromEnum (maxBound :: ThreeLetterAlphabet)
+     rot3l = rotN alphaSize
+
+GHCi> fourLetterEncoder fourLetterMessage
+[L3,L1,L2,L3,L3,L4]
+GHCi> fourLetterEncoder (fourLetterEncoder fourLetterMessage)
+[L1,L3,L4,L1,L1,L2]
+GHCi> threeLetterMessage
+
+[Alpha,Alpha,Beta,Alpha,Kappa]
+GHCi> threeLetterEncoder threeLetterMessage
+[Beta,Beta,Kappa,Beta,Alpha]
+GHCi> threeLetterEncoder (threeLetterEncoder
+                                         threeLetterMessage)
+[Kappa,Kappa,Alpha,Kappa,Beta]
+
+rotNdecoder :: (Bounded a, Enum a) => Int -> a -> a
+rotNdecoder n c = toEnum rotation
+   where halfN = n ‘div‘ 2
+         offset = if even n
+                  then fromEnum c + halfN
+                  else 1 + fromEnum c + halfN
+         rotation = offset ‘mod‘ n
+
+threeLetterDecoder :: [ThreeLetterAlphabet] ->
+                      [ThreeLetterAlphabet]
+threeLetterDecoder vals = map rot3ldecoder vals
+   where
+      alphaSize = 1 + fromEnum (maxBound :: ThreeLetterAlphabet)
+      rot3ldecoder = rotNdecoder alphaSize
+
+GHCi> threeLetterMessage
+[Alpha,Alpha,Beta,Alpha,Kappa]
+GHCi> threeLetterEncoder threeLetterMessage
+[Beta,Beta,Kappa,Beta,Alpha]
+GHCi> threeLetterDecoder (threeLetterEncoder
+Ç threeLetterMessage)
+[Alpha,Alpha,Beta,Alpha,Kappa]
+
+
+rotEncoder :: String -> String
+rotEncoder text = map rotChar text
+   where alphaSize = 1 + fromEnum (maxBound :: Char)
+         rotChar = rotN alphaSize
+
+rotDecoder :: String -> String
+rotDecoder text = map rotCharDecoder text
+   where alphaSize = 1 + fromEnum (maxBound :: Char)
+         rotCharDecoder = rotNdecoder alphaSize
+
+threeLetterEncoder :: [ThreeLetterAlphabet] ->
+                      [ThreeLetterAlphabet]
+threeLetterEncoder vals = map rot3l vals
+   where
+      alphaSize = 1 + fromEnum (maxBound :: ThreeLetterAlphabet)
+      rot3l = rotN alphaSize
+
+threeLetterDecoder :: [ThreeLetterAlphabet] ->
+                      [ThreeLetterAlphabet]
+threeLetterDecoder vals = map rot3ldecoder vals
+   where
+      alphaSize = 1 + fromEnum (maxBound :: ThreeLetterAlphabet)
+      rot3ldecoder = rotNdecoder alphaSize
+
+fourLetterAlphabetEncoder :: [FourLetterAlphabet] ->
+                             [FourLetterAlphabet]
+fourLetterEncoder vals = map rot4l vals
+    where
+       alphaSize = 1 + fromEnum (maxBound :: FourLetterAlphabet)
+       rot4l = rotN alphaSize
+
+fourLetterDecoder :: [FourLetterAlphabet] ->
+                     [FourLetterAlphabet]
+fourLetterDecoder vals = map rot4ldecoder vals
+    where
+       alphaSize = 1 + fromEnum (maxBound :: ThreeLetterAlphabet)
+       rot4ldecoder = rotNdecoder alphaSize
+
+GHCi> rotEncoder "hi"
+"\557160\557161"
+GHCi> rotDecoder(rotEncoder "hi")
+"hi"
+GHCi> rotEncoder "Jean-Paul likes Simone"
+
+"\557130\557157\557153\55....
+GHCi> rotDecoder (rotEncoder "Jean-Paul likes Simone")
+"Jean-Paul likes Simone"
+
+xorBool :: Bool -> Bool -> Bool
+xorBool value1 value2 = (value1 || value2) &&
+                        (not (value1 && value2))
+
+xorPair :: (Bool,Bool) -> Bool
+xorPair (v1,v2) = xorBool v1 v2
+
+xor :: [Bool] -> [Bool] -> [Bool]
+xor list1 list2 = map xorPair (zip list1 list2)
+
+type Bits = [Bool]
+
+
+intToBits’ :: Int -> Bits
+intToBits’ 0 = [False]
+intToBits’ 1 = [True]
+intToBits’ n = if (remainder == 0)
+               then False : intToBits’ nextVal
+               else True : intToBits’ nextVal
+where remainder = n ‘mod‘ 2
+      nextVal = n ‘div‘ 2
+
+GHCi> intToBits’ 2
+[False,True]
+GHCi> intToBits’ 8
+[False,False,False,True]
+
+maxBits :: Int
+maxBits = length (intToBits’ maxBound)
+
+intToBits :: Int -> Bits
+intToBits n = leadingFalses ++ reversedBits
+   where reversedBits = reverse (intToBits’ n)
+         missingBits = maxBits - (length reversedBits)
+         leadingFalses = take missingBits (cycle [False])
+
+charToBits :: Char -> Bits
+charToBits char = intToBits (fromEnum char)
+
+bitsToInt :: Bits -> Int
+bitsToInt bits = sum (map (\x -> 2^(snd x)) trueLocations)
+    where size = length bits
+          indices = [size-1,size-2 .. 0]
+          trueLocations = filter (\x -> fst x == True)
+                          (zip bits indices)
+
+GHCi> bitsToInt (intToBits 32)
+32
+GHCi> bitsToInt (intToBits maxBound)
+9223372036854775807
+
+bitsToChar :: Bits -> Char
+bitsToChar bits = toEnum (bitsToInt bits)
+
+GHCi> bitsToChar (charToBits ’a’)
+’a’
+GHCi> bitsToChar (charToBits maxBound)
+’\1114111’
+GHCi> bitsToChar (charToBits minBound)
+’\NUL’
+
+myPad :: String
+myPad = "Shhhhhh"
+
+myPlainText :: String
+myPlainText = "Haskell"
+
+applyOTP’ :: String -> String -> [Bits]
+applyOTP’ pad plaintext = map (\pair ->
+                                (fst pair) ‘xor‘ (snd pair))
+                          (zip padBits plaintextBits)
+where padBits = map charToBits pad
+      plaintextBits = map charToBits plaintext
+
+applyOTP :: String -> String -> String
+applyOTP pad plaintext = map bitsToChar bitList
+    where bitList = applyOTP’ pad plaintext
+
+GHCi> applyOTP myPad myPlainText
+"\ESC\t\ESC\ETX\r\EOT\EOT"
+
+encoderDecoder :: String -> String
+encoderDecoder = applyOTP myPad
+
+GHCi> encoderDecoder "book"
+"1\a\a\ETX"
+GHCi> encoderDecoder "1\a\a\ETX"
+"book"
+
+class Cipher a where
+   encode :: a -> String -> String
+   decode :: a -> String -> String
+
+data Rot = Rot
+
+instance Cipher Rot where
+   encode Rot text = rotEncoder text
+   decode Rot text = rotDecoder text
+
+GHCi> encode Rot "Haskell"
+"\557128\557153\557171\557163\557157\557164\557164"
+GHCi> decode Rot "\557128\557153\557171\557163\557157\557164
+Ç \557164"
+"Haskell"
+
+data OneTimePad = OTP String
+instance Cipher OneTimePad where
+    encode (OTP pad) text = applyOTP pad text
+    decode (OTP pad) text = applyOTP pad text
+
+myOTP :: OneTimePad
+myOTP = OTP (cycle [minBound .. maxBound])
+
+GHCi> encode myOTP "Learn Haskell"
+"Ldcqj\%Nf{bog‘"
+GHCi> decode myOTP "Ldcqj\%Nf{bog‘"
+"Learn Haskell"
+GHCi> encode myOTP "this is a longer sentence, I hope it encodes"
+"tikp$lu’i)fdbjk}0bw}‘pxt}5:R<uqoE\SOHKW\EOT@HDGMOX"
+GHCi> decode myOTP "tikp$lu’i)fdbjk}0bw}‘pxt}5:R<uqoE\SOHKW \EOT@HDGMOX"
+"this is a longer sentence, I hope it encodes"
+
+prng :: Int -> Int -> Int -> Int -> Int
+prng a b maxNumber seed = (a*seed + b) ‘mod‘ maxNumber
+
+examplePRNG :: Int -> Int
+examplePRNG = prng 1337 7 100
+
+GHCi> examplePRNG 12345
+72
+GHCi> examplePRNG 72
+71
+GHCi> examplePRNG 71
+34
+GHCi> examplePRNG 34
+65
+
+type Document = String
+Document -> [String]
+[String] -> (String -> Bool) -> [String]
+[String] -> [Integer]
+[Integer] -> Integer
+
+Структуры в С как типы-произведения
+struct author_name {
+char *first_name;
+char *last_name;
+};
+struct book {
+author_name author;
+char *isbn;
+char *title;
+int year_published;
+double price;
+}
+
+data AuthorName = AuthorName String String
+data Book = Book Author String String Int Double
+
+Синтаксис записей для реализации Book
+
+data Book = Book {
+author :: AuthorName
+, isbn :: String
+, title :: String
+, year :: Int
+, price :: Double}
+
+public class Book { // in Java
+Author author;
+String isbn;
+String title;
+int yearPublished;
+double price;
+}
+
+data AuthorName = AuthorName {
+ firstName :: String
+ , lastName :: String
+}
+
+public class VinylRecord {
+String artist;
+String title;
+int yearPublished;
+double price;
+}
+
+public class StoreItem {
+String title;
+int yearPublished;
+double price;
+}
+public class Book extends StoreItem {
+Author author;
+String isbn;
+}
+
+public class VinylRecord extends StoreItem {
+String artist;
+}
+
+public class CollectibleToy {
+String name;
+String description;
+double price;
+}
+
+data SportsCar = SportsCar Car Spoiler
+
+Типы-суммы - обьявление типов с помощью ИЛИ
+
+type FirstName = String
+type LastName = String
+type MiddleName = String
+
+data Name = Name FirstName LastName
+            | NameWithMiddle FirstName MiddleName LastName
+
+data Creator = AuthorCreator Author | ArtistCreator Artist
+
+data Author = Author Name
+
+data Artist = Person Name | Band String
+
+data Name = Name FirstName LastName
+            | NameWithMiddle FirstName MiddleName LastName
+            | TwoInitialsWithLast Char Char LastName
+
+hpLovecraft :: Creator
+hpLovecraft = AuthorCreator
+               (Author
+                (TwoInitialsWithLast ’H’ ’P’ "Lovecraft"))
+
+data Name = Name FirstName LastName
+            | NameWithMiddle FirstName MiddleName LastName
+            | TwoInitialsWithLast Char Char LastName
+            | FirstNameWithInit FirstName Char
+
+public class Name {
+   String firstName;
+   String lastName;
+   String middleName;
+   char firstInitial;
+   char middleInitial;
+   char lastInitial;
+}
+
+Собираем книжный магазин
+data Book = Book {
+    author :: Creator
+    , isbn :: String
+    , bookTitle :: String
+    , bookYear :: Int
+    , bookPrice :: Double
+}
+
+data VinylRecord = VinylRecord {
+    artist :: Creator
+    , recordTitle :: String
+    , recordYear :: Int
+    , recordPrice :: Double
+}
+
+data Book = Book Creator String String Int Double
+price :: Book -> Double
+price (Book _ _ _ _ val) = val
+
+data StoreItem = BookItem Book | RecordItem VinylRecord
+
+data CollectibleToy = CollectibleToy {
+   name :: String
+   , description :: String
+   , toyPrice :: Double
+}
+
+data StoreItem = BookItem Book
+                 | RecordItem VinylRecord
+                 | ToyItem CollectibleToy
+
+price :: StoreItem -> Double
+price (BookItem book) = bookPrice book
+price (RecordItem record) = recordPrice record
+price (ToyItem toy) = toyPrice toy
+
+madeBy :: StoreItem -> String
+madeBy (BookItem book) = show (author book)
+madeBy (RecordItem record) = show (artist record)
+madeBy _ = "unknown"
+
+import Data.List (for sort)
+myLast :: [a] -> a
+myLast = head . reverse
+myMin :: Ord a => [a] -> a
+myMin = head . sort
+myMax :: Ord a => [a] -> a
+myMax = myLast . sort
+myAll :: (a -> Bool) -> [a] -> Bool
+myAll testFunc = (foldr (&) True) . (map testFunc)
+
+instance Semigroup Integer where
+(<>) x y = x + y
+(<>) :: Semigroup a => a -> a -> a
+
+myAny :: (a -> Bool) -> [a] -> Bool
+myAny testFunc = (foldr (||) False) . (map testFunc)
+
+GHCi> myAny even [1, 2, 3]
+True
+
+data Color = Red | Yellow | Blue | Green | Purple
+             | Orange | Brown deriving (Show, Eq)
+
+instance Semigroup Color where
+   (<>) Red Blue = Purple
+   (<>) Blue Red = Purple
+   (<>) Yellow Blue = Green
+   (<>) Blue Yellow = Green
+   (<>) Yellow Red = Orange
+   (<>) Red Yellow = Orange
+   (<>) a b = if a == b
+        then a
+        else Brown
+
+GHCi> Red <> Yellow
+Orange
+GHCi> Red <> Blue
+Purple
+GHCi> Green <> Purple
+Brown
+
+GHCi> (Green <> Blue) <> Yellow
+Brown
+GHCi> Green <> (Blue <> Yellow)
+Green
+
+Охранные выражения
+howMuch :: Int -> String
+howMuch n | n > 10 = "целая куча"
+          | n > 0 = "немного"
+          | otherwise = "мы в долгах!"
+
+instance Semigroup Color where
+   (<>) Red Blue = Purple
+   (<>) Blue Red = Purple
+   (<>) Yellow Blue = Green
+   (<>) Blue Yellow = Green
+   (<>) Yellow Red = Orange
+   (<>) Red Yellow = Orange
+   (<>) a b
+        | a == b = a
+        | all (‘elem‘ [Red, Blue, Purple]) [a, b] = Purple
+        | all (‘elem‘ [Blue, Yellow, Green]) [a, b] = Green
+        | all (‘elem‘ [Red, Yellow, Orange]) [a, b] = Orange
+        | otherwise = Brown
+
+GHCi> (Green <> Blue) <> Yellow
+Green
+GHCi> Green <> (Blue <> Yellow)
+Green
+
+class Semigroup a => Monoid a where
+   identity :: a
+
+Monoid Semigroup + identity
+
+class Monoid a where
+      mempty :: a
+      mappend :: a -> a -> a
+      mconcat :: [a] -> [a]
+
+GHCi> [1, 2, 3] ++ []
+[1, 2, 3]
+GHCi> [1, 2, 3] <> []
+[1, 2, 3]
+GHCi> [1, 2, 3] ‘mappend‘ []
+[1, 2, 3]
+
+mappend l/<> Integer
+mempty?
+1, потому что 𝑥  1 = 𝑥.
+mconcat :: Monoid a => [a] -> [a]
+
+GHCi> mconcat ["в", " этом", " есть", " смысл?"]
+"в этом есть смысл?"
+
+mconcat = foldr mappend mempty
+Законы моноидов
+mappend mempty x = x
+[] ++ [1, 2, 3] = [1, 2, 3];
+mappend x mempty = x
+[1, 2, 3] ++ [] = [1, 2, 3];
+mappend x (mappend y z) = mappend (mappend x y) z
+[1] ++ ([2] ++ [3]) = ([1] ++ [2]) ++ [3]
+mconcat = foldr mappend mempty
+
+type Events = [String]
+type Probs = [Double]
+data PTable = PTable Events Probs
+
+Создание корректной таблицы вероятностей
+createPTable :: Events -> Probs -> PTable
+createPTable events probs = PTable events normalizedProbs
+    where totalProbs = sum probs
+          normalizedProbs = map (\x -> x/totalProbs) probs
+
+showPair :: String -> Double -> String
+showPair event prob = mconcat [event, "|", show prob, "\n"]
+
+GHCi> zipWith (+) [1, 2, 3] [4, 5, 6]
+[5, 7, 9]
+
+instance Show PTable where
+  show (PTable events probs) = mconcat pairs
+    where pairs = zipWith showPair events probs
+
+GHCi> createPTable ["îð¼ë", "ðåøêà"] [0.5, 0.5]
+орёл|0.5
+решка|0.5
+
+орёл-орёл|0.25
+орёл-решка|0.25
+решка-орёл|0.25
+решка-решка|0.25
+
+cartCombine :: (a -> b -> c) -> [a] -> [b] -> [c]
+cartCombine func l1 l2 = zipWith func newL1 cycledL2
+  where
+    nToAdd = length l2
+    repeatedL1 = map (take nToAdd . repeat) l1
+    newL1 = mconcat repeatedL1
+    cycledL2 = cycle l2
+
+combineEvents :: Events -> Events -> Events
+combineEvents e1 e2 = cartCombine combiner e1 e2
+  where
+   combiner = (\x y -> mconcat [x, "-", y])
+
+combineProbs :: Probs -> Probs -> Probs
+combineProbs p1 p2 = cartCombine (*) p1 p2
+
+instance Semigroup PTable where
+  (<>) ptable1 (PTable [] []) = ptable1
+  (<>) (PTable [] []) ptable2 = ptable2
+  (<>) (PTable e1 p1) (PTable e2 p2) =
+                       createPTable newEvents newProbs
+  where newEvents = combineEvents e1 e2
+        newProbs = combineProbs p1 p2
+
+instance Monoid PTable where
+  mempty = PTable [] []
+  mappend = (<>)
+
+coin :: PTable
+coin = createPTable ["орёл", "решка"] [0.5, 0.5]
+
+spinner :: PTable
+spinner = createPTable ["красный", "синий", "зёлёный"]
+                       [0.1, 0.2, 0.7]
+
+GHCi> coin <> spinner
+орёл-красный|5.0e-2
+орёл-синий|0.1
+орёл-зёлёный|0.35
+решка-красный|5.0e-2
+решка-синий|0.1
+решка-зёлёный|0.35
+
+GHCi> mconcat [coin, coin, coin]
+орёл-орёл-орёл|0.125
+орёл-орёл-решка|0.125
+орёл-решка-орёл|0.125
+орёл-решка-решка|0.125
+решка-орёл-орёл|0.125
+решка-орёл-решка|0.125
+решка-решка-орёл|0.125
+решка-решка-решка|0.125
+
+Типы, которые принимают аргументы
+data Box a = Box a deriving Show
+
+GHCi> n = 6 :: Int
+GHCi> :t Box n
+Box n :: Box Int
+GHCi> word = "строка"
+GHCi> :t Box word
+Box word :: Box [Char]
+GHCi> f x = x
+GHCi> :t Box f
+Box f :: Box (t -> t)
+GHCi> otherBox = Box n
+GHCi> :t Box otherBox
+Box otherBox :: Box (Box Int)
+
+Определения функций wrap и unwrap
+wrap :: a -> Box a
+wrap x = Box x
+
+unwrap :: Box a -> a
+unwrap (Box x) = x
+
+wrap (Box ’a’)?
+Box (Box Char)
+
+data Triple a = Triple a a a deriving Show
+type Point3D = Triple Double
+aPoint :: Point3D
+aPoint = Triple 0.1 53.2 12.3
+
+type FullName = Triple String
+aPerson :: FullName
+aPerson = Triple "Говард" "Филлипс" "Лавкрафт"
+
+type Initials = Triple Char
+initials :: Initials
+initials = Triple ’H’ ’P’ ’L’
+
+first :: Triple a -> a
+first (Triple x _ _) = x
+
+second :: Triple a -> a
+second (Triple _ x _ ) = x
+
+third :: Triple a -> a
+third (Triple _ _ x) = x
+
+toList :: Triple a -> [a]
+toList (Triple x y z) = [x,y,z]
+
+transform :: (a -> a) -> Triple a -> Triple a
+transform f (Triple x y z) = Triple (f x) (f y) (f z)
+
+GHCi> transform (* 3) aPoint
+Triple 0.3 159.6 36.9
+
+GHCi> transform reverse aPerson
+Triple "дравоГ" "спиллиФ" "тфаркваЛ"
+
+GHCi> transform toLower initials
+Triple ’h’ ’p’ ’l’
+
+GHCi> toList (transform toLower initials)
+"hpl"
+
+data [] a = [] | a:[a]
+data List a = Empty | Cons a (List a) deriving Show
+Cписок типа a либо пуст, либо конструируется из значений типа a с другим списком типа a
+
+builtinEx1 :: [Int]
+builtinEx1 = 1:2:3:[]
+ourListEx1 :: List Int
+ourListEx1 = Cons 1 (Cons 2 (Cons 3 Empty))
+builtinEx2 :: [Char]
+builtinEx2 = ’к’:’о’:’т’:[]
+ourListEx2 :: List Char
+ourListEx2 = Cons ’к’ (Cons ’о’ (Cons ’т’ Empty))
+
+ourMap :: (a -> b) -> List a -> List b
+ourMap _ Empty = Empty
+ourMap func (Cons a rest) = Cons (func a) (ourMap func rest)
+GHCi> ourMap (*2) ourListEx1
+Cons 2 (Cons 4 (Cons 6 Empty))
+
+data (,) a b = (,) a b
+
+itemCount1, itemCount2, itemCount3 :: (String,Int)
+itemCount1 = ("Стёрки",25)
+itemCount2 = ("Карандаши",25)
+itemCount3 = ("Ручки",13)
+
+itemInventory :: [(String,Int)]
+itemInventory = [itemCount1, itemCount2, itemCount3]
+
+Виды: типы типов (kind)
+GHCi> :kind Int
+Int :: *
+GHCi> :kind Triple
+Triple :: * -> *
+GHCi> :kind []
+[] :: * -> *
+GHCi> :kind (,)
+(,) :: * -> * -> *
+GHCi> :kind Map.Map
+Map.Map :: * -> * -> *
+
+GHCi> :kind [Int]
+[Int] :: *
+GHCi> :kind Triple Char
+Triple Char :: *
+
+(,,) :: * -> * -> * -> *
+
+import qualified Data.Map as Map
+data Organ = Heart | Brain | Kidney | Spleen
+   deriving (Show, Eq)
+
+organs :: [Organ]
+organs = [Heart,Heart,Brain,Spleen,Spleen,Kidney]
+
+ids :: [Int]
+ids = [2,7,13,14,21,24]
+
+fromList :: Ord k => [(k,a)] -> Map k a
+
+pairs = [(2,Heart),(7,Heart),(13,Brain) ...
+
+organPairs :: [(Int,Organ)]
+organPairs = zip ids organs
+
+organCatalog :: Map.Map Int Organ
+organCatalog = Map.fromList organPairs
+
+GHCi> Map.lookup 7 organCatalog
+Just Heart
+
+Map.lookup :: Ord k => k -> Map.Map k a -> Maybe a
+
+groceries :: Map.Map String Int
+groceries = Map.fromList [("Молоко", 1), ("Конфеты", 10),
+("Сыр", 2)]
+
+import qualified Data.Map as Map
+data Organ = Heart | Brain | Kidney | Spleen deriving (Eq)
+instance Show Organ where
+show Heart = "Сердце"
+show Brain = "Мозги"
+show Kidney = "Почки"
+show Spleen = "Селезёнка"
+organs :: [Organ]
+organs = [Heart, Heart, Brain, Spleen, Spleen, Kidney]
+ids :: [Int]
+ids = [2, 7, 13, 14, 21, 24]
+organPairs :: [(Int, Organ)]
+organPairs = zip ids organs
+organCatalog :: Map.Map Int Organ
+organCatalog = Map.fromList organPairs
+
+data Maybe a = Nothing | Just a
+
+GHCi> Map.lookup 13 organCatalog
+Just Мозги
+
+Map.lookup 13 organCatalog :: Maybe Organ
+
+GHCi> Map.lookup 6 organCatalog
+Nothing
+
+possibleDrawers :: [Int]
+possibleDrawers = [1..50]
+
+getDrawerContents :: [Int] -> Map.Map Int Organ -> [Maybe Organ]
+                                                   
+getDrawerContents ids catalog = map getContents ids
+  where getContents = \id -> Map.lookup id catalog
+
+availableOrgans :: [Maybe Organ]
+availableOrgans = getDrawerContents possibleDrawers
+                                    organCatalog
+
+countOrgan :: Organ -> [Maybe Organ] -> Int
+countOrgan organ available = length (filter
+                                       (\x -> x == Just organ)
+                                       available)
+
+GHCi> countOrgan Brain availableOrgans
+1
+GHCi> countOrgan Heart availableOrgans
+2
+
+GHCi> show availableOrgans [Nothing, Just Сердце, Nothing,
+Ç Nothing, Nothing, Nothing, Just Сердце, Nothing, Nothing, ...
+
+isSomething :: Maybe Organ -> Bool
+isSomething Nothing = False
+isSomething (Just _) = True
+
+justTheOrgans :: [Maybe Organ]
+justTheOrgans = filter isSomething availableOrgans
+
+GHCi> justTheOrgans
+[Just Сердце,Just Сердце,Just Мозги,Just Селезёнка,
+ Just Селезёнка,Just Почка]
+
+Data.Maybe
+justTheOrgans = filter isJust availableOrgans
+
+showOrgan :: Maybe Organ -> String
+showOrgan (Just organ) = show organ
+showOrgan Nothing = ""
+
+GHCi> showOrgan (Just Heart)
+"Сердце"
+GHCi> showOrgan Nothing
+""
+
+organList :: [String]
+organList = map showOrgan justTheOrgans
+
+cleanList :: String
+cleanList = intercalate ", " organList
+GHCi> cleanList
+"Сердце, Сердце, Мозги, Селезёнка, Селезёнка, Почка"
+
+numOrZero :: Maybe Int -> Int
+numOrZero Nothing = 0
+numOrZero (Just n) = n
+
+data Container = Vat Organ | Cooler Organ | Bag Organ
+instance Show Container where
+  show (Vat organ) = show organ ++ " в ванночке"
+  show (Cooler organ) = show organ ++ " в холодильнике"
+  show (Bag organ) = show organ ++ " в сумке"
+
+data Location = Lab | Kitchen | Bathroom
+
+instance Show Location where
+ show Lab = "лаборатория"
+ show Kitchen = "кухня"
+ show Bathroom = "душевая"
+
+organToContainer :: Organ -> Container
+organToContainer Brain = Vat Brain
+organToContainer Heart = Cooler Heart
+organToContainer organ = Bag organ
+
+placeInLocation :: Container -> (Location, Container)
+placeInLocation (Vat a) = (Lab, Vat a)
+placeInLocation (Cooler a) = (Lab, Cooler a)
+placeInLocation (Bag a) = (Kitchen, Bag a)
+
+process :: Organ -> (Location, Container)
+process organ = placeInLocation (organToContainer organ)
+report :: (Location, Container) -> String
+report (location, container) =
+   show container ++
+   " (место: " ++
+   show location ++ ")"
+
+GHCi> process Brain
+(ëàáîðàòîðèÿ,Ìîçãè â âàííî÷êå)
+GHCi> process Heart
+(ëàáîðàòîðèÿ,Ñåðäöå â õîëîäèëüíèêå)
+GHCi> process Spleen
+(êóõíÿ,Ñåëåç¼íêà â ñóìêå)
+GHCi> process Kidney
+(êóõíÿ,Ïî÷êà â ñóìêå)
+GHCi> report (process Brain)
+"Ìîçãè â âàííî÷êå (ìåñòî: ëàáîðàòîðèÿ)"
+GHCi> report (process Spleen)
+"Ñåëåç¼íêà â ñóìêå (ìåñòî: êóõíÿ)"
+
+processRequest :: Int -> Map.Map Int Organ -> String
+processRequest id catalog = report (process organ)
+where organ = Map.lookup id catalog
+
+processAndReport :: (Maybe Organ) -> String
+processAndReport (Just organ) = report (process organ)
+processAndReport Nothing = "ошибка, идентификатор не найден"
+
+processRequest :: Int -> Map.Map Int Organ -> String
+processRequest id catalog = processAndReport organ
+where organ = Map.lookup id catalog
+
+GHCi> processRequest 13 organCatalog
+"Ìîçãè â âàííî÷êå (ìåñòî: ëàáîðàòîðèÿ)"
+GHCi> processRequest 12 organCatalog
+"îøèáêà, èäåíòèôèêàòîð íå íàéäåí"
+
+report :: Maybe (Location, Container) -> String
+report Nothing = "контейнер не найден"
+report (Just (location, container)) = show container ++
+" (место: " ++ show location ++ ")"
+
+import Data.List
+import qualified Data.Map as Map
+import Data.Semigroup
+import Data.Maybe
+
+file1 :: [(Int,Double)]
+file1 = [ (1, 200.1), (2, 199.5), (3, 199.4), (4, 198.9)
+          , (5, 199.0), (6, 200.2), (9, 200.3), (10, 201.2)
+          , (12, 202.9)]
+
+file2 :: [(Int,Double)]
+file2 = [ (11, 201.6), (12, 201.5), (13, 201.5), (14, 203.5)
+          , (15, 204.9), (16, 207.1), (18, 210.5), (20, 208.8)]
+
+file3 :: [(Int,Double)]
+file3 = [ (10, 201.2), (11, 201.6), (12, 201.5), (13, 201.5)
+          , (14, 203.5), (17, 210.5), (24, 215.1), (25, 218.7)]
+
+file4 :: [(Int,Double)]
+file4 = [ (26, 219.8), (27, 220.5), (28, 223.8), (29, 222.8)
+          , (30, 223.8), (31, 221.7), (32, 222.3), (33, 220.8)
+          , (34, 219.4), (35, 220.1), (36, 220.6)]
+
+data TS a = TS [Int] [Maybe a]
+
+createTS :: [Int] -> [a] -> TS a
+createTS times values = TS completeTimes extendedValues
+   where
+     completeTimes = [minimum times .. maximum times]
+   timeValueMap = Map.fromList (zip times values)
+     extendedValues = map (\v -> Map.lookup v timeValueMap)
+                        completeTimes
+
+fileToTS :: [(Int,a)] -> TS a
+fileToTS tvPairs = createTS times values
+   where (times, values) = unzip tvPairs
+
+showTVPair :: Show a => Int -> Maybe a -> String
+showTVPair time (Just value) = mconcat [ show time, "|"
+                                         , show value, "\n" ]
+showTVPair time Nothing = mconcat [show time,"|NA\n"]
+
+instance Show a => Show (TS a) where
+    show (TS times values) = mconcat rows
+       where rows = zipWith showTVPair times values
+
+GHCi> fileToTS file1
+1|200.1
+2|199.5
+3|199.4
+4|198.9
+5|199.0
+6|200.2
+7|NA
+8|NA
+9|200.3
+10|201.2
+11|NA
+12|202.9
+
+ts1 :: TS Double
+ts1 = fileToTS file1
+ts2 :: TS Double
+ts2 = fileToTS file2
+ts3 :: TS Double
+ts3 = fileToTS file3
+ts4 :: TS Double
+ts4 = fileToTS file4
+
+TS a -> TS a -> TS a
+(<>) :: Semigroup a => a -> a -> a
+
+insertMaybePair :: Ord k => Map.Map k v -> (k, Maybe v)
+                                        -> Map.Map k v
+insertMaybePair myMap (_, Nothing) = myMap
+insertMaybePair myMap (key, Just value) =
+                                Map.insert key value myMap
+
+combineTS :: TS a -> TS a -> TS a
+combineTS (TS [] []) ts2 = ts2
+combineTS ts1 (TS [] []) = ts1
+combineTS (TS t1 v1) (TS t2 v2) =
+           TS completeTimes combinedValues
+   where
+      bothTimes = mconcat [t1,t2]
+      completeTimes = [minimum bothTimes .. maximum bothTimes]
+      tvMap = foldl insertMaybePair Map.empty (zip t1 v1)
+      updatedMap = foldl insertMaybePair tvMap (zip t2 v2)
+      combinedValues = map (\v -> Map.lookup v updatedMap)
+                           completeTimes
+
+instance Semigroup (TS a) where
+   (<>) = combineTS
+
+GHCi> ts1 <> ts2
+1|200.1
+2|199.5
+3|199.4
+4|198.9
+5|199.0
+6|200.2
+7|NA
+8|NA
+9|200.3
+10|201.2
+11|201.6
+12|201.5
+13|201.5
+14|203.5
+15|204.9
+16|207.1
+17|NA
+18|210.5
+19|NA
+20|208.8
+
+instance Monoid (TS a) where
+  mempty = TS [] []
+  mappend = (<>)
+
+GHCi> mconcat [ts1, ts2]
+1|200.1
+2|199.5
+3|199.4
+4|198.9
+5|199.0
+6|200.2
+7|NA
+8|NA
+9|200.3
+10|201.2
+11|201.6
+12|201.5
+13|201.5
+14|203.5
+15|204.9
+16|207.1
+17|NA
+18|210.5
+19|NA
+20|208.8
+
+tsAll :: TS Double
+tsAll = mconcat [ts1,ts2,ts3,ts4]
+
+mean :: (Real a) => [a] -> Double
+mean xs = total/count
+  where total = (realToFrac . sum) xs
+        count = (realToFrac . length) xs
+
+meanTS :: (Real a) => TS a -> Maybe Double
+meanTS (TS _ []) = Nothing
+meanTS (TS times values) =
+   if all (== Nothing) values
+   then Nothing
+   else Just avg
+ where justVals = filter isJust values
+       cleanVals = map fromJust justVals
+       avg = mean cleanVals
+
+GHCi> meanTS tsAll
+Just 210.5966666666667
+
+GHCi> makeTSCompare max (3,Just 200) (4,Just 10)
+(3,Just 200)
+
+type CompareFunc a = a -> a -> a
+type TSCompareFunc a = (Int, Maybe a) -> (Int, Maybe a)
+                                      -> (Int, Maybe a)
+
+makeTSCompare :: Eq a => CompareFunc a -> TSCompareFunc a
+makeTSCompare func = newFunc
+  where
+    newFunc (i1, Nothing) (i2, Nothing) = (i1, Nothing)
+    newFunc (_, Nothing) (i, val) = (i,val)
+    newFunc (i, val) (_, Nothing) = i,val)
+    newFunc (i1,Just val1) (i2,Just val2) =
+                     if func val1 val2 == val1
+                     then (i1, Just val1)
+                     else (i2, Just val2)
+
+
+compareTS :: Eq a => (a -> a -> a) -> TS a
+                                   -> Maybe (Int, Maybe a)
+compareTS func (TS [] []) = Nothing
+compareTS func (TS times values) =
+   if all (== Nothing) values
+   then Nothing
+   else Just best
+ where
+   pairs = zip times values
+   best = foldl (makeTSCompare func) (0, Nothing) pairs
+
+minTS :: Ord a => TS a -> Maybe (Int, Maybe a)
+minTS = compareTS min
+
+maxTS :: Ord a => TS a -> Maybe (Int, Maybe a)
+maxTS = compareTS max
+
+GHCi> minTS tsAll
+Just (4,Just 198.9)
+GHCi> maxTS ts1
+Just (12,Just 202.9)
+
+diffPair :: Num a => Maybe a -> Maybe a -> Maybe a
+
+diffPair Nothing _ = Nothing
+diffPair _ Nothing = Nothing
+diffPair (Just x) (Just y) = Just (x - y)
+
+diffTS :: Num a => TS a -> TS a
+diffTS (TS [] []) = TS [] []
+diffTS (TS times values) = TS times (Nothing:diffValues)
+where shiftValues = tail values
+diffValues = zipWith diffPair shiftValues values
+
+GHCi> meanTS (diffTS tsAll)
+Just 0.6076923076923071
+
+mean :: (Real a) => [a] -> Double
+movingAverageTS :: (Real a) => TS a -> Int -> TS Double
+meanMaybe :: (Real a) => [Maybe a] -> Maybe Double
+meanMaybe vals = if any (== Nothing) vals
+                 then Nothing
+                 else (Just avg)
+   where avg = mean (map fromJust vals)
+
+movingAvg :: (Real a) => [Maybe a] -> Int -> [Maybe Double]
+movingAvg [] n = []
+movingAvg vals n =
+     if length nextVals == n
+     then meanMaybe nextVals : movingAvg restVals n
+     else []
+where nextVals = take n vals
+     restVals = tail vals
+
+movingAverageTS :: (Real a) => TS a -> Int -> TS Double
+movingAverageTS (TS [] []) n= TS [] []
+movingAverageTS (TS times values) n = TS times smoothedValues
+    where
+      ma = movingAvg values n
+      nothings = replicate (n ‘div‘ 2) Nothing
+      smoothedValues = mconcat [nothings,ma,nothings]
+
+public class Example {
+public static int mystery1(int val1, int val2) {
+int val3 = 3;
+return Math.pow(val1 + val2 + val3, 2);
+}
+public static int mystery2(int val1, int val2) {
+int val3 = 3;
+System.out.print("Введите число:");
+try {
+Scanner in = new Scanner(System.in);
+val3 = in.nextInt();
+} catch (IOException e) {
+e.printStackTrace();
+}
+return Math.pow(val1 + val2 + val3,2);
+}
+}
+
+Функции mystery1 и mystery2, переписанные на Haskell
+mystery1 :: Int -> Int -> Int
+mystery1 val1 val2 = (val1 + val2 + val3) ^ 2
+  where val3 = 3
+
+mystery2 :: Int -> Int -> IO Int
+mystery2 val1 val2 = do
+   putStrLn "Введите число:"
+   val3Input <- getLine
+   let val3 = read val3Input
+   return ((val1 + val2 + val3)^2)
+
+safeValue = (mystery1 2 4) + (mystery1 5 6)
+
+unsafeValue = (mystery2 2 4) + (mystery2 2 4)
+"No instance for (Num (IO Int)) arising from a use of ’+’"
+
+helloPerson :: String -> String
+helloPerson name = "Привет, " ++ name ++ "!"
+main :: IO ()
+main = do
+  putStrLn "Привет! Как тебя зовут?"
+  name <- getLine
+  let statement = helloPerson name
+  putStrLn statement
+
+GHCi> :kind Maybe
+Maybe :: * -> *
+GHCi> :kind IO
+IO :: * -> *
+
+main :: IO ()
+
+GHCi> :type Just (1, 2)
+Just (1, 2) :: (Num t, Num t1) => Maybe (t, t1)
+
+GHCi> :type Just (1)
+Just (1) :: Num a => Maybe (a)
+
+GHCi> :type Just ()
+Just () :: Maybe ()
+
+getLine :: IO String
+
+import System.Random
+
+minDie :: Int
+minDie = 1
+
+maxDie :: Int
+maxDie = 6
+
+main :: IO ()
+main = do
+  dieRoll <- randomRIO (minDie, maxDie)
+  putStrLn (show dieRoll)
+
+$ ghc roll.hs
+$ ./roll
+2
+
+
+putStrLn :: String -> IO ()
+
+Может ли последней строкой кода в функции main
+быть getLine?
+
+Нет, поскольку main имеет тип IO (), тогда как getLine
+возвращает IO String.
+
+name <- getLine
+let statement = helloPerson name
+
+helloPerson :: String -> String
+
+helloPerson :: String -> String
+helloPerson name = "Привет, " ++ name ++ "!"
+
+main :: IO ()
+main = do
+  putStrLn "Привет! Как тебя зовут?"
+  name <- getLine
+  let statement = helloPerson name
+  putStrLn statement
+
+let statement = helloPerson getLine
+
+$ ghc pizza.hs
+$ ./pizza
+Введите размер первой пиццы
+30
+Введите стоимость первой пиццы
+150
+Введите размер второй пиццы
+50
+Введите стоимость второй пиццы
+220
+Пицца размера 50.0 дешевле по цене 0.11204507993669431 за
+Ç квадратный сантиметр
+
+Вычисление площади пиццы по заданному диаметру
+areaGivenDiameter :: Double -> Double
+areaGivenDiameter size = pi * (size / 2)^2
+
+type Pizza = (Double, Double)
+costPerCm :: Pizza -> Double
+costPerCm (size, cost) = cost / areaGivenDiameter size
+
+
+comparePizzas :: Pizza -> Pizza -> Pizza
+comparePizzas p1 p2 = if costP1 < costP2
+then p1
+else p2
+where costP1 = costPerCm p1
+costP2 = costPerCm p2
+
+describePizza :: Pizza -> String
+describePizza (size, cost) = "Пицца размера " ++ show size ++
+                             " дешевле по цене " ++
+                             show costSqCm ++
+                             " за квадратный сантиметр"
+  where costSqCm = costPerCm (size, cost)
+
+main :: IO ()
+main = do
+  putStrLn "Введите размер первой пиццы"
+  size1 <- getLine
+  putStrLn "Введите стоимость первой пиццы"
+  cost1 <- getLine
+  putStrLn "Введите размер второй пиццы"
+  size2 <- getLine
+  putStrLn "Введите стоимость второй пиццы"
+  cost2 <- getLine
+  let pizza1 = (read size1, read cost1)
+  let pizza2 = (read size2, read cost2)
+  let betterPizza = comparePizzas pizza1 pizza2
+  putStrLn (describePizza betterPizza)
+
+costData :: Map.Map Int Double
+costData = Map.fromList [(1, 150), (2, 220)]
+
+sizeData :: Map.Map Int Double
+sizeData = Map.fromList [(1, 30), (2, 50)]
+
+maybeMain :: Maybe String
+maybeMain = do
+  size1 <- Map.lookup 1 sizeData
+  cost1 <- Map.lookup 1 costData
+  size2 <- Map.lookup 2 sizeData
+  cost2 <- Map.lookup 2 costData
+  let pizza1 = (size1, cost1)
+  let pizza2 = (size2, cost2)
+  let betterPizza = comparePizzas pizza1 pizza2
+  return (describePizza betterPizza)
+
+GHCi> maybeMain
+Just "Пицца размера 50.0 дешевле по цене 0.11204507993669431
+Ç за квадратный сантиметр"
+
+getArgs :: IO [String]
+
+import System.Environment
+
+main :: IO ()
+main = do
+args <- getArgs
+...
+
+main putStrLn args
+
+main :: IO ()
+main = do
+  args <- getArgs
+  mapM putStrLn args
+Couldn’t match type ’[()]’ with ’()’
+
+main :: IO ()
+main = do
+  args <- getArgs
+  mapM_ putStrLn args
+
+$ ./sum
+$ ./sum 2
+2
+$ ./sum 2 3 4 5
+2
+3
+4
+5
+
+Проверка 22.1. Напишите функцию main, использующую mapM, чтобы трижды вызвать getLine, а затем используйте mapM_, чтобы напечатать введённые значения (подсказка: вам нужно отбросить аргумент при использовании mapM с getLine, для достижения этого используйте (\_ -> ...)).
+
+exampleMain :: IO ()
+exampleMain = do
+  vals <- mapM (\_ -> getLine) [1..3]
+  mapM_ putStrLn vals
+
+
+Количество строк как аргумент командной строки
+main :: IO ()
+main = do
+  args <- getArgs
+  let linesToRead = if length args > 0
+                    then read (head args)
+                    else 0 :: Int
+  print linesToRead
+
+import Control.Monad
+main :: IO ()
+main = do
+  args <- getArgs
+  let linesToRead = if length args > 0
+                    then read (head args)
+                    else 0 :: Int
+  numbers <- replicateM linesToRead getLine
+  print "здесь будет сумма"
+
+import System.Environment
+import Control.Monad
+
+main :: IO ()
+main = do
+  args <- getArgs
+  let linesToRead = if length args > 0
+                    then read (head args)
+                    else 0 :: Int
+  numbers <- replicateM linesToRead getLine
+  let ints = map read numbers :: [Int]
+  print (sum ints)
+
+$ ./sum 2
+4
+59
+63
+$ ./sum 4
+1
+2
+3
+410
+416
+
+mapM Принимает на вход действие ввода-вывода и обычный список, выполняет действие на каждом элементе списка и возвращает список в контексте IO
+mapM_ Работает как mapM, но отбрасывает результат (обратите внимание на _)
+replicateM Принимает на вход действие ввода-вывода и целое число n,
+повторяет действие n раз и возвращает результаты в виде
+списка в контексте IO
+replicateM_ Работает как replicateM, но отбрасывает результат
+
+myReplicateM :: Monad m => Int -> m a -> m [a]
+myReplicateM n func = mapM (\_ -> func) [1 .. n]
+
+Изучение особенностей ленивого ввода-вывода
+main :: IO ()
+main = do
+userInput <- getContents
+mapM_ print userInput
+
+$ ./sum_lazy
+hi
+’h’
+’i’
+’\n’
+what?
+’w’
+’h’
+’a’
+’t’
+’?’
+’\n’
+
+Тестовые данные как строка входных символов
+sampleData = [’6’, ’2’, ’\n’, ’2’, ’1’, ’\n’]
+
+GHCi> lines sampleData
+["62", "21"]
+
+Ответ 22.3
+reverser :: IO ()
+reverser = do
+  input <- getContents
+  let reversed = reverse input
+  putStrLn reversed
+
+Листинг 22.9 Определение myLines с помощью splitOn
+myLines = splitOn "\n"
+
+Листинг 22.10 Функция toInts для преобразования Char в Int
+toInts :: String -> [Int]
+toInts = map read . lines
+
+Листинг 22.11 Ленивое решение задачи суммирования чисел
+main :: IO ()
+main = do
+  userInput <- getContents
+  let numbers = toInts userInput
+  print (sum numbers)
+
+$ ./sum_lazy
+4
+234
+23
+1
+3
+<ctrl-d>
+265
+
+Проверка 22.4. Напишите программу, возвращающую сумму квадратов введённых пользователем чисел.
+Ответ 22.4
+mainSumSquares :: IO ()
+mainSumSquares = do
+  userInput <- getContents
+  let numbers = toInts userInput
+  let squares = map (^2) numbers
+  print (sum squares)
+
+import qualified Data.Text as T
+
+T.pack :: String -> T.Text
+T.unpack :: T.Text -> String
+
+Листинг 23.1 Преобразование между типами String и Text
+firstWord :: String
+firstWord = "пессимизм"
+
+secondWord :: T.Text
+secondWord = T.pack firstWord
+
+thirdWord :: String
+thirdWord = T.unpack secondWord
+
+Проверка 23.1. Определите значение fourthWord, преобразовав
+thirdWord в T.Text.
+
+Ответ 23.1
+fourthWord :: T.Text
+fourthWord = T.pack thirdWord
+
+myWord :: T.Text
+myWord = "собака"
+Couldn’t match expected type ’T.Text’ with actual type ’[Char]’
+
+Листинг 23.3 Числовые литералы разных типов
+myNum1 :: Int
+myNum1 = 3
+
+myNum2 :: Integer
+myNum2 = 3
+
+myNum3 :: Double
+myNum3 = 3
+
+$ ghc text.hs -XOverloadedStrings
+
+{-# LANGUAGE <Extension Name> #-}
+
+Листинг 23.4 Расширение OverloadedStrings и литералы типа Text
+{-# LANGUAGE OverloadedStrings #-}
+import qualified Data.Text as T
+
+aWord :: T.Text
+aWord = "Сыр"
+
+main :: IO ()
+main = do
+   print aWord
+
+Ответ 23.2. Запуск компилятора GHC из командной строки:
+$ ghc templates.hs -XTemplateHaskell
+
+Первая строка файла templates.hs:
+{-# LANGUAGE TemplateHaskell -#}
+
+ViewPatterns — более продвинутое сопоставление с образцом;
+‚ TemplateHaskell — инструменты для метапрограммирования;
+‚ DuplicateRecordFields — решение проблемы из урока 16, когда
+одинаковые имена полей в разных типах, объявляемых в синтаксисе записей, вызывают конфликт;
+‚ NoImplicitPrelude — отключает стандартный Prelude (мы уже
+отмечали, что многие программисты его не любят).
+
+Листинг 23.5 Некий текст типа Text
+sampleInput :: T.Text
+sampleInput = "это\nнекий\nтекст"
+
+GHCi> T.lines sampleInput
+["это","некий","текст"]
+
+
+Листинг 23.6 Какой-то другой текст как пример ввода для words
+someText :: T.Text
+someText = "Какой-то\nсовсем другой\t текст"
+
+   Вы легко можете увидеть, как это работает, в GHCi:
+
+GHCi> T.words someText
+["Какой-то","совсем","другой","текст"]
+
+Листинг 23.7 Пример использования splitOn
+breakText :: T.Text
+breakText = "просто"
+
+newText :: T.Text
+newText = "Это просто сделать"
+
+И в GHCi:
+GHCi> T.splitOn breakText newText
+["Это "," сделать"]
+
+GHCi> T.unlines (T.lines sampleInput)
+"это\nнекий\nтекст"
+GHCi> T.unwords (T.words someText)
+"Какой-то совсем другой текст"
+
+GHCi> T.intercalate breakText (T.splitOn breakText newText)
+"Это просто сделать"
+
+Проверка 23.3. Напишите собственные реализации двух функций
+T.lines и T.unlines, используя функции splitOn и T.intercalate.
+
+Ответ 23.3
+myLines :: T.Text -> [T.Text]
+myLines text = T.splitOn "\n" text
+
+myUnlines :: [T.Text] -> T.Text
+myUnlines textLines = T.intercalate "\n" textLines
+
+combined :: String
+combined = "some" ++ " " ++ "strings"
+
+{-# LANGUAGE OverloadedStrings #-}
+import qualified Data.Text as T
+import Data.Semigroup
+
+combinedTextMonoid :: T.Text
+combinedTextMonoid = mconcat ["некий"," ","текст"]
+
+combinedTextSemigroup :: T.Text
+combinedTextSemigroup = "некий" <> " " <> "текст"
+
+Листинг 23.8 Слово «дхарма» как значение типа Text (деванагари)
+dharma :: T.Text
+dharma = "Dm
+"
+
+Листинг 23.10 Подсвечивание сегментов текста функцией highlight
+highlight :: T.Text -> T.Text -> T.Text
+highlight query fullText = T.intercalate highlighted pieces
+   where pieces = T.splitOn query fullText
+         highlighted = mconcat ["{",query,"}
+
+import qualified Data.Text.IO as TIO
+Листинг 23.11 Программа для подсвечивания результатов поиска
+{-# LANGUAGE OverloadedStrings #-}
+import qualified Data.Text as T
+import qualified Data.Text.IO as TIO
+dharma :: T.Text
+dharma = "Dm
+"
+bgText :: T.Text
+bgText =
+"yA-vDm
+ao EvgZ, prDm
+aA(-vnE¤tAt^ -vDm
+e EnDn\ y, prDm
+ao ByAvh,"
+highlight :: T.Text -> T.Text -> T.Text
+highlight query fullText = T.intercalate highlighted pieces
+   where pieces = T.splitOn query fullText
+         highlighted = mconcat ["{",query,"}"]
+main = do
+   TIO.putStrLn (highlight dharma bgTex
+$./bg_highlight
+yA-v{Dm
+}ao EvgZ, pr{Dm
+}aA(-vnE¤tAt^ -v{Dm
+}e EnDn\ y, pr{Dm
+}ao ByAv
+
+
+Задача 23.1. Перепишите программу hello_world.hs из урока 21 (воспроизведена здесь), заменив String на Text.
+helloPerson :: String -> String
+helloPerson name = "Привет, " ++ name ++ "!"
+
+main :: IO ()
+main = do
+   putStrLn "Привет! Как тебя зовут?"
+   name <- getLine
+   let statement = helloPerson name
+   putStrLn statement
+
+Задача 23.2. Пользуясь типом Text и импортируя модули Data.Text.Lazy
+и Data.Text.Lazy.IO, перепишите программу суммирования вводимых
+пользователем чисел из урока 22 (раздел по ленивому вводу-выводу).
+toInts :: String -> [Int]
+toInts = map read . lines
+
+main :: IO ()
+main = do
+  userInput <- getContents
+  let numbers = toInts userInput
+  print (sum numbers
+
+import System.IO
+openFile :: FilePath -> IOMode -> IO Handle
+type FilePath = String
+
+data IOMode = ReadMode | WriteMode | AppendMode | ReadWriteMode
+
+Листинг 24.2 Функция main, открывающая и закрывающая файл
+main :: IO ()
+main = do
+  myFile <- openFile "hello.txt" ReadMode
+  hClose myFile
+  putStrLn "готово!"
+
+Ответ 24.1
+openFile "stuff.txt" ReadMode
+
+Листинг 24.3 Чтение из файла и запись в stdout и другой файл
+main :: IO ()
+main = do
+  helloFile <- openFile "hello.txt" ReadMode
+  firstLine <- hGetLine helloFile
+  putStrLn firstLine
+  secondLine <- hGetLine helloFile
+  goodbyeFile <- openFile "goodbye.txt" WriteMode
+  hPutStrLn goodbyeFile secondLine
+  hClose goodbyeFile
+  putStrLn "готово!"
+
+Листинг 24.4 Проверка файла на непустоту перед чтением из него
+main :: IO ()
+main = do
+  helloFile <- openFile "hello.txt" ReadMode
+  hasLine <- hIsEOF helloFile
+  firstLine <- if not hasLine
+  then hGetLine helloFile
+  else return "пустой файл"
+  putStrLn "готово!"
+
+Проверка 24.2. Проверьте наличие в файле второй строки.
+
+Ответ 24.2. Если второй строки нет, возвращаем пустую строку:
+hasSecondLine <- hIsEOF helloFile
+secondLine <- if not hasSecondLine
+              then hGetLine helloFile
+              else return ""
+
+readFile :: FilePath -> IO String
+writeFile :: FilePath -> String -> IO ()
+appendFile :: FilePath -> String -> IO ()
+
+Листинг 24.5 Пример содержимого файла stats.dat
+hello.txt символов: 29 слов: 5 строк: 2
+what.txt символов: 30000 слов: 2404 строк: 1
+
+Листинг 24.6 Функция getCounts собирает статистику в кортеж
+getCounts :: String -> (Int, Int, Int)
+getCounts input = (charCount, wordCount, lineCount)
+  where charCount = length input
+        wordCount = (length . words) input
+        lineCount = (length . lines) input
+
+Листинг 24.7 Функция countsText и данные в читаемом виде
+countsText :: (Int, Int, Int) -> String
+countsText (cc, wc, lc) = unwords ["символов: "
+                                   , show cc
+                                   , " слов: "
+                                   , show wc
+                                   , " строк: "
+                                   , show lc]
+
+GHCi> (countsText . getCounts) "это какой-то\n текст"
+"символов: 20 слов: 3 строк: 2"
+
+Листинг 24.8 Совмещаем код в функции main
+main :: IO ()
+main = do
+  args <- getArgs
+  let fileName = head args
+  input <- readFile fileName
+  let summary = (countsText . getCounts) input
+  appendFile "stats.dat"
+  (mconcat [fileName, " ", summary, "\n"])
+   putStrLn summary
+
+Проверка 24.3. Почему использование unwords предпочтительнее
+комбинирования строк с помощью ++?
+Ответ 24.3. Операция ++ работает только со списками. В уроке 23
+мы подробно разбирали другие текстовые типы, помимо String. 
+Функция unwords имеет версию и для Text, и для String, в то время как ++
+работает только для типа String. Использование unwords значительно облегчает 
+модификацию кода в случае принятия решения о замене String на Text.
+
+$ ./fileCounts hello.txt
+символов: 29 слов: 5 строк: 2
+
+$ cat stats.dat
+hello.txt символов: 29 слов: 5 строк: 2
+
+$ ./fileCounts stats.dat
+fileCounts: stats.dat: openFile: resource busy (file is locked)
+
+readFile :: FilePath -> IO String
+readFile name = do
+inputFile <- openFile name ReadMode
+hGetContents inputFile
+
+
+Листинг 24.9 Раскрытие тела функции readFile в функции main
+main :: IO ()
+main = do
+  args <- getArgs
+  let fileName = head args
+  file <- openFile fileName ReadMode
+  input <- hGetContents file
+  hClose file
+  let summary = (countsText . getCounts) input
+  appendFile "stats.dat"
+             (mconcat [fileName. " ", summary, "\n"])
+  putStrLn summary
+
+$ ./fileCounts stats.dat
+fileCounts: stats.dat: hGetContents: illegal operation
+Ç (delayed read on closed handle)
+
+$ ./fileCounts hello.txt
+fileCounts: stats.dat: hGetContents: illegal operation
+Ç (delayed read on closed handle)
+
+main :: IO ()
+main = do
+  args <- getArgs
+  let fileName = head args
+  file <- openFile fileName ReadMode
+  input <- hGetContents file
+  hClose file
+  let summary = (countsText . getCounts) input
+  appendFile "stats.dat" (mconcat [fileName, " ", summary, "\n"])
+  putStrLn summary
+
+Листинг 24.10 Функция main с исправлениями
+main :: IO ()
+main = do
+   args <- getArgs
+   let fileName = head args
+   file <- openFile fileName ReadMode
+   input <- hGetContents file
+   let summary = (countsText . getCounts) input
+   putStrLn summary
+   hClose file
+   appendFile "stats.dat"
+               (mconcat [fileName,
+               " ", summary, "\n"])
+
+{-# LANGUAGE OverloadedStrings #-}
+import System.IO
+import System.Environment
+import qualified Data.Text as T
+
+import qualified Data.Text.IO as TI
+getCounts :: T.Text -> (Int, Int, Int)
+getCounts input = (charCount, wordCount, lineCount)
+  where charCount = T.length input
+        wordCount = (length . T.words) input
+        lineCount = (length . T.lines) input
+
+countsText :: (Int, Int, Int) -> T.Text
+countsText (cc, wc, lc) = T.pack (unwords ["chars: "
+                                    , show cc
+                                    , " words: "
+                                    , show wc
+                                    , " lines: "
+                                    , show lc])
+main :: IO ()
+main = do
+  args <- getArgs
+  let fileName = head args
+  input <- TI.readFile fileName
+  let summary = (countsText . getCounts) input
+  TI.appendFile "stats.dat"
+                (mconcat [(T.pack fileName),
+                " ", summary, "\n"])
+  TI.putStrLn summary
+
+tatsuhikoTakimoto :: T.Text
+tatsuhikoTakimoto = "滝本 竜彦"
+
+import qualified Data.ByteString as B
+
+Листинг 25.1 Значение ByteString, определённое с OverloadedStrings
+sampleBytes :: B.ByteString
+sampleBytes = "Привет!"
+
+
+Листинг 25.2 Распаковываем ByteString в String — ошибка!
+sampleString :: String
+sampleString = B.unpack sampleBytes
+
+B.unpack :: B.ByteString -> [GHC.Word.Word8]
+
+import qualified Data.ByteString.Char8 as BC
+
+B.unpack :: BC.ByteString -> [GHC.Word.Word8]
+BC.unpack :: BC.ByteString -> [Char]
+
+Проверка 25.1. Напишите функцию, которая принимает число в виде
+строки из ASCII-символов и переводит его в Int. Для примера преобразуйте следующее значение в Int:
+bcInt :: BC.ByteString
+bcInt = "6"
+
+Ответ 25.1
+bcInt :: BC.ByteString
+bcInt = "6"
+bcToInt :: BC.ByteString -> Int
+bcToInt = read . BC.unpack
+
+Листинг 25.3 Наброски glitcher.hs
+
+import System.Environment
+import qualified Data.ByteString as B
+import qualified Data.ByteString.Char8 as BC
+
+main :: IO ()
+main = do
+  args <- getArgs
+  let fileName = head args
+  imageFile <- BC.readFile fileName
+  glitched <- return imageFile
+  let glitchedFileName = mconcat ["glitched_",fileName]
+  BC.writeFile glitchedFileName glitched
+  putStrLn "Готово!"
+
+Листинг 25.4 Функция intToChar преобразует байт в Int
+intToChar :: Int -> Char
+intToChar int = toEnum safeInt
+   where safeInt = int ‘mod‘ 255
+
+Ответ 25.2
+let glitched = imageFile
+
+Листинг 25.5 intToBC преобразует Int в односимвольную ByteString
+intToBC :: Int -> BC.ByteString
+intToBC int = BC.pack [intToChar int]
+
+Листинг 25.6 Функция replaceByte заменяет байт на новый
+replaceByte :: Int -> Int -> BC.ByteString -> BC.ByteString
+replaceByte loc chV bytes = mconcat [before,newChar,after]
+  where (before,rest) = BC.splitAt loc bytes
+      after = BC.drop 1 rest
+      newChar = intToBC chV
+
+Листинг 25.7 Получение случайных чисел в randomReplaceByte
+randomReplaceByte :: BC.ByteString -> IO BC.ByteString
+randomReplaceByte bytes = do
+   let bytesLength = BC.length bytes
+   location <- randomRIO (1,bytesLength)
+   chV <- randomRIO (0,255)
+   return (replaceByte location chV bytes)
+
+main :: IO ()
+main = do
+  args <- getArgs
+  let fileName = head args
+  imageFile <- BC.readFile fileName
+  glitched <- randomReplaceByte imageFile
+  let glitchedFileName = mconcat ["glitched_",fileName]
+  BC.writeFile glitchedFileName glitched
+  putStrLn "Готово!"
+
+$ ghc glitcher.hs
+$ ./glitcher lovecraft.jpg
+Готово!
+
+
+Листинг 25.8 Сортировка фрагмента данных
+sortSection :: Int -> Int -> BC.ByteString -> BC.ByteString
+sortSection start size bytes =
+mconcat [before,changed,after]
+   where (before,rest) = BC.splitAt start bytes
+         (target,after) = BC.splitAt size rest
+         changed = BC.reverse (BC.sort target)
+
+Ответ 25.3
+randomChar :: IO Char
+randomChar = do
+   randomInt <- randomRIO (0,255)
+   return (toEnum randomInt)
+
+Листинг 25.9 Элемент случайности в sortSection
+randomSortSection :: BC.ByteString -> IO BC.ByteString
+randomSortSection bytes = do
+    let sectionSize = 25
+    let bytesLength = BC.length bytes
+    start <- randomRIO (0,bytesLength - sectionSize)
+    return (sortSection start sectionSize bytes)
+
+Листинг 25.10 Новая версия main с randomSortSection
+main :: IO ()
+main = do
+  args <- getArgs
+  let fileName = head args
+  imageFile <- BC.readFile fileName
+  glitched <- randomSortSection imageFile
+  let glitchedFileName = mconcat ["glitched_",fileName]
+  BC.writeFile glitchedFileName glitched
+  print "all done"
+
+Листинг 25.11 Выполнение набора действий: громоздкий подход
+main :: IO ()
+main = do
+  args <- getArgs
+  let fileName = head args
+  imageFile <- BC.readFile fileName
+  glitched1 <- randomReplaceByte imageFile
+  glitched2 <- randomSortSection glitched1
+  glitched3 <- randomReplaceByte glitched2
+  glitched4 <- randomSortSection glitched3
+  glitched5 <- randomReplaceByte glitched4
+  let glitchedFileName = mconcat ["glitched_",fileName]
+  BC.writeFile glitchedFileName glitched5
+  putStrLn "Готово!"
+
+Листинг 25.12 Улучшенная версия с использованием foldM
+main :: IO ()
+main = do
+  args <- getArgs
+  let fileName = head args
+  imageFile <- BC.readFile fileName
+  glitched <- foldM (\bytes func -> func bytes) imageFile
+                    [ randomReplaceByte , randomSortSection
+                    , randomReplaceByte , randomSortSection
+                    , randomReplaceByte]
+  let glitchedFileName = mconcat ["glitched_",fileName]
+  BC.writeFile glitchedFileName glitched
+  putStrLn "Готово!"
+
+Проверка 25.4. Создайте за пределами функции main переменную
+glitchActions, содержащую список всех требуемых действий. Не забудьте указать для неё корректный тип.
+
+Ответ 25.4
+glitchActions :: [BC.ByteString -> IO BC.ByteString]
+glitchActions = [randomReplaceByte ,randomSortSection
+                 ,randomReplaceByte ,randomSortSection
+                 ,randomReplaceByte]
+
+
+Листинг 25.15 Попытка преобразовать Text в ByteString
+nagarjunaB :: B.ByteString
+nagarjunaB = (BC.pack . T.unpack) nagarjunaTe
+
+GHCi> TIO.putStrLn ((T.pack . BC.unpack) nagarjunaB)
+"(>\ETB0M\FSA("
+
+import qualified Data.Text.Encoding as E
+
+E.encodeUtf8 :: T.Text -> BC.ByteString
+E.decodeUtf8 :: BC.ByteString -> T.Text
+
+Листинг 25.16 Преобразования между Text и ByteString
+nagarjunaSafe :: B.ByteString
+nagarjunaSafe = E.encodeUtf8 nagarjunaText
+
+GHCi> TIO.putStrLn (E.decodeUtf8 nagarjunaSafe)
+nAgAj
+
+Листинг 26.1 Необходимые модули для программы marc_to_html.hs
+
+{-# LANGUAGE OverloadedStrings #-}
+import qualified Data.ByteString as B
+import qualified Data.Text as T
+import qualified Data.Text.IO as TIO
+import qualified Data.Text.Encoding as E
+import Data.Maybe
+
+Листинг 26.2 Синонимы типов Author и Title
+type Author = T.Text
+type Title = T.Text
+
+Листинг 26.3 Тип Book
+data Book = Book {
+author :: Author
+, title :: Title} deriving Show
+
+Листинг 26.4 Синоним типа Html
+type Html = T.Text
+
+Листинг 26.5 Создание фрагмента HTML-кода для описания книги
+bookToHtml :: Book -> Html
+bookToHtml book = mconcat ["<p>\n"
+                     , titleInTags
+                     , authorInTags
+                     , "</p>\n"]
+  where titleInTags = mconcat [ "<strong>", title book
+                              , "</strong>\n"]
+        authorInTags = mconcat [ "<em>", author book
+                               , "</em>\n"]
+
+Листинг 26.6 Несколько примеров книг
+book1 :: Book
+book1 = Book {
+   title = "Заговор против человека"
+   , author = "Лиготти, Томас"
+}
+book2 :: Book
+book2 = Book {
+   title = "Трактат о разложении"
+   , author = "Чоран, Эмиль"
+}
+book3 :: Book
+book3 = Book {
+  title = "Слёзы Эроса"
+  , author = "Батай, Жорж"
+}
+GHCi> bookToHtml book1
+"<p>\n<strong>Заговор против человека</strong>\n<em>Лиготти,
+Ç Томас</em>\n</p>\n"
+
+Листинг 26.7 Преобразование списка книг в HTML-документ
+booksToHtml :: [Book] -> Html
+booksToHtml books =
+  mconcat [ "<html>\n"
+          , "<head><title>книги</title>"
+          , "<meta charset=’utf-8’/>"
+          , "</head>\n"]
+          , "<body>\n"
+          , booksHtml
+          , "\n</body>\n"
+          , "</html>"]
+  where booksHtml = (mconcat . (map bookToHtml)) books
+
+myBooks :: [Book]
+myBooks = [book1, book2, book3]
+
+Листинг 26.8 Версия main c записью списка книг в HTML
+main :: IO ()
+main = TIO.writeFile "books.html" (booksToHtml myBooks)
+
+Заговор против человека Лиготти, Томас
+Трактат о разложении Чоран, Эмиль
+Слёзы Эроса Батай, Жорж
+
+Листинг 26.9 Синонимы типов MarcRecordRaw и MarcLeaderRaw
+type MarcRecordRaw = B.ByteString
+type MarcLeaderRaw = B.ByteString
+
+Листинг 26.10 Длина начальной части
+leaderLength :: Int
+leaderLength = 24
+
+Листинг 26.11 Функция getLeader получает первые 24 байта записи
+getLeader :: MarcRecordRaw -> MarcLeaderRaw
+getLeader record = B.take leaderLength record
+
+Листинг 26.12 Функции rawToInt и getRecordLength
+rawToInt :: B.ByteString -> Int
+rawtoInt = (read . T.unpack . E.decodeUtf8)
+
+getRecordLength :: MarcLeaderRaw -> Int
+getRecordLength leader = rawToInt (B.take 5 leader)
+
+nextAndRest :: B.ByteString -> (MarcRecordRaw, B.ByteString)
+
+Листинг 26.13 Функция nextAndRest отделяет первую запись потока
+nextAndRest :: B.ByteString -> (MarcRecordRaw, B.ByteString)
+nextAndRest marcStream = B.splitAt recordLength marcStream
+   where recordLength = getRecordLength marcStream
+
+Листинг 26.14 Преобразование потока в список записей
+allRecords :: B.ByteString -> [MarcRecordRaw]
+allRecords marcStream = if marcStream == B.empty
+                        then []
+                        else next : allRecords rest
+  where (next, rest) = nextAndRest marcStream
+
+main :: IO ()
+main = do
+  marcData <- B.readFile "sample.mrc"
+  let marcRecords = allRecords marcData
+  print (length marcRecords)
+
+GHCi> main
+140328
+
+Листинг 26.15 Синоним типа MarcDirectoryRaw
+type MarcDirectoryRaw = B.ByteString
+
+Листинг 26.16 Получение базового адреса
+getBaseAddress :: MarcLeaderRaw -> Int
+getBaseAddress leader = rawToInt (B.take 5 remainder)
+  where remainder = B.drop 12 leader
+
+Листинг 26.17 Вычисление длины каталога
+getDirectoryLength :: MarcLeaderRaw -> Int
+getDirectoryLength leader =
+   getBaseAddress leader - (leaderLength + 1)
+
+Листинг 26.18 Совмещаем всё в функции getDirectory
+getDirectory :: MarcRecordRaw -> MarcDirectoryRaw
+getDirectory record = B.take directoryLength afterLeader
+   where directoryLength = getDirectoryLength record
+         afterLeader = B.drop leaderLength record
+
+Листинг 26.19 Тип для каталоговой записи и её длина
+type MarcDirectoryEntryRaw = B.ByteString
+
+dirEntryLength :: Int
+dirEntryLength = 12
+
+splitDirectory :: MarcDirectoryRaw -> [MarcDirectoryEntryRaw]
+Листинг 26.20 splitDirectory разбивает каталог на список записей
+splitDirectory directory =
+   if directory == B.empty
+   then []
+   else nextEntry : splitDirectory restEntries
+ where (nextEntry, restEntries) = B.splitAt dirEntryLength
+                                            directory
+
+Обработка данных из каталога и поиск полей MARC-записей
+Листинг 26.21 Тип FieldMetadata
+data FieldMetadata =
+FieldMetadata { tag :: T.Text
+              , fieldLength :: Int
+              , fieldStart :: Int } deriving Show
+
+Листинг 26.22 Получение каталоговой записи типа FieldMetadata
+makeFieldMetadata :: MarcDirectoryEntryRaw -> FieldMetadata
+makeFieldMetadata entry =
+    FieldMetadata textTag theLength theStart
+  where (theTag, rest) = B.splitAt 3 entry
+        textTag = E.decodeUtf8 theTag
+        (rawLength, rawStart) = B.splitAt 4 rest
+        theLength = rawToInt rawLength
+        theStart = rawToInt rawStart
+
+Листинг 26.23 Построение списка каталоговых записей
+getFieldMetadata :: [MarcDirectoryEntryRaw] -> [FieldMetadata]
+getFieldMetadata rawEntries = map makeFieldMetadata rawEntries
+
+Листинг 26.24 Синоним типа FieldText
+type FieldText = T.Text
+
+Листинг 26.25 Получение FieldText
+getTextField :: MarcRecordRaw -> FieldMetadata -> FieldText
+getTextField record fieldMetadata =
+     E.decodeUtf8 byteStringValue
+  where recordLength = getRecordLength record
+        baseAddress = getBaseAddress record
+        baseRecord = B.drop baseAddress record
+        baseAtEntry = B.drop (fieldStart fieldMetadata)
+        baseRecord
+  byteStringValue = B.take (fieldLength fieldMetadata)
+                            baseAtEntry
+
+Листинг 26.26 Получение разделителя подполей
+fieldDelimeter :: Char
+fieldDelimeter = toEnum 31
+
+Листинг 26.27 Теги и коды подполей для названия и автора
+titleTag :: T.Text
+titleTag = "245"
+
+titleSubfield :: Char
+titleSubfield = ’a’
+
+authorTag :: T.Text
+authorTag = "100"
+
+authorSubfield :: Char
+authorSubfield = ’a’
+
+Листинг 26.28 Безопасный поиск FieldMetadata в каталоге
+lookupFieldMetadata aTag record = if length results < 1
+                                  then Nothing
+                                  else Just (head results)
+   where metadata =
+         (getFieldMetadata . splitDirectory . getDirectory)
+         record
+     results = filter ((== aTag) . tag) metadata
+
+Листинг 26.29 Поиск потенциально отсутствующего подполя
+lookupSubfield :: Maybe FieldMetadata -> Char ->
+                  MarcRecordRaw -> Maybe T.Text
+lookupSubfield Nothing subfield record = Nothing
+lookupSubfield (Just fieldMetadata) subfield record =
+     if results == []
+     then Nothing
+     else Just ((T.drop 1 . head) results)
+ where rawField = getTextField record fieldMetadata
+       subFields = T.split (== fieldDelimeter) rawField
+       results = filter ((== subfield) . T.head) subFields
+
+Листинг 26.30 Поиск значений по тегу и коду подполя
+lookupValue :: T.Text -> Char -> MarcRecordRaw -> Maybe T.Text
+lookupValue aTag subfield record =
+     lookupSubfield entryMetadata subfield record
+  where entryMetadata = lookupFieldMetadata aTag record
+
+Листинг 26.31 Специальные случаи для Title и Author
+lookupTitle :: MarcRecordRaw -> Maybe Title
+lookupTitle = lookupValue titleTag titleSubfield
+
+lookupAuthor :: MarcRecordRaw -> Maybe Author
+lookupAuthor = lookupValue authorTag authorSubfield
+
+Листинг 26.32 Получение названий и авторов из MARC-записей
+marcToPairs :: B.ByteString -> [(Maybe Title, Maybe Author)]
+marcToPairs marcStream = zip titles authors
+  where records = allRecords marcStream
+        titles = map lookupTitle records
+        authors = map lookupAuthor records
+
+Листинг 26.33 Преобразование значений Maybe в Book
+pairsToBooks :: [(Maybe Title, Maybe Author)] -> [Book]
+pairsToBooks pairs =
+     map (\(title, author) -> Book {
+                               title = fromJust title
+                              , author = fromJust author
+                             })
+         justPairs
+  where
+     justPairs =
+        filter (\(title, author) -> isJust title
+                                    & isJust author)
+               pairs
+
+Листинг 26.34 Совмещаем всё в функции processRecords
+processRecords :: Int -> B.ByteString -> Html
+processRecords n = booksToHtml
+                  . pairsToBooks
+                  . take n
+                  . marcToPairs
+
+main :: IO ()
+main = do
+   marcData <- B.readFile "sample.mrc"
+   let processed = processRecords 500 marcData
+   TIO.writeFile "books.html" processed
+
+Листинг 1 Функция halve типа Int -> Double
+halve :: Int -> Double
+halve n = fromIntegral n / 2.0
+
+Листинг 2 Функция halveMaybe — обёртка halve для работы с Maybe
+halveMaybe :: Maybe Int -> Maybe Double
+halveMaybe (Just n) = Just (halve n)
+halveMaybe Nothing = Nothing
+
+Класс типов Functor
+‚ [Int];
+‚ Map String Int;
+‚ Maybe Int;
+‚ IO Int.
+printInt :: Maybe String -> IO ()
+printInt Nothing = putStrLn "Значение отсутствует"
+printInt (Just val) = putStrLn val
+Как вы могли бы перевести ваш тип Maybe Int в Maybe String, чтобы
+использовать printInt?
+
+Листинг 27.1 Примеры потенциально пустых значений
+successfulRequest :: Maybe Int
+successfulRequest = Just 6
+
+failedRequest :: Maybe Int
+failedRequest = Nothing
+
+Листинг 27.2 Функция, инкрементирующая значение Maybe Int
+incMaybe :: Maybe Int -> Maybe Int
+incMaybe (Just n) = Just (n + 1)
+incMaybe Nothing = Nothing
+
+В GHCi это работает отлично:
+GHCi> incMaybe successfulRequest
+Just 7
+GHCi> incMaybe failedRequest
+Nothing
+
+Проверка 27.1. Напишите функцию reverseMaybe, которая инвертирует строку в заданном значении Maybe String 
+и возвращает результат как Maybe String, вот её типовая аннотация:
+reverseMaybe :: Maybe String -> Maybe String
+
+Ответ 27.1
+reverseMaybe :: Maybe String -> Maybe String
+reverseMaybe Nothing = Nothing
+reverseMaybe (Just string) = Just (reverse string)
+
+Класс типов Functor и вызов функций в контексте
+fmap :: Functor f => (a -> b) -> f a -> f b
+
+Листинг 27.3 Делаем Maybe экземпляром Functor
+instance Functor Maybe where
+fmap func (Just n) = Just (func n)
+fmap func Nothing = Nothing
+
+GHCi> fmap (+ 1) successfulRequest
+Just 7
+GHCi> fmap (+ 1) failedRequest
+Nothing
+
+GHCi> (+ 1) <$> successfulRequest
+Just 7
+GHCi> (+ 1) <$> failedRequest
+Nothing
+
+Листинг 27.4 Пример использования fmap с изменением типа
+successStr :: Maybe String
+successStr = show <$> successfulRequest
+
+failStr :: Maybe String
+failStr = show <$> failedRequest
+
+Проверка 27.2. Используйте fmap или <$>, чтобы инвертировать значение Maybe String.
+Ответ 27.2
+GHCi> reverse <$> Just "кот"
+Just "ток"
+
+Semigroup, Monoid, а теперь Functor!
+Листинг 27.5 Тип данных RobotPart
+data RobotPart = RobotPart
+    { name :: String
+      , description :: String
+      , cost :: Double
+      , count :: Int
+    } deriving Show
+
+Листинг 27.6 Примеры компонентов роботов
+leftArm :: RobotPart
+leftArm = RobotPart
+  { name = "left arm"
+    , description = "левая рука для того, чтобы бить в лицо!"
+    , cost = 1000.00
+    , count = 3
+  }
+
+rightArm :: RobotPart
+rightArm = RobotPart
+  { name = "right arm"
+    , description = "правая рука для добрых жестов"
+    , cost = 1025.00
+    , count = 5
+  }
+robotHead :: RobotPart
+robotHead = RobotPart
+  { name = "robot head"
+   , description = "эта голова выглядит безумной"
+   , cost = 5092.25
+   , count = 2
+  }
+
+Листинг 27.7 Перевод RobotPart в HTML
+type Html = String
+renderHtml :: RobotPart -> Html
+renderHtml part = mconcat [ "<h2>",partName, "</h2>"
+                            , "<p><h3>desc</h3>", partDesc
+                            , "</p><p><h3>cost</h3>"
+                            , partCost
+                            , "</p><p><h3>count</h3>"
+                            , partCount, "</p>"]
+   where partName = name part
+         partDesc = description part
+         partCost = show (cost part)
+         partCount = show (count part)
+
+Листинг 27.8 База данных компонентов роботов
+import qualified Data.Map as Map
+partsDB :: Map.Map Int RobotPart
+partsDB = Map.fromList keyVals
+  where keys = [1,2,3]
+        vals = [leftArm,rightArm,robotHead]
+        keyVals = zip keys vals
+
+insertSnippet :: Maybe Html -> IO ()
+Листинг 27.9 partVal: значение Maybe RobotPart
+partVal :: Maybe RobotPart
+partVal = Map.lookup 1 partsDB
+
+Листинг 27.10 Преобразование RobotPart в HTML в рамках Maybe
+partHtml :: Maybe Html
+partHtml = renderHtml <$> partVal
+
+Листинг 27.11 Список компонентов роботов
+allParts :: [RobotPart]
+allParts = map snd (Map.toList partsDB)
+
+Листинг 27.12 Преобразование списка компонентов в HTML
+allPartsHtml :: [Html]
+allPartsHtml = renderHtml <$> allParts
+
+Листинг 27.13 Привычный способ преобразования с вызовом map
+allPartsHtml :: [Html]
+allPartsHtml = map renderHtml allParts
+
+
+Проверка 27.3. Перепишите определение функции allParts, используя <$> вместо map.
+Ответ 27.3
+allParts :: [RobotPart]
+allParts = snd <$> Map.toList partsDB
+
+Листинг 27.14 Преобразование partsDB в Map, содержащий HTML
+htmlPartsDB :: Map.Map Int Html
+htmlPartsDB = renderHtml <$> partsDB
+
+GHCi> Map.lookup 1 htmlPartsDB
+Just "<h2>left arm</h2><p><h3>desc</h3>left ...
+
+Листинг 27.15 Моделирование RobotPart в контексте IO
+leftArmIO :: IO RobotPart
+leftArmIO = return leftArm
+
+Листинг 27.16 Преобразование IO RobotPart к IO HTML
+htmlSnippet :: IO Html
+htmlSnippet = renderHtml <$> leftArmIO
+
+partHtml :: Maybe Html
+partHtml = renderHtml <$> partVal
+
+allPartsHtml :: [Html]
+allPartsHtml = renderHtml <$> allParts
+
+htmlPartsDB :: Map.Map Int Html
+htmlPartsDB = renderHtml <$> partsDB
+
+htmlSnippet :: IO Html
+htmlSnippet = renderHtml <$> leftArmIO
+
+data Box a = Box a deriving Show
+myBox :: Box Int
+myBox = Box 1
+GHCi> wrapped = fmap ? myBox
+GHCi> wrapped
+Box (Box 1)
+GHCi> fmap unwrap wrapped
+Box 1
+
+Приступаем к аппликативным функторам:
+функции в контексте
+Листинг 28.1 Map в качестве базы данных координат городов
+type LatLong = (Double,Double)
+locationDB :: Map.Map String LatLong
+locationDB = Map.fromList [("Аркхем",(42.6054,-70.7829))
+                           ,("Иннсмут",(42.8250,-70.8150))
+                           ,("Каркоза",(29.9714,-90.7694))
+                           ,("Нью-Йорк",(40.7776,-73.9691))]
+
+Листинг 28.2 Вычисление расстояния между двумя точками
+toRadians :: Double -> Double
+toRadians degrees = degrees * pi / 180
+
+latLongToRads :: LatLong -> (Double,Double)
+latLongToRads (lat,long) = (rlat,rlong)
+   where rlat = toRadians lat
+         rlong = toRadians long
+
+haversine :: LatLong -> LatLong -> Double
+haversine coords1 coords2 = earthRadius * c
+    where (rlat1,rlong1) = latLongToRads coords1
+          (rlat2,rlong2) = latLongToRads coords2
+          dlat = rlat2 - rlat1
+          dlong = rlong2 - rlong1
+          a = (sin (dlat/2))^2 + cos rlat1 * cos rlat2
+                                           * (sin (dlong/2))^2
+          c = 2 * atan2 (sqrt a) (sqrt (1-a))
+          earthRadius = 6378.1
+
+GHCi> haversine (40.7776,-73.9691) (42.6054,-70.7829)
+333.134208
+
+Листинг 28.3 Вывод потенциально отсутствующего расстояния
+printDistance :: Maybe Double -> IO ()
+printDistance Nothing =
+       putStrLn "Ошибка, введён отсутствующий в базе город"
+printDistance (Just dist) = putStrLn (show dist ++ " км")
+
+haversine :: LatLong -> LatLong -> Double
+Maybe LatLong -> Maybe LatLong -> Maybe Double
+
+Листинг 28.4 Одно из решений — написать функцию-обёртку
+haversineMaybe :: Maybe LatLong -> Maybe LatLong
+                                -> Maybe Double
+haversineMaybe Nothing _ = Nothing
+haversineMaybe _ Nothing = Nothing
+haversineMaybe (Just val1) (Just val2) =
+                Just (haversine val1 val2)
+
+Проверка 28.1. Напишите функцию addMaybe, вычисляющую сумму
+двух значений типа Maybe Int.
+Ответ 28.1
+addMaybe :: Maybe Int -> Maybe Int -> Maybe Int
+addMaybe (Just x) (Just y) = Just (x + y)
+addMaybe _ _ = Nothing
+
+fmap :: Fuctor f => (a -> b) -> f a -> f b
+(LatLong -> LatLong -> Double) ->
+(Maybe LatLong -> Maybe LatLong -> Maybe Double)
+Functor f => (a -> b -> c) -> f a -> f b -> f c
+
+Листинг 28.5 Операция <$> и частичное применение в контексте
+maybeInc = (+) <$> Just 1
+
+Если вы посмотрите на тип этой функции, то увидите следующее:
+maybeInc :: Maybe (Integer -> Integer)
+
+Знакомьтесь, операция <*>
+Класс типов Applicative увеличивает выразительную мощь Functor
+с помощью операции <*>.
+
+(<*>) :: Applicative f => f (a -> b) -> f a -> f b
+
+GHCi> maybeInc <*> Just 5
+Just 6
+GHCi> maybeInc <*> Nothing
+Nothing
+GHCi> maybeInc <*> Just 100
+Just 101
+
+GHCi> (++) <$> Just "кошки" <*> Just " и собаки"
+Just "кошки и собаки"
+GHCi> (++) <$> Nothing <*> Just " и собаки"
+Nothing
+GHCi> (++) <$> Just "кошки" <*> Nothing
+Nothing
+
+Проверка 28.3. Используя шаблон из примера для двухаргументных
+функций, передайте функциям (*), div и mod эти два значения:
+val1 = Just 10
+val2 = Just 5
+
+Ответ 28.3
+val1 = Just 10
+val2 = Just 5
+result1 = (+) <$> val1 <*> val2
+result2 = div <$> val1 <*> val2
+result3 = mod <$> val1 <*> val2
+
+
+GHCi> startingCity = Map.lookup "Каркоза" locationDB
+GHCi> destCity = Map.lookup "Иннсмут" locationDB
+GHCi> haversine <$> startingCity <*> destCity
+Just 2277.2217600000004
+
+Листинг 28.6 Функция main из dist.hs
+main :: IO ()
+main = do
+  putStrLn "Введите название первого города:"
+  startingInput <- getLine
+  let startingCity = Map.lookup startingInput locationDB
+  putStrLn "Введите название второго города:"
+  destInput <- getLine
+  let destCity = Map.lookup destInput locationDB
+  let distance = haversine <$> startingCity <*> destCity
+  printDistance distance
+
+$ ./dist
+Введите название первого города:
+Каркоза
+Введите название второго города:
+Иннсмут
+2277.2217600000003 км
+$ ./dist
+Введите название первого города:
+Каркоза
+Введите название второго города:
+Чикаго
+Ошибка, введён отсутствующий в базе город
+
+Листинг 28.7 Вычисление наименьшего из трёх чисел
+minOfThree :: (Ord a) => a -> a -> a -> a
+minOfThree val1 val2 val3 = min val1 (min val2 val3)
+
+Листинг 28.8 Простое IO-действие, написанное с помощью <$>
+readInt :: IO Int
+readInt = read <$> getLine
+
+Листинг 28.9 Обработка нескольких аргументов с помощью <*>
+minOfInts :: IO Int
+minOfInts = minOfThree <$> readInt <*> readInt <*> readInt
+
+Листинг 28.10 Функция main для min3.hs
+main :: IO ()
+main = do
+  putStrLn "Введите три числа"
+  minInt <- minOfInts
+  putStrLn (show minInt ++ " является наименьшим")
+
+$ ghc min3.hs
+$ ./min3
+Введите три числа
+1
+2
+3
+1 является наименьшим
+
+Проверка 28.4. Используя minOfThree, получите значение Maybe Int
+из этих трёх значений в контексте Maybe:
+Just 10
+Just 3
+Just 6
+
+Ответ 28.4
+GHCi> minOfThree <$> Just 10 <*> Just 3 <*> Just 6
+Just 3
+
+
+Листинг 28.11 Тип для хранения информации об игроке
+data User = User
+{ name :: String
+, gamerId :: Int
+, score :: Int
+} deriving Show
+
+GHCi> User {name = "Сью", gamerId = 1337, score = 9001}
+User {name = "Сью", gamerId = 1337, score = 9001}
+GHCi> User "Сью" 1337 9001
+User {name = "Сью", gamerId = 1337, score = 9001}
+
+Листинг 28.12 Информация для создания значений типа User
+serverUsername :: Maybe String
+serverUsername = Just "Сью"
+
+serverGamerId :: Maybe Int
+serverGamerId = Just 1337
+
+serverScore :: Maybe Int
+serverScore = Just 9001
+
+GHCi> User <$> serverUsername <*> serverGamerId <*> serverScore
+Just (User {name = "Сью", gamerId = 1337, score = 9001})
+
+Листинг 28.13 Создание значения типа User из IO-типов
+readInt :: IO Int
+readInt = read <$> getLine
+main :: IO ()
+main = do
+  putStrLn "Введите ник, ID игрока и его очки"
+  user <- User <$> getLine <*> readInt <*> readInt
+  print user
+
+Проверка 28.5. Проверьте, что получится, если создать пользователя
+с пропущенным ником (Nothing).
+
+Ответ 28.5
+GHCi> User <$> Nothing <*> serverGamerId <*> serverScore
+Nothing
+
+haversineIO :: IO LatLong -> IO LatLong -> IO Double
+data RobotPart = RobotPart
+{ name :: String
+, description :: String
+, cost :: Double
+, count :: Int
+} deriving Show
+
+fmap :: Functor f :: (a -> b) -> f a -> f b
+(<$>) :: Functor f :: (a -> b) -> f a -> f b
+
+fmap :: Functor f :: (a -> b) -> f a -> f b
+(<$>) :: Functor f :: (a -> b) -> f a -> f b
+(<*>) :: Applicative f => f (a -> b) -> f a -> f b
+pure :: Applicative f => a -> f a
+
+GHCi> (*) <$> Just 6 <*> Just 7
+Just 42
+GHCi> div <$> Just 6 <*> Just 7
+Just 0
+
+class Functor f => Applicative f where
+(<*>) :: f (a -> b) -> f a -> f b
+pure :: a -> f a
+
+GHCi> mod <$> Just 6 <*> Just 7
+Just 6
+
+Проверка 29.1. Используя <$> и <*>, скомбинируйте два значения
+типа Maybe String с помощью операции ++.
+
+Ответ 29.1
+GHCi> (++) <$> Just "Программируй" <*> Just " на Haskell"
+Just "Программируй на Haskell"
+
+GHCi> pure 6 :: Maybe Int
+Just 6
+
+GHCi> (6+) <$> Just 5
+Just 11
+GHCi> pure (6+) <*> Just 5
+Just 11
+Метод pure помещает значение произвольного типа в контекст
+
+Проверка 29.2. Приведите строку "Привет, Мир!" к типу IO String
+Ответ 29.2
+hello :: IO String
+hello = pure "Привет, мир!
+
+Листинг 29.1 Двухэлементный кортеж с неудачным именем
+data Blah a b = Blah a b
+
+Листинг 29.2 Простой тип Box не сильно отличается от IO
+data Box a = Box a
+
+Листинг 29.3 Тип для представления ресурсных ограничений
+data ResourceConstrained a = NoResources | Okay a
+
+Проверка 29.3. Допустим, вы хотите, чтобы выполнялось равенство
+pure (+) <*> (1,2) <*> (3,4) = (1 + 2, 1 + 4, 2 + 3, 2 + 4)
+= (3, 5, 5, 6). Почему это не работает?
+Ответ 29.3. Это не работает, потому что тип (3, 5, 5, 6) отличается от типов (1, 2) и (3, 4). 
+Тип первого выражения: (a, b, c, d),
+тогда как последних двух — (a, b).
+
+[1000, 2000, 3000]
++ [500, 20000]
+= [1000, 2000, 3000, 500, 20000]
+
+pure (+) <*> [1000, 2000, 3000] <*> [500, 20000]
+GHCi> pure (+) <*> [1000, 2000, 3000] <*> [500, 20000]
+[1500,21000,2500,22000,3500,23000]
+
+Различия контейнера и контекста в случае списка
+список как контейнер — это последовательность значений;
+список как контекст — это набор возможностей, он соответствует переменной, принимающей множество различных значений.
+
+Листинг 29.4 Недетерминированные результаты выбора двери
+doorPrize :: [Int]
+doorPrize = [1000, 2000, 3000]
+
+Листинг 29.5 Недетерминированные результаты выбора коробочки
+boxPrize :: [Int]
+boxPrize = [500, 20000]
+
+Листинг 29.6 Единственность детерминированного приза
+totalPrize :: Int
+totalPrize = (+) doorPrize boxPrize
+
+totalPrize :: [Int]
+totalPrize = (pure +) <*> doorPrize <*> boxPrize
+
+GHCi> totalPrize
+[1500, 21000, 2500, 22000, 3500, 23000]
+
+GHCi> pure (*) <*> [2..4] <*> [2..4]
+[4, 6, 8, 6, 9, 12, 8, 12, 16]
+
+Проверка 29.4. Решить эту задачу, считая, что коробочки представляют собой мультипликатор призовых: при открытии первой коробочки
+призовые увеличиваются в 10 раз, а при открытии второй — в 50.
+
+Ответ 29.4
+boxMultiplier = [10, 50]
+newOutcomes = pure (*) <*> doorPrize <*> boxMultiplier
+GHCi> newOutcomes
+[10000, 50000, 20000, 100000, 30000, 150000]
+
+Листинг 29.7 Простое неэффективное перечисление простых чисел
+primesToN :: Integer -> [Integer]
+primesToN n = filter isNotComposite twoThroughN
+  where twoThroughN = [2..n]
+        composite = pure (*) <*> twoThroughN <*> twoThroughN
+        isNotComposite = not . (‘elem‘ composite)
+
+GHCi> primesToN 32
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+
+data User = User {
+name :: String
+, gamerId :: Int
+, score :: Int
+} deriving Show
+
+Листинг 29.8 Список имён testNames
+testNames :: [String]
+testNames = ["Джон Смит"
+            , "Роберт’); DROP TABLE Students;--"
+            , "Кристина NULL"
+            , "Рэндалл Монро"]
+
+Листинг 29.9 Список ID testIds
+testIds :: [Int]
+testIds = [1337
+           , 0123
+           , 999999]
+
+Листинг 29.10 Заработанные игроками очки testScores
+testScores :: [Int]
+testScores = [0
+              , 100000
+              , -99999]
+
+Листинг 29.11 Генерация тестовых пользователей
+testData :: [User]
+testData = pure User <*> testNames
+                     <*> testIds
+                     <*> testScores
+
+GHCi> length testData
+36
+GHCi> take 3 testData
+[User {name = "Джон Смит", gamerId = 1337, score = 0}
+Ç,User {name = "Джон Смит", gamerId = 1337, score = 100000}
+Ç,User {name = "Джон Смит", gamerId = 1337, score = -99999}]
+
+Проверка 29.5. Добавьте собственное имя к testNames и снова сгенерируйте данные. 
+Сколько примеров будет содержать итоговый список
+пользователей?
+
+Ответ 29.5
+testNames = ["Уилл Курт", "Джон Смит"
+, "Роберт’); DROP TABLE Students;--"
+, "Кристина NULL", "Рэндалл Монро"]
+testData :: [User]
+testData = pure User <*> testNames <*> testIds <*> testScores
+GHCi> length testData
+45
+
+allFmap :: Applicative f => (a -> b) -> f a -> f b
+GHCi> allFmap (+1) [1, 2, 3]
+[2, 3, 4]
+GHCi> allFmap (+1) (Just 5)
+Just 6
+GHCi> allFmap (+1) Nothing
+Nothing
+
+example :: Int
+example = (*) ((+) 2 4) 6
+exampleMaybe :: Maybe Int
+
+Введение в класс типов Monad
+GHCi> (+ 2) <$> Just 3
+Just 5
+GHCi> pure (+) <*> Just 3 <*> Just 2
+Just 5
+
+Листинг 30.1 Напоминание о do-нотации
+main :: IO ()
+main = do
+  putStrLn "Помните о do-нотации!"
+  putStrLn "Она многое упрощает!"
+
+Листинг 30.2 Типы и данные для задачи поиска по двум Map
+import qualified Data.Map as Map
+
+type UserName = String
+type GamerId = Int
+type PlayerCredits = Int
+
+userNameDB :: Map.Map GamerId UserName
+userNameDB = Map.fromList [(1,"nYarlathoTep")
+                            ,(2,"KINGinYELLOW")
+                            ,(3,"dagon1997")
+                            ,(4,"rcarter1919")
+                            ,(5,"xCTHULHUx")
+                            ,(6,"yogSOThoth")]
+
+creditsDB :: Map.Map UserName PlayerCredits
+creditsDB = Map.fromList [("nYarlathoTep",2000)
+                          ,("KINGinYELLOW",15000)
+                          ,("dagon1997",300)
+                          ,("rcarter1919",12)
+                          ,("xCTHULHUx",50000)
+                          ,("yogSOThoth",150000)]
+
+Листинг 30.3 Тип целевой функции creditsFromId
+creditsFromId :: GamerId -> Maybe PlayerCredits
+
+Листинг 30.4 Функции lookupUserName и lookupCredits
+lookupUserName :: GamerId -> Maybe UserName
+lookupUserName id = Map.lookup id userNameDB
+
+lookupCredits :: UserName -> Maybe PlayerCredits
+lookupCredits username = Map.lookup username creditsDB
+
+Maybe UserName -> (UserName -> Maybe PlayerCredits)
+               -> Maybe PlayerCredits
+
+Applicative f => f a -> (a -> f b) -> f b
+(<$>) :: Functor f => (a -> b) -> f a -> f b
+(<*>) :: Applicative f => f (a -> b) -> f a -> f b
+pure :: Applicative f => a -> f a
+
+Листинг 30.5 Решение задачи без Functor или Applicative
+altLookupCredits :: Maybe UserName -> Maybe PlayerCredits
+altLookupCredits Nothing = Nothing
+altLookupCredits (Just username) = lookupCredits username
+
+Листинг 30.6 Функция типа GamerId -> Maybe PlayerCredits
+creditsFromId :: GamerId -> Maybe PlayerCredits
+creditsFromId id = altLookupCredits (lookupUserName id)
+
+GHCi> creditsFromId 1
+Just 2000
+GHCi> creditsFromId 100
+Nothing
+
+Проверка 30.1. Интересно, что следующая функция, похоже, делает
+то, что вам нужно, и компилируется как надо. Что с ней не так? (Подсказка: посмотрите в GHCi её тип.)
+creditsFromIdStrange id = pure lookupCredits <*>
+lookupUserName id
+
+Ответ 30.1. Проблема этой функции — в возвращении значения типа
+Maybe (Maybe PlayerCredits), то есть с вложенными Maybe!
+
+Написание не столь тривиального IO-действия echo
+getLine :: IO String
+putStrLn :: String -> IO ()
+IO String -> (String -> IO ()) -> IO ()
+Applicative f => f a -> (a -> f b) -> f b
+
+Проверка 30.2. Почему для решения этой задачи нельзя написать
+функции вроде altLookupCredits и creditsFromId из предыдущего
+пункта?
+
+Ответ 30.2. У вас нет способа получать значение без контекста IO,
+как вы делали с контекстом Maybe. Вам нужны более мощные, чем
+Applicative и Functor, инструменты для работы с типами IO.
+
+(>>=) :: Monad m => m a -> (a -> m b) -> m b
+Листинг 30.7 Новая версия функции creditsFromId (на основе >>=)
+creditsFromId :: GamerId -> Maybe PlayerCredits
+creditsFromId id = lookupUserName id >>= lookupCredits
+Видно, что >>= позволяет соединять функции вида (a -> m b).
+
+Листинг 30.8 Ещё один Map в поиске пользовательских данных
+type WillCoId = Int
+
+gamerIdDB :: Map.Map WillCoId GamerId
+gamerIdDB = Map.fromList [(1001,1), (1002,2), (1003,3),
+                          (1004,4), (1005,5), (1006,6)]
+
+lookupGamerId :: WillCoId -> Maybe GamerId
+lookupGamerId id = Map.lookup id gamerIdDB
+
+Листинг 30.9 Связывание трёх функций поиска с помощью >>=
+creditsFromWCId :: WillCoId -> Maybe PlayerCredits
+creditsFromWCId id = lookupGamerId id >>=
+                     lookupUserName >>=
+                     lookupCredits
+
+GHCi> creditsFromWCId 1001
+Just 2000
+GHCi> creditsFromWCId 100
+Nothing
+
+Листинг 30.10 Использование >>= в определении функции echo
+echo :: IO ()
+echo = getLine >>= putStrLn
+
+main :: IO ()
+main = echo
+
+$ ghc echo.hs
+$ ./echo
+Hello World!
+Hello World!
+
+Проверка 30.3. Соедините эти две функции в одно IO-действие:
+readInt :: IO Int
+readInt = read <$> getLine
+printDouble :: Int -> IO ()
+printDouble n = print (n*2)
+
+Ответ 30.3. Результат соединения: readInt >>= printDouble
+
+Functor
+fmap :: Functor f :: (a -> b) -> f a -> f b
+(<$>) :: Functor f :: (a -> b) -> f a -> f b
+Applicative
+fmap :: Functor f :: (a -> b) -> f a -> f b
+(<$>) :: Functor f :: (a -> b) -> f a -> f b
+(<*>) :: Applicative f => f (a -> b) -> f a -> f b
+pure :: Applicative f => a -> f a
+Monad
+fmap :: Functor f :: (a -> b) -> f a -> f b
+(<$>) :: Functor f :: (a -> b) -> f a -> f b
+(<*>) :: Applicative f => f (a -> b) -> f a -> f b
+pure :: Applicative f => a -> f a
+(>>=) :: Monad m => m a -> (a -> m b) -> m b
+(>>) :: Monad m => m a -> m b -> m b
+return :: Monad m => a -> m a
+fail :: Monad m => String -> m a
+
+Вот определение класса типов Monad:
+class Applicative m => Monad (m :: * -> *) where
+  (>>=) :: m a -> (a -> m b) -> m b
+  (>>) :: m a -> m b -> m b
+  return :: a -> m a
+  fail :: String -> m a
+
+pure :: Applicative f => a -> f a
+return :: Monad m => a -> m a
+
+(>>) :: m a -> m b -> m b
+
+Листинг 30.11 Преимущества >> в разговорчивой версии echo
+echoVerbose :: IO ()
+echoVerbose = putStrLn "Введите строку, а мы её повторим!" >>
+              getLine >>= putStrLn
+main :: IO ()
+main = echoVerbose
+
+Листинг 30.12 IO-действие askForName
+askForName :: IO ()
+askForName = putStrLn "Как вас зовут?"
+
+Листинг 30.13 Функция на строках nameStatement
+nameStatement :: String -> String
+nameStatement name = "Привет, " ++ name ++ "!"
+
+(askForName >> getLine)
+(\name -> return (nameStatement name))
+
+Листинг 30.14 Программа-приветствие с методами класса Monad
+helloName :: IO ()
+helloName = askForName >>
+            getLine >>=
+            (\name -> return (nameStatement name)) >>=
+            putStrLn
+
+GHCi> helloName
+Как вас зовут?
+Уилл
+Привет, Уилл!
+
+allFmapM :: Monad m => (a -> b) -> m a -> m b
+allApp :: Monad m => m (a -> b) -> m a -> m b
+bind :: Maybe a -> (a -> Maybe b) -> Maybe b
+
+Проверка 30.4. Преобразуйте (+ 2) из типа Num a => a -> a в тип
+Num a => a -> IO a, используя лямбда-функцию и return. Воспользуйтесь командой GHCi :t и убедитесь, что получили верный тип.
+Ответ 30.4. Лямбда-выражение: (\n -> return ((+ 2) n)).
+
+Облегчение работы с монадами с помощью
+do-нотации
+
+Листинг 31.1 Программа-приветствие
+askForName :: IO ()
+askForName = putStrLn "Как тебя зовут?"
+
+nameStatement :: String -> String
+nameStatement name = "Привет, " ++ name ++ " !"
+
+helloName :: IO ()
+helloName = askForName >>
+            getLine >>=
+            (\name ->
+              return (nameStatement name)) >>=
+            putStrLn
+
+Листинг 31.2 Переписывание helloName с помощью do-нотации
+helloNameDo :: IO ()
+helloNameDo = do
+   askForName
+   name <- getLine
+   putStrLn (nameStatement name)
+
+helloName :: IO () askForName
+helloName = askForName >> 
+            getLine
+            (\name ->
+              return (nameStatement name)) >>=
+            putStrLn
+
+
+helloName :: IO ()
+helloNameDo = do
+   askForName
+   name <- getLine
+   putStrLn nameStatement
+
+Листинг 31.3 Программа, использующая do-нотацию
+helloPerson :: String -> String
+helloPerson name = "Привет," ++ " " ++ name ++ "!"
+
+main :: IO ()
+main = do
+   name <- getLine
+   let statement = helloPerson name
+   putStrLn statement
+
+main :: IO ()
+main = do
+       name <- getLine
+       let statement = helloPerson name
+       putStrLn statement
+
+main :: IO ()
+main = getLine >>=
+  (\name ->
+   (\statement ->
+      putStrLn statement) (helloPerson name))
+
+Листинг 31.4 IO-действие, для которого >>= предпочтительнее
+echo :: IO ()
+echo = getLine >>= putStrLn
+
+Проверка 31.1. Перепишите echo с использованием do-нотации
+Ответ 31.1
+echo :: IO ()
+echo = do
+  val <- getLine
+  putStrLn val
+
+Листинг 31.5 Тип данных Grade для оценки этапов собеседования
+data Grade = F | D | C | B | A
+   deriving (Eq, Ord, Enum, Show, Read)
+
+Листинг 31.6 Тип данных Degree для уровня образования
+data Degree = HS | BA | MS | PhD
+  deriving (Eq, Ord, Enum, Show, Read)
+
+Листинг 31.7 Представление результатов собеседования
+data Candidate = Candidate
+   { candidateId :: Int
+     , codeReview :: Grade
+     , cultureFit :: Grade
+     , education :: Degree } deriving Show
+
+Листинг 31.8 Проверка на соответствие минимальным требованиям
+viable :: Candidate -> Bool
+viable candidate = all (== True) tests
+   where passedCoding = codeReview candidate > B
+         passedCultureFit = cultureFit candidate > C
+         educationMin = education candidate >= MS
+         tests = [passedCoding, passedCultureFit, educationMin]
+
+Проверка 31.2. Создайте значение типа Candidate и проверьте его
+с помощью функции viable.
+
+Ответ 31.2
+testCandidate :: Candidate
+testCandidate = Candidate
+   { candidateId = 1
+     , codeReview = A
+     , cultureFit = A
+     , education = PhD}
+
+GHCi> viable testCandidate
+True
+
+Листинг 31.9 Считывание данных о кандидате
+readInt :: IO Int
+readInt = getLine >>= (return . read)
+
+readGrade :: IO Grade
+readGrade = getLine >>= (return . read)
+
+readDegree :: IO Degree
+readDegree = getLine >>= (return . read)
+
+Листинг 31.10 Функция readCandidate
+readCandidate :: IO Candidate
+readCandidate = do
+  putStrLn "введите id:"
+  cId <- readInt
+  putStrLn "введите оценку код-ревью:"
+  codeGrade <- readGrade
+  putStrLn "введите оценку соответствия корпоративной культуре"
+  cultureGrade <- readGrade
+  putStrLn "введите уровень образования:"
+  degree <- readDegree
+  return (Candidate { candidateId = cId, codeReview = codeGrade
+                      , cultureFit = cultureGrade
+                      , education = degree })
+
+Листинг 31.11 Действие ввода-вывода для проверки кандидата
+assessCandidateIO :: IO String
+assessCandidateIO = do
+    candidate <- readCandidate
+    let passed = viable candidate
+    let statement = if passed
+                    then "прошёл"
+                    else "провалился"
+    return statement
+
+GHCi> assessCandidateIO
+введите id:
+1
+введите оценку код-ревью:
+A
+введите оценку соответствия корпоративной культуре:
+B
+введите уровень образования:
+PhD
+"прошёл"
+
+Проверка 31.3. Перепишите readGrade с применением do-нотации.
+Ответ 31.3
+readGradeDo :: IO Grade
+readGradeDo = do
+  input <- getLine
+  return (read input)
+
+Листинг 31.12 Несколько кандидатов
+candidate1 :: Candidate
+candidate1 = Candidate { candidateId = 1, codeReview = A
+                         , cultureFit = A, education = BA}
+candidate2 :: Candidate
+candidate2 = Candidate { candidateId = 2, codeReview = C
+                         , cultureFit = A, education = PhD}
+candidate3 :: Candidate
+candidate3 = Candidate { candidateId = 3, codeReview = A
+                        , cultureFit = B, education = MS}
+
+Листинг 31.13 База данных о кандидатах
+candidateDB :: Map.Map Int Candidate
+candidateDB = Map.fromList [ (1, candidate1), (2, candidate2)
+                             , (3, candidate3)]
+
+Листинг 31.14 Оценка кандидатов в контексте Maybe
+assessCandidateMaybe :: Int -> Maybe String
+assessCandidateMaybe cId = do
+     candidate <- Map.lookup cId candidateDB
+     let passed = viable candidate
+     let statement = if passed
+                     then "прошёл"
+                     else "провалился"
+     return statement
+
+
+GHCi> assessCandidateMaybe 1
+Just "провалился"
+GHCi> assessCandidateMaybe 3
+Just "прошёл"
+GHCi> assessCandidateMaybe 4
+Nothing
+
+Проверка 31.4. Напишите функцию типа Maybe String -> String,
+возвращающую "прошёл" или "провалился", если значение присутствует, и "ошибка: id не найден" — в противном случае.
+
+Ответ 31.4
+failPassOrElse :: Maybe String -> String
+failPassOrElse Nothing = "ошибка: id не найден"
+failPassOrElse (Just val) = val
+
+Листинг 31.15 Список возможных кандидатов
+candidates :: [Candidate]
+candidates = [candidate1, candidate2, candidate3]
+
+Листинг 31.16 Проверка кандидатов с помощью списка как монады
+assessCandidatesList :: [Candidate] -> [String]
+assessCandidateList candidates = do
+   candidate <- candidates
+   let passed = viable candidate
+   let statement = if passed
+                   then "прошёл"
+                   else "провалился"
+   return statement
+
+GHCi> assessCandidateList candidates
+["провалился", "провалился", "прошёл"]
+
+Листинг 31.17 Специфичный способ оценки кандидатов в списке
+assessCandidates :: [Candidate] -> [String]
+assessCandidates candidates =
+    map (\x -> if x
+               then "прошёл"
+               else "провалился") passed
+  where passed = map viable candidates
+
+Проверка 31.5. Работает ли assessCandidateList с пустым списком?
+Ответ 31.5. Работает! Если вызвать функцию assessCandidateList
+с пустым списком в качестве аргумента, то мы получим пустой список
+
+Листинг 31.18 Монадическая функция для IO, Maybe и списка
+assessCandidate :: Monad m => m Candidate -> m String
+assessCandidate candidates = do
+   candidate <- candidates
+   let passed = viable candidate
+   let statement = if passed
+                   then "прошёл"
+                   else "провалился"
+   return statement
+
+GHCi> assessCandidate readCandidate
+введите id:
+1
+введите оценку код-ревью:
+A
+введите оценку соответствия корпоративной культуре:
+B
+введите образование:
+PhD
+"прошёл"
+GHCi> assessCandidate (Map.lookup 1 candidateDB)
+Just "провалился"
+GHCi> assessCandidate (Map.lookup 2 candidateDB)
+Just "провалился"
+GHCi> assessCandidate (Map.lookup 3 candidateDB)
+Just "прошёл"
+GHCi> assessCandidate candidates
+["провалился", "провалился", "прошёл"]
+
+main :: IO ()
+main = do
+  putStrLn "Введите размер первой пиццы"
+  size1 <- getLine
+  putStrLn "Введите стоимость первой пиццы"
+  cost1 <- getLine
+  putStrLn "Введите размер второй пиццы"
+  size2 <- getLine
+  putStrLn "Введите стоимость второй пиццы"
+  cost2 <- getLine
+  let pizza1 = (read size1, read cost1)
+  let pizza2 = (read size2, read cost2)
+  let betterPizza = comparePizzas pizza1 pizza2
+  putStrLn (describePizza betterPizza)
+
+maybeMain :: Maybe String
+maybeMain = do
+  size1 <- Map.lookup 1 sizeData
+  cost1 <- Map.lookup 1 costData
+  size2 <- Map.lookup 2 sizeData
+  cost2 <- Map.lookup 2 costData
+  let pizza1 = (size1, cost1)
+  let pizza2 = (size2, cost2)
+  let betterPizza = comparePizzas pizza1 pizza2
+  return (describePizza betterPizza)
+
+Монада списка и генераторы списков
+Листинг 32.1 Функция assessCandidateList из предыдущего урока
+
+assessCandidateList :: [Candidate] -> [String]
+assessCandidateList candidates = do
+  candidate <- candidates
+  let passed = viable candidate
+  let statement = if passed
+                  then "passed"
+                  else "failed"
+  return statement
+
+GHCi> pure (*) <*> [1 .. 4] <*> [5,6,7]
+[5,6,7,10,12,14,15,18,21,20,24,28]
+
+GHCi> powersOfTwo 10
+[2,4,8,16,32,64,128,256,512,1024]
+
+powersOfTwoMap :: Int -> [Int]
+powersOfTwoMap n = map (\x -> 2^x) [1 .. n]
+
+Листинг 32.2 Создание списка пар с помощью do-нотации
+powersOfTwoAndThree :: Int -> [(Int,Int)]
+powersOfTwoAndThree n = do
+  value <- [1 .. n]
+  let powersOfTwo = 2^value
+  let powersOfThree = 3^value
+  return (powersOfTwo,powersOfThree)
+
+GHCi> powersOfTwoAndThree 5
+[(2,3),(4,9),(8,27),(16,81),(32,243)]
+
+allEvenOdds :: Int -> [(Int,Int)]
+allEvenOdds n = do
+   evenValue <- [2,4 .. n]
+   oddValue <- [1,3 .. n]
+   return (evenValue,oddValue)
+
+GHCi> allEvenOdds 5
+[(2,1),(2,3),(2,5),(4,1),(4,3),(4,5)]
+GHCi> allEvenOdds 6
+[(2,1),(2,3),(2,5),(4,1),(4,3),(4,5),(6,1),(6,3),(6,5)]
+
+Проверка 32.1. Используйте do-нотацию, чтобы сгенерировать список пар чисел от 1 до 10 и их квадратов.
+Ответ 32.1
+valAndSquare :: [(Int,Int)]
+valAndSquare = do
+  val <- [1 .. 10]
+  return (val, val^2)
+
+Функция guard
+evensGuard :: Int -> [Int]
+evensGuard n = do
+   value <- [1 .. n]
+   guard (even value)
+   return value
+
+guard :: Alternative f => Bool -> f()
+Класс типов Alternative — это подкласс Applicative
+
+Проверка 32.2. Реализуйте filter, используя guard и do-нотацию.
+Ответ 32.2
+guardFilter :: (a -> Bool) -> [a] -> [a]
+guardFilter test vals = do
+    val <- vals
+    guard (test val)
+    return val
+
+Генераторы списков
+Python> [n**2 for n in range(10)]
+[1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
+
+Python> [n**2 for n in range(10) if n**2 \% 2 == 0]
+[0, 4, 16, 36, 64]
+
+Листинг 32.3 Эмуляция генераторов списков из Python
+evenSquares :: [Int]
+evenSquares = do
+   n <- [0 .. 9]
+   let nSquared = n^2
+   guard (even nSquared)
+   return nSquared
+
+powersOfTwo :: Int -> [Int]
+powersOfTwo n = do
+   value <- [1 .. n]
+   return (2^value)
+
+powersOfTwo :: Int -> [Int]
+powersOfTwo n = [2^value | value <- [1 .. n]]
+
+powersOfTwoAndThree :: Int -> [(Int,Int)]
+powersOfTwoAndThree n =
+   [(powersOfTwo,powersOfThree)
+    | value <- [1 .. n]
+    , let powersOfTwo = 2^value
+    , let powersOfThree = 3^value]
+
+allEvenOdds :: Int -> [(Int,Int)]
+allEvenOdds n = [ (evenValue, oddValue)
+                  | evenValue <- [2,4 .. n]
+                  , oddValue <- [1,3 .. n]]
+
+evensGuard :: Int -> [Int]
+evensGuard n = [ value | value <- [1 .. n], even value]
+
+Проверка 32.3. Напишите генератор списка, который берёт слова из
+следующего списка, делает первую букву заглавной и добавляет в начало строки "Г-н ":
+["коричневый","синий","розовый","оранжевый"]
+(Подсказка: используйте функцию toUpper из Data.Char.)
+
+Ответ 32.3
+import Data.Char
+answer :: [String]
+answer = ["Г-н " ++ capVal |
+          val <- ["коричневый","синий","розовый","оранжевый"]
+          ,let capVal = (\(x:xs) -> toUpper x:xs) val]
+
+Итоговый проект: SQL-подобные запросы в Haskell
+
+select teacherName from
+teacher inner join course
+on teacher.id = course.teacherId
+where course.title = "Английский язык";
+
+Листинг 33.1 Тип Name с экземпляром Show
+data Name = Name { firstName ::String
+                   , lastName :: String }
+instance Show Name where
+   show (Name first last) = mconcat [first," ",last]
+
+Листинг 33.2 Тип GradeLevel представляет ступень обучения
+data GradeLevel = Freshman
+                 | Sophmore
+                 | Junior
+                 | Senior deriving (Eq,Ord,Enum,Show)
+
+Листинг 33.3 Тип Student
+data Student = Student
+        { studentId :: Int
+          , gradeLevel :: GradeLevel
+          , studentName :: Name } deriving Show
+
+Листинг 33.4 Тестовый список студентов
+students :: [Student]
+students = [(Student 1 Senior (Name "Одри" "Лорд"))
+             ,(Student 2 Junior (Name "Лесли" "Силко"))
+             ,(Student 3 Freshman (Name "Джудит" "Батлер"))
+             ,(Student 4 Senior (Name "Ги" "Дебор"))
+             ,(Student 5 Sophmore (Name "Жан" "Бодрийяр"))
+             ,(Student 6 Junior (Name "Юлия" "Кристева"))]
+
+Тип функции select
+(a -> b) -> [a] -> [b]
+Тип функции where
+(a -> Bool) -> [a] -> [a]
+
+Eq c => [a] -> [b] -> (a -> c) -> (b -> c) -> [(a,b)]
+
+select studentName from students;
+select * from students where gradeLevel = ’Senior’;
+
+Листинг 33.5 Функция _select — это та же функция fmap
+_select :: (a -> b) -> [a] -> [b]
+_select prop vals = do
+   val <- vals
+   return (prop val)
+
+GHCi> _select (firstName . studentName) students
+["Одри","Лесли","Джудит","Ги","Жан","Юлия"]
+GHCi> _select gradeLevel students
+[Senior,Junior,Freshman,Senior,Sophmore,Junior]
+
+GHCi> _select (\x -> (studentName x, gradeLevel x)) students
+[(Одри Лорд,Senior),(Лесли Силко,Junior),
+Ç (Джудит Батлер,Freshman),(Ги Дебор,Senior),
+Ç (Жан Бодрийяр,Sophmore),(Юлия Кристева,Junior)]
+
+
+Листинг 33.6 Функция _where позволяет фильтровать запросы
+_where :: (a -> Bool) -> [a] -> [a]
+_where test vals = do
+   val <- vals
+   guard (test val)
+   return val
+
+Листинг 33.7 Пример предиката для _where
+startsWith :: Char -> String -> Bool
+startsWith char string = char == (head string)
+
+GHCi> _where (startsWith ’Б’ . lastName) (_select studentName
+                                          Ç students)
+[Джудит Батлер,Жан Бодрийяр]
+
+Соединение типов данных Course и Teacher
+Листинг 33.8 Тип Teacher
+data Teacher = Teacher
+  { teacherId :: Int
+    , teacherName :: Name } deriving Show
+
+Листинг 33.9 Список преподавателей
+teachers :: [Teacher]
+teachers = [Teacher 100 (Name "Симона" "де Бовуар")
+            ,Teacher 200 (Name "Сьюзен" "Зонтаг")]
+
+Листинг 33.10 Тип Course
+data Course = Course { courseId :: Int
+                       , courseTitle :: String
+                       , teacher :: Int } deriving Show
+
+Листинг 33.11 Список курсов
+courses :: [Course]
+courses = [Course 101 "Французский язык" 100
+           ,Course 201 "Английский язык" 200]
+
+select * from
+teachers inner join courses
+on (teachers.teacherId = courses.teacher);
+
+_join :: Eq c => [a] -> [b] -> (a -> c) -> (b -> c) -> [(a,b)]
+
+_join data1 data2 prop1 prop2 = do
+  d1 <- data1
+  d2 <- data2
+  let dpairs = (d1,d2)
+  guard ((prop1 (fst dparis)) == (prop2 (snd dpairs)))
+  return dpairs
+
+GHCi> _join teachers courses teacherId teacher
+[(Teacher {teacherId = 100, teacherName = Симона де Бовуар},
+Ç Course {courseId = 101, courseTitle = "Французский язык",
+Ç teacher = 100}), (Teacher {teacherId = 200,
+Ç teacherName = Сьюзен Зонтаг},Course {courseId = 201,
+Ç courseTitle = "Английский язык", teacher = 200})]
+
+Листинг 33.12 Пример совмещения _join, _select и _where
+joinData = (_join teachers courses teacherId teacher)
+whereResult = _where ((== "Английский язык") . courseTitle
+                                             . snd) joinData
+selectResult = _select (teacherName . fst) whereResult
+
+(_select (teacherName . fst))
+(_join teachers courses teacherId teacher)
+(_where ((== "Английский язык") .courseTitle . snd))
+
+Листинг 33.13 Функция _hinq позволяет перестроить текст запроса
+_hinq selectQuery joinQuery whereQuery =
+  (\joinData ->
+    (\whereResult ->
+       selectQuery whereResult)
+    (whereQuery joinData)
+  ) joinQuery
+
+Листинг 33.14 Функция _hinq как приближение Haskell к SQL
+finalResult :: [Name]
+finalResult =
+_hinq (_select (teacherName . fst))
+      (_join teachers courses teacherId teacher)
+      (_where ((== "Английский язык") .courseTitle . snd))
+
+Листинг 33.15 Возможно решение проблемы отсутствующего _where
+teacherLastName :: [String]
+teacherLastName = _hinq (_select lastName)
+                         finalResult
+                        (_where (\_ -> True))
+
+Листинг 33.16 Типы _select, _where и _join для монад
+_select :: Monad m => (a -> b) -> m a -> m b
+_where :: (Monad m, Alternative m) => (a -> Bool) -> m a -> m a
+_join :: (Monad m, Alternative m, Eq c) =>
+          m a -> m b -> (a -> c) -> (b -> c) -> m (a,b)
+
+data HINQ m a b = HINQ (m a -> m b) (m a) (m a -> m a)
+                  | HINQ_ (m a -> m b) (m a)
+
+Листинг 33.17 Функция runHINQ позволяет выполнить HINQ-запрос
+runHINQ :: (Monad m, Alternative m) => HINQ m a b -> m b
+runHINQ (HINQ sClause jClause wClause) =
+    _hinq sClause jClause wClause
+runHINQ (HINQ_ sClause jClause) =
+    _hinq sClause jClause (_where (\_ -> True))
+
+query1 :: HINQ [] (Teacher, Course) Name
+query1 =
+  HINQ (_select (teacherName . fst))
+       (_join teachers courses teacherId teacher)
+       (_where ((== "Английский язык") .courseTitle . snd))
+
+GHCi> runHINQ query1
+[Сьюзен Зонтаг]
+
+query2 :: HINQ [] Teacher Name
+query2 = HINQ_ (_select teacherName) teachers
+
+GHCi> runHINQ query2
+[Симона де Бовуар,Сьюзен Зонтаг]
+
+Листинг 33.18 Пример данных в Maybe
+possibleTeacher :: Maybe Teacher
+possibleTeacher = Just (head teachers)
+
+possibleCourse :: Maybe Course
+possibleCourse = Just (head courses)
+
+Листинг 33.19 Пример запроса для Maybe
+maybeQuery1 :: HINQ Maybe (Teacher,Course) Name
+maybeQuery1 =
+HINQ (_select (teacherName . fst))
+     (_join possibleTeacher possibleCourse teacherId teacher)
+     (_where ((== "Французский язык") . courseTitle . snd))
+
+GHCi> runHINQ maybeQuery1
+Just Симона де Бовуар
+
+
+Листинг 33.20 Соединение и обработка отсутствия в Maybe
+missingCourse :: Maybe Course
+missingCourse = Nothing
+maybeQuery2 :: HINQ Maybe (Teacher,Course) Name
+maybeQuery2 =
+  HINQ (_select (teacherName . fst))
+       (_join possibleTeacher missingCourse teacherId teacher)
+       (_where ((== "Французский язык") .courseTitle . snd))
+
+GHCi> runHINQ maybeQuery2
+Nothing
+
+Листинг 33.21 Тип Enrollment связывает студента с курсом
+data Enrollment = Enrollment { student :: Int
+                               , course :: Int } deriving Show
+
+Листинг 33.22 Пример списка записей на курсы
+enrollments :: [Enrollment]
+enrollments = [ (Enrollment 1 101), (Enrollment 2 101)
+                , (Enrollment 2 201), (Enrollment 3 101)
+                , (Enrollment 4 201), (Enrollment 4 101)
+                , (Enrollment 5 101), (Enrollment 6 201) ]
+
+Листинг 33.23 Запрос по студентам и записи их на курсы
+studentEnrollmentsQ =
+   HINQ_ (_select (\(st,en) -> (studentName st, course en))
+         (_join students enrollments studentId student)
+
+Листинг 33.24 Исполнение запроса studentEnrollmentQ
+studentEnrollments :: [(Name, Int)]
+studentEnrollments = runHINQ studentEnrollmentsQ
+
+GHCi> studentEnrollments
+[(Одри Лорд,101),(Лесли Силко,101),(Лесли Силко,201),
+Ç (Джудит Батлер,101),(Ги Дебор,201),(Ги Дебор,101),
+Ç (Жан Бодрийяр,101),(Юлия Кристева,201)]
+
+Листинг 33.25 Соединение списка studentEnrollments с курсами
+englishStudentsQ =
+  HINQ (_select (fst . fst))
+       (_join studentEnrollments courses snd courseId)
+       (_where ((== "Английский язык") . courseTitle . snd))
+
+Листинг 33.26 Получение списка студентов, изучающих английский
+englishStudents :: [Name]
+englishStudents = runHINQ englishStudentsQ
+
+Листинг 33.27 Запрос данных о записях
+getEnrollments :: String -> [Name]
+getEnrollments courseName = runHINQ courseQuery
+   where courseQuery = HINQ (_select (fst . fst))
+                            (_join studentEnrollments courses snd courseId)
+                            (_where ((== courseName) . courseTitle . snd))
+
+GHCi> getEnrollments "Английский язык"
+[Лесли Силко,Ги Дебор,Юлия Кристева]
+GHCi> getEnrollments "Французский язык"
+[Одри Лорд,Лесли Силко,Джудит Батлер,Ги Дебор,Жан Бодрийяр]
+
+Организация кода на Haskell c помощью модулей
+
+data Book = Book
+  { title :: String
+    , price :: Double }
+data Magazine = Magazine
+  { title :: String
+   , price :: Double }
+
+Оба типа реализованы как записи, что усложняет задачу, так как
+для этих типов автоматически генерируются функции для доступа
+к полям title и price.
+
+Листинг 34.1 Определение head из Prelude
+head :: [a] -> a
+head (x:_) = x
+head [] = errorEmptyList "head"
+
+Листинг 34.2 Определение класса типов Monoid
+class Monoid m where
+  mempty :: m
+  mappend :: m -> m -> m
+  mconcat :: [m] -> m
+
+Листинг 34.3 Ой, мы случайно создали функцию с занятым именем!
+head :: Monoid a => [a] -> a
+head (x:xs) = x
+head [] = mempty
+
+Листинг 34.4 Пример списка со значениями из класса Monoid
+example :: [[Int]]
+example = []
+Ambiguous occurrence ’head’
+It could refer to either ’Main.head’
+defined at ...
+or ’Prelude.head’
+
+Листинг 34.5 Явное указание модуля
+module Main where
+
+head :: Monoid a => [a] -> a
+head (x:xs) = x
+head [] = mempty
+
+example :: [[Int]]
+example = []
+
+GHCi> Main.head example
+[]
+GHCi> Prelude.head example
+*** Exception: Prelude.head: empty list
+
+Проверка 34.1. Предположим, что вам нужно сохранить длину некоторого объекта в виде переменной. Например:
+length :: Int
+length = 8
+Как бы вы обратились к этому значению, не вызывая конфликтов
+с функцией length из Prelude?
+
+Ответ 34.1. Явно укажите модуль, имя из которого хотите применить:
+length :: Int
+length = 8
+doubleLength :: Int
+doubleLength = Main.length * 2
+
+Листинг 34.6 Первая версия модуля Main
+module Main where
+
+isPalindrome :: String -> Bool
+isPalindrome text = text == reverse text
+
+main :: IO ()
+main = do
+  putStrLn "Введите слово, чтобы узнать, является ли оно
+            Ç палиндромом."
+  text <- getLine
+  let response = if isPalindrome text
+                 then "Да, это палиндром."
+                 else "Нет, это не палиндром."
+  putStrLn response
+
+GHCi> main
+Введите слово, чтобы узнать, является ли оно палиндромом.
+доход
+Да, это палиндром.
+GHCi> main
+Введите слово, чтобы узнать, является ли оно палиндромом.
+Меч - а зачем?
+Нет, это не палиндром.
+
+Листинг 34.7 Файл Palindrome.hs
+module Palindrome (isPalindrome) where
+
+import Data.Char (toLower,isSpace,isPunctuation)
+
+stripWhiteSpace :: String -> String
+stripWhiteSpace text = filter (not . isSpace) text
+
+stripPunctuation :: String -> String
+stripPunctuation text = filter (not . isPunctuation) text
+
+toLowerCase :: String -> String
+toLowerCase text = map toLower text
+
+preprocess :: String -> String
+preprocess = stripWhiteSpace . stripPunctuation . toLowerCase
+
+isPalindrome :: String -> Bool
+isPalindrome text = cleanText == reverse cleanText
+   where cleanText = preprocess text
+
+
+module Palindrome where
+module Palindrome (isPalindrome) where
+module Palindrome
+   ( isPalindrome
+    ) where
+
+Листинг 34.8 Импорт определённого множества функций Data.Char
+import Data.Char (toLower,isSpace,isPunctuation)
+
+Листинг 34.9 Код, позволяющий корректно определять палиндромы
+stripWhiteSpace :: String -> String
+stripWhiteSpace text = filter (not . isSpace) text
+
+stripPunctuation :: String -> String
+stripPunctuation text = filter (not . isPunctuation) text
+
+toLowerCase :: String -> String
+toLowerCase text = map toLower text
+
+preprocess :: String -> String
+preprocess = stripWhiteSpace . stripPunctuation . toLowerCase
+
+isPalindrome :: String -> Bool
+isPalindrome text = cleanText == reverse cleanText
+  where cleanText = preprocess text
+
+GHCi> isPalindrome "доход"
+True
+GHCi> isPalindrome "Меч - а зачем?"
+True
+
+Проверка 34.2. Измените объявление модуля так, чтобы функция
+preprocess тоже экспортировалась.
+
+Ответ 34.2
+module Palindrome(
+   isPalindrome
+   , preprocess
+   ) where
+
+Листинг 34.10 Квалифицированный импорт модуля Palindrome
+module Main where
+import qualified Palindrome
+
+Листинг 34.11 Вызов функции Palindrome.isPalindrome
+let response = if Palindrome.isPalindrome text
+
+
+Листинг 34.12 В Main.hs используется файл Palindrome.hs
+module Main where
+import qualified Palindrome
+
+isPalindrome :: String -> Bool
+isPalindrome text = text == (reverse text)
+
+main :: IO ()
+main = do
+  putStrLn "Введите слово, чтобы узнать, является ли оно
+            Ç палиндромом."
+  text <- getLine
+  let response = if Palindrome.isPalindrome text
+                 then "Да, это палиндром."
+                 else "Нет, это не палиндром."
+  putStrLn response
+
+$ ghc Main.hs
+[1 of 2] Compiling Palindrome ( Palindrome.hs, Palindrome.o )
+[2 of 2] Compiling Main ( Main.hs, Main.o )
+Linking Main ...
+
+$ ./Main
+Введите слово, чтобы узнать, является ли оно палиндромом.
+Меч - а зачем?
+Да, это палиндром.
+
+Проверка 34.3. Функция Main.isPalindrome нигде не используется,
+поэтому оставлять её в файле необязательно. Сможете ли вы переделать файл таким образом, чтобы после её удаления не приходилось
+указывать модуль при обращении к Palindrome.isPalindrome?
+
+Ответ 34.3 Измените строку import qualified Palindrome
+на import Palindrome, после чего избавьтесь от префикса Palindrome.
+в Palindrome.isPalindrome.
+
+Сборка проектов при помощи stack
+Создание нового проекта stack
+$ stack update
+$ stack new palindrome-checker
+LICENSE src Setup.hs
+stack.yaml test app
+palindrome-checker.cabal
+
+Каталоги app, src и test
+
+Листинг 35.1 Генерируемый по умолчанию модуль Main
+module Main where
+
+import Lib
+
+main :: IO ()
+main = someFunc
+
+Листинг 35.2 Стандартный модуль Lib, генерируемый stack
+module Lib
+   ( someFunc
+   ) where
+
+someFunc :: IO ()
+someFunc = putStrLn "someFunc"
+
+Листинг 35.3 Изменение модуля Palindrome для работы с Text
+{-# LANGUAGE OverloadedStrings #-}
+
+module Lib
+( isPalindrome
+) where
+
+import qualified Data.Text as T
+import Data.Char (toLower,isSpace,isPunctuation)
+
+stripWhiteSpace :: T.Text -> T.Text
+stripWhiteSpace text = T.filter (not . isSpace) text
+
+stripPunctuation :: T.Text -> T.Text
+stripPunctuation text = T.filter (not . isPunctuation) text
+
+preprocess :: T.Text -> T.Text
+preprocess = stripWhiteSpace . stripPunctuation . T.toLower
+
+isPalindrome :: T.Text -> Bool
+isPalindrome text = cleanText == T.reverse cleanText
+   where cleanText = preprocess text
+
+
+Листинг 35.4 Main.hs для программы, определяющей палиндромы
+{-# LANGUAGE OverloadedStrings #-}
+
+module Main where
+
+import Lib
+import Data.Text as T
+import Data.Text.IO as TIO
+
+main :: IO ()
+main = do
+  TIO.putStrLn "Введите слово, чтобы узнать, является ли оно
+                Ç палиндромом."
+  text <- TIO.getLine
+  let response = if isPalindrome text
+                 then "Да, это палиндром."
+                 else "Нет, это не палиндром."
+  TIO.putStrLn response
+
+library
+hs-source-dirs: src
+exposed-modules: Lib
+build-depends: base >= 4.7 && < 5
+               , text
+default-language: Haskell2010
+executable palindrome-checker-exe
+hs-source-dirs: app
+main-is: Main.hs
+ghc-options: -threaded -rtsopts -with-rtsopts=-N
+build-depends: base
+               , palindrome-checker
+               , text
+default-language: Haskell2010
+
+$ stack setup
+$ stack build
+
+$ stack exec palindrome-checker-exe
+Введите слово, чтобы узнать, является ли оно палиндромом.
+Меч - а зачем?
+Да, это палиндром.
+
+extensions: OverloadedStrings
+
+Тестирование свойств с помощью QuickCheck
+$ stack new palindrome-testing
+
+Листинг 36.1 Корректировка Main.hs для начала работы с Lib.hs
+module Main where
+
+import Lib
+
+main :: IO ()
+main = putStrLn "Привет, мир!"
+
+ src/Lib.hs
+
+Листинг 36.2 Простейшее определение isPalindrome
+module Lib
+   ( isPalindrome
+   ) where
+
+isPalindrome :: String -> Bool
+isPalindrome text = text == reverse text
+
+Проверка 36.1. Вам нужно будет добавить всего несколько функций
+в модуль Lib, а потом экспортировать их все. Как в этом случае лучше
+определить модуль?
+
+Ответ 36.1
+module Lib where
+
+isPalindrome :: String -> Bool
+isPalindrome text = text == reverse text
+
+$ cd palindrome-testing
+$ stack setup
+...
+$ stack build
+
+$ stack ghci
+*Main Lib>
+
+*Main Lib> isPalindrome "доход"
+True
+*Main Lib> isPalindrome "кот"
+False
+*Main Lib> isPalindrome "доход!"
+False
+
+Листинг 36.3 Исправление isPalindrome по итогам тестирования
+isPalindrome :: String -> Bool
+isPalindrome text = cleanText == reverse cleanText
+  where cleanText = filter (not . (== ’!’)) text
+
+*Main Lib> :r
+*Main Lib> isPalindrome "доход!"
+True
+
+Проверка 36.2. Является ли палиндромом "мат и тут и там"?
+Ответ 36.2
+*Main Lib> isPalindrome "мат и тут и там"
+True
+
+Написания собственных модульных тестов и использование
+
+Листинг 36.4 Заготовка для файла Spec.hs
+main :: IO ()
+main = putStrLn "Test suite not yet implemented"
+
+Листинг 36.5 Простейшая функция для модульного тестирования
+assert :: Bool -> String -> String -> IO ()
+assert test passStatement failStatement =
+       if test
+       then putStrLn passStatement
+       else putStrLn failStatement
+
+Листинг 36.6 Spec.hs с несколькими простыми модульными тестами
+import Lib
+assert :: Bool -> String -> String -> IO ()
+assert test passStatement failStatement =
+    if test
+    then putStrLn passStatement
+    else putStrLn failStatement
+
+main :: IO ()
+main = do
+   putStrLn "Запуск тестов..."
+   assert (isPalindrome "доход") "пройдено: ’доход’"
+          "провал: ’доход’"
+   assert (isPalindrome "доход!") "пройдено: ’доход!’"
+           "провал: ’доход!’"
+   assert ((not . isPalindrome) "кот") "пройдено: ’кот’"
+          "провал: ’кот’"
+   putStrLn "Готово!"
+
+$ stack test
+Запуск тестов...
+пройдено: ’доход’
+пройдено: ’доход!’
+пройдено: ’кот’
+Готово!
+
+Листинг 36.7 Добавление другого теста в main
+assert (isPalindrome "доход.") "пройдено: ’доход.’"
+                               "провал: ’доход.’"
+
+Запуск тестов...
+пройдено: ’доход’
+пройдено: ’доход!’
+пройдено: ’кот’
+провал: ’доход.’
+Готово!
+
+Листинг 36.8 Ещё одно исправление проблемы с isPalindrome
+isPalindrome :: String -> Bool
+isPalindrome text = cleanText == reverse cleanText
+      where cleanText = filter (not . ( ‘ elem ‘ [’!’,’.’])) text
+
+Запуск тестов...
+пройдено: ’доход’
+пройдено: ’доход!’
+пройдено: ’кот’
+пройдено: ’доход.’
+Готово!
+
+Проверка 36.3. Добавьте проверку ":доход:" к списку тестов и перезапустите набор тестов.
+
+Ответ 36.3
+main :: IO ()
+main = do
+   putStrLn "Запуск тестов..."
+   assert (isPalindrome "доход") "пройдено: ’доход’"
+           "провал: ’доход’"
+   assert (isPalindrome "доход!") "пройдено: ’доход!’"
+            "провал: ’доход!’"
+   assert ((not . isPalindrome) "кот") "пройдено: ’кот’"
+          "провал: ’кот’"
+   assert (isPalindrome "доход.") "пройдено: ’доход.’"
+           "провал: ’доход.’"
+   assert (isPalindrome ":доход:") "пройдено: ’:доход:’"
+           "провал: ’:доход:’"
+   putStrLn "Готово!"
+
+Листинг 36.9 Код становится более аккуратным
+module Lib
+   ( isPalindrome
+     , preprocess
+    ) where
+
+preprocess :: String -> String
+preprocess text = filter (not . ( ‘ elem ‘ [’!’,’.’])) text
+
+isPalindrome :: String -> Bool
+isPalindrome text = cleanText == reverse cleanText
+   where cleanText = preprocess text
+
+Листинг 36.10 Представление проверяемого свойства функцией
+prop_punctuationInvariant text = preprocess text ==
+preprocess noPuncText
+   where noPuncText = filter (not . isPunctuation) text
+
+"Вызов preprocess на строке должен возвращать тот же ответ
+что и вызов на том же тексте, но без символов пунктуации"
+
+Проверка 36.4. Реализуйте свойство prop_reverseInvariant, которое показывает очевидный факт, 
+что результат isPalindrome должен
+быть одинаковым на строке и на её перевёрнутой версии.
+
+Ответ 36.4
+prop_reverseInvariant text = isPalindrome text
+                             == (isPalindrome (reverse text))
+
+Представляем вам QuickCheck
+Листинг 36.11 Изменение palindrome-testing.cabal
+test-suite palindrome-testing-test
+type: exitcode-stdio-1.0
+hs-source-dirs: test
+main-is: Spec.hs
+build-depends: base
+               , palindrome-testing
+               , QuickCheck
+ghc-options: -threaded -rtsopts -with-rtsopts=-N
+default-language: Haskell2010
+
+Листинг 36.12 Использование quickCheck в Spec.hs
+main :: IO ()
+main = do
+   quickCheck prop_punctuationInvariant
+   putStrLn "Готово!"
+
+Progress: 1/2***
+Failed! Falsifiable (after 4 tests and 2 shrinks):
+"\187"
+
+Листинг 36.13 Удовлетворяем замечание QuickCheck
+preprocess :: String -> String
+preprocess text = filter (not . ( ‘ elem ‘ [’!’,’.’,’\187’]))
+                          text
+
+Failed! Falsifiable (after 11 tests and 2 shrinks):
+";"
+
+Листинг 36.14 Корректировка обработки символов пунктуации
+import Data.Char(isPunctuation)
+
+preprocess :: String -> String
+preprocess text = filter (not . isPunctuation) text
+
+Листинг 36.15 Задание количества тестов QuickCheck
+main :: IO ()
+main = do
+  quickCheckWith stdArgs {maxSuccess = 1000}
+  prop_punctuationInvariant
+  putStrLn "Готово!"
+
+Проверка 36.5. Добавьте в main вызов quickCheck для свойства
+prop_reverseInvariant, определённого в предыдущем упражнении.
+
+Ответ 36.5
+prop_reverseInvariant text = isPalindrome text
+                             == isPalindrome (reverse text)
+main :: IO ()
+main = do
+  quickCheckWith stdArgs {maxSuccess = 1000}
+  prop_punctuationInvariant
+  quickCheck prop_reverseInvariant
+  putStrLn "Готово!"
+
+Применение QuickCheck с разными типами и установка библиотек
+$ stack install quickcheck-instances
+Листинг 36.16 Рефакторинг модуля Lib по замене String на Data.Text
+
+module Lib
+   ( isPalindrome
+     , preprocess
+    ) where
+
+import Data.Text as T
+import Data.Char(isPunctuation)
+
+preprocess :: T.Text -> T.Text
+preprocess text = T.filter (not . isPunctuation) text
+
+isPalindrome :: T.Text -> Bool
+isPalindrome text = cleanText == T.reverse cleanText
+  where cleanText = preprocess text
+
+Листинг 36.17 Исправление Spec.hs для работы с Data.Text
+import Lib
+import Test.QuickCheck
+import Test.QuickCheck.Instances
+import Data.Char(isPunctuation)
+import Data.Text as T
+
+prop_punctuationInvariant text = preprocess text ==
+                                 preprocess noPuncText
+    where noPuncText = T.filter (not . isPunctuation) text
+
+main :: IO ()
+main = do
+  quickCheckWith stdArgs { maxSuccess = 1000}
+  prop_punctuationInvariant
+  putStrLn "Готово!"
+
+Добавляем text и quickcheck-instances в раздел build-depends секции тестов, 
+и, наконец, можно протестировать улучшенный код:
+$ stack test
+...
+OK, passed 1000 tests.
+
+Итоговый проект: библиотека для простых чисел
+primes :: [Int]
+sieve :: [Int] -> [Int]
+
+isPrime :: Int -> Maybe Bool
+primeFactors :: Int -> Maybe [Int]
+
+Создание нового проекта
+$ stack new primes
+$ cd primes
+Для освежения в памяти структуры проекта посмотрите на файлы и каталоги, созданные stack. Вот список каталогов:
+‚ app — это каталог для модуля Main, по умолчанию содержит файл
+Main.hs;
+‚ src — здесь все библиотечные файлы, по умолчанию содержит Lib.hs;
+‚ test — каталог с кодом для тестов, по умолчанию содержит Spec.hs.
+‚ primes.cabal — файл, в котором указываются настройки по сборке проекта;
+‚ LICENSE — текст лицензии, под которой ваша библиотека будет распространяться;
+‚ stack.yaml — содержит дополнительные конфигурационные данные;
+‚ Setup.hs — файл, используемый системой Cabal, его можно игнорировать.
+
+Листинг 37.1 Новая версия модуля Main в app/Main.hs
+module Main where
+import Primes
+
+main :: IO ()
+main = return ()
+
+Листинг 37.2 Изменение src/Lib.hs на src/Primes.hs
+module Primes where
+
+primes :: [Int]
+primes = [1 .. ]
+
+Листинг 37.3 Отражение переименования модуля в primes.cabal
+library
+hs-source-dirs: src
+exposed-modules: Primes
+build-depends: base >= 4.7 && < 5
+default-language: Haskell2010
+
+$ stack setup
+...
+$ stack build
+
+Листинг 37.4 Рекурсивная реализация решета Эратосфена
+sieve :: [Int] -> [Int]
+sieve [] = []
+sieve (nextPrime:rest) = nextPrime : sieve noFactors
+    where noFactors = filter (not . (== 0)
+                                  . (‘mod‘ nextPrime)) rest
+
+GHCi> sieve [2 .. 20]
+[2,3,5,7,11,13,17,19]
+GHCi> sieve [2 .. 200]
+[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,
+Ç 79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,
+Ç 157,163,167,173,179,181,191,193,197,199]
+
+Листинг 37.5 Создание списка всех простых чисел
+primes :: [Int]
+primes = sieve [2 .. ]
+
+GHCi> maxBound :: Int
+9223372036854775807
+
+Листинг 37.6 Список простых чисел разумного размера
+primes :: [Int]
+primes = sieve [2 .. 10000]
+
+GHCi> length primes
+1229
+GHCi> take 10 primes
+[2,3,5,7,11,13,17,19,23,29]
+
+Определение функции isPrime
+isPrime :: Int -> Bool
+
+Листинг 37.7 Более корректная версия isPrime
+isPrime :: Int -> Maybe Bool
+isPrime n | n < 0 = Nothing
+          | n >= length primes = Nothing
+          | otherwise = Just (n ‘elem‘ primes)
+
+GHCi> isPrime 8
+Just False
+GHCi> isPrime 17
+Just True
+
+GHCi> map isPrime [2 .. 20]
+[Just True,Just True,Just False,Just True,Just False,Just True,
+Ç Just False,Just False,Just False,Just True,Just False,
+Ç Just True,Just False,Just False,Just False,Just True,
+Ç Just False,Just True,Just False]
+GHCi> isPrime (-13)
+Nothing
+
+Листинг 37.8 Внесение QuickCheck в список зависимостей test-suite
+test-suite primes-test
+type: exitcode-stdio-1.0
+hs-source-dirs: test
+main-is: Spec.hs
+build-depends: base
+, primes
+, QuickCheck
+ghc-options: -threaded -rtsopts -with-rtsopts=-N
+default-language: Haskell2010
+
+Листинг 37.9 Импорт необходимых модулей в test/Spec.hs
+import Test.QuickCheck
+import Primes
+
+main :: IO ()
+main = putStrLn "Test suite not yet implemented"
+
+$ stack test
+Test suite not yet implemented
+
+Определение свойств isPrime
+Листинг 37.10 Проверка получения Nothing или Just-значения
+import Data.Maybe
+prop_validPrimesOnly val =
+    if val < 0 || val >= length primes
+    then result == Nothing
+    else isJust result
+  where result = isPrime val
+
+Листинг 37.11 Добавление prop_validPrimesOnly в main
+main :: IO ()
+main = do
+  quickCheck prop_validPrimesOnly
+
+Листинг 37.12 Тест на корректность выявления простых чисел
+prop_primesArePrime val = if result == Just True
+                          then length divisors == 0
+                          else True
+   where result = isPrime val
+        divisors = filter ((== 0) . (val ‘mod‘ ))
+                          [2 .. (val - 1)]
+
+Листинг 37.13 Тест на корректность выявления составных чисел
+prop_nonPrimesAreComposite val = if result == Just False
+                                 then length divisors > 0
+                                 else True
+   where result = isPrime val
+         divisors = filter ((== 0) . (val ‘mod‘ ))
+                    [2 .. (val - 1)]
+
+Листинг 37.14 Проверка дополнительных свойств в main
+main :: IO ()
+main = do
+     quickCheck prop_validPrimesOnly
+     quickCheckWith stdArgs {maxSuccess = 1000}
+     prop_primesArePrime
+     quickCheckWith stdArgs {maxSuccess = 1000}
+     prop_nonPrimesAreComposite
+Если запустить тесты, то вы увидите, что кое-что было упущено!
++++ OK, passed 100 tests.
++++ OK, passed 1000 tests.
+*** Failed! Falsifiable (after 1 test):
+0
+
+
+Исправление ошибки
+Листинг 37.15 Исправление ошибки в isPrime
+isPrime :: Int -> Maybe Bool
+isPrime n | n < 2 = Nothing
+          | n >= length primes = Nothing
+          | otherwise = Just (n ‘elem‘ primes)
+
+
+Листинг 37.16 Обновлённое свойства prop_validPrimesOnly
+prop_validPrimesOnly val =
+    if val < 2 || val >= length primes
+    then result == Nothing
+    else isJust result
+ where result = isPrime val
+
+
++++ OK, passed 100 tests.
++++ OK, passed 1000 tests.
++++ OK, passed 1000 tests.
+4 = [2,2]
+6 = [2,3]
+18 = [2,3,3]
+
+Листинг 37.17 Небезопасная версия функции факторизации
+unsafePrimeFactors :: Int -> [Int] -> [Int]
+unsafePrimeFactors 0 [] = []
+unsafePrimeFactors n [] = []
+unsafePrimeFactors n (next:primes) =
+   if n ‘mod‘ next == 0
+   then next:unsafePrimeFactors (n ‘div‘ next) (next:primes)
+   else unsafePrimeFactors n primes
+
+Листинг 37.18 Безопасная обёртка для unsafePrimeFactors
+primeFactors :: Int -> Maybe [Int]
+primeFactors n
+  | n < 2 = Nothing
+  | n >= length primes = Nothing
+  | otherwise = Just (unsafePrimeFactors n primesLessThanN)
+  where primesLessThanN = filter (<= n) primes
+
+Листинг 37.19 Проверка произведения чисел из разложения
+prop_factorsMakeOriginal val =
+   if result == Nothing
+   then True
+   else product (fromJust result) == val
+  where result = primeFactors val
+
+Листинг 37.20 Проверка элементов разложения на простоту
+prop_allFactorsPrime val =
+   if result == Nothing
+   then True
+   else all (== Just True) resultsPrime
+  where result = primeFactors val
+        resultsPrime = map isPrime (fromJust result)
+
+Листинг 37.21 Запуск всех тестов в main из src/Spec.hs
+main :: IO ()
+main = do
+   quickCheck prop_validPrimesOnly
+   quickCheckWith stdArgs {maxSuccess = 1000}
+   prop_primesArePrime
+   quickCheckWith stdArgs {maxSuccess = 1000}
+   prop_nonPrimesAreComposite
+   quickCheck prop_factorsSumToOriginal
+   quickCheck prop_allFactorsPrime
+
++++ OK, passed 100 tests.
++++ OK, passed 1000 tests.
++++ OK, passed 1000 tests.
++++ OK, passed 100 tests.
++++ OK, passed 100 tests.
+
+$ stack exec primes-exe
+Введите число, чтобы узнать, является ли оно простым:
+4
+Оно составное!
+Введите число, чтобы получить его каноническое разложение:
+100000000000
+К сожалению, это число слишком велико.
+
+Применение Haskell на практике
+Ошибки в Haskell и тип Either
+
+GHCi> head [1]
+1
+GHCi> head []
+*** Exception: Prelude.head: empty list
+
+head :: [a] -> a
+Листинг 38.1 Корректная, но подверженная ошибкам функция
+myTake :: Int -> [a] -> [a]
+myTake 0 _ = []
+myTake n xs = head xs : myTake (n-1) (tail xs)
+
+executable headaches-exe
+hs-source-dirs: app
+main-is: Main.hs
+ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+build-depends: base
+, headaches
+default-language: Haskell2010
+
+GHCi> myTake 2 [1,2,3] :: [Int]
+[1,2]
+GHCi> myTake 4 [1,2,3] :: [Int]
+[1,2,3,*** Exception: Prelude.head: empty list
+
+Листинг 38.2 Функция, вызывающая предупреждение компилятора
+myTakePM :: Int -> [a] -> [a]
+myTakePM 0 _ = []
+myTakePM n (x:xs) = x : myTakePM (n-1) xs
+
+Pattern match(es) are non-exhaustive
+In an equation for ’myTakePM’:
+Patterns not matched: p [] where p is not one of {0}
+
+Проверка 38.1. Какой из образцов спасёт определение myTakePM?
+myTakePM _0 [] = []
+myTakePM _ [] = []
+myTakePM 0 (x:xs) = []
+
+Ответ 38.1. Вам нужно добавить следующий образец:
+myTakePM _ [] = []
+
+Head и частичные функции
+
+Листинг 38.3 Пример выбрасывания ошибки, myHead
+myHead :: [a] -> a
+myHead [] = error "empty list"
+myHead (x:_) = x
+
+GHCi> 2 / 0
+Infinity
+
+Проверка 38.2. Вот несколько частичных функций из Prelude:
+‚ maximum
+‚ succ
+‚ sum
+Как вы думаете, для каких входных данных они не определены?
+
+Ответ 38.2
+‚ maximum — отказывает на пустых списках;
+‚ succ — не работает на значении maxBound типа аргумента;
+‚ sum — зацикливается на бесконечных списках.
+Обработка частичных функций с помощью Maybe
+
+Листинг 38.4 Преобразование head с помощью Maybe
+maybeHead :: [a] -> Maybe a
+maybeHead [] = Nothing
+maybeHead (x:_) = Just x
+
+GHCi> maybeHead [1]
+Just 1
+GHCi> maybeHead []
+Nothing
+
+GHCi> (+2) <$> maybeHead [1]
+Just 3
+GHCi> (+2) <$> maybeHead []
+Nothing
+
+GHCi> (:) <$> maybeHead [1,2,3] <*> Just []
+Just [1]
+GHCi> (:) <$> maybeHead [] <*> Just []
+Nothing
+
+Листинг 38.5 Более безопасная версия myTake
+myTakeSafer :: Int -> Maybe [a] -> Maybe [a]
+myTakeSafer 0 _ = Just []
+myTakeSafer n (Just xs) =
+    (:) <$> maybeHead xs
+    <*> myTakeSafer (n-1) (Just (tail xs))
+
+GHCi> myTakeSafer 3 (Just [1,2,3])
+Just [1,2,3]
+GHCi> myTakeSafer 6 (Just [1,2,3])
+Nothing
+
+Первая встреча с Either
+primes :: [Int]
+primes = [2,3,5,7]
+
+maxN :: Int
+maxN = 10
+
+isPrime :: Int -> Maybe Bool
+isPrime n
+     | n < 2 = Nothing
+     | n > maxN = Nothing
+     | otherwise = Just (n ‘ elem ‘ primes)
+
+Проверка 38.3. Предположим, у вас есть список:
+oddList :: [Maybe Int]
+oddList = [Nothing]
+Если бы вы писали функцию, вычисляющую наибольшее среди имеющихся в такого типа списке чисел, обёрнутых в Just, какой тип результата вы бы для неё выбрали?
+Ответ 38.3. В качестве типа результата можно взять Maybe Int.
+
+data Either a b = Left a | Right b
+data Either a b = Fail a | Correct b
+
+Листинг 38.6 Более безопасная версия head, использующая Either
+eitherHead :: [a] -> Either String a
+eitherHead [] = Left "У списка нет первого элемента, он пуст"
+eitherHead (x:xs) = Right x
+
+intExample :: [Int]
+intExample = [1,2,3]
+
+intExampleEmpty :: [Int]
+intExampleEmpty = []
+
+charExample :: [Char]
+charExample = "кот"
+
+charExampleEmpty :: [Char]
+charExampleEmpty = ""
+
+GHCi> eitherHead intExample
+Right 1
+GHCi> eitherHead intExampleEmpty
+Left "У списка нет первого элемента, он пуст"
+GHCi> eitherHead charExample
+Right ’к’
+GHCi> eitherHead charExampleEmpty
+Left "У списка нет первого элемента, он пуст"
+
+GHCi> (+1) <$> (eitherHead intExample)
+Right 2
+GHCi> (+1) <$> (eitherHead intExampleEmpty)
+Left "У списка нет первого элемента, он пуст"
+
+Проверка 38.4. Воспользуйтесь операциями <*> и <$> 
+для суммирования первого и второго элементов списка intExample, полученных
+с помощью функций eitherHead и tail
+Ответ 38.4
+(+) <$> eitherHead intExample <*> eitherHead (tail intExample)
+Проверка на простоту с использованием Either
+Листинг 38.7 Функция isPrime с сообщениями об ошибках
+isPrime :: Int -> Either String Bool
+isPrime n
+   | n < 2 = Left "Числа меньше 2 не проверяются на простоту"
+   | n > maxN = Left "Число слишком велико для проверки"
+   | otherwise = Right (n ‘elem‘ primes)
+
+GHCi> isPrime 5
+Right True
+GHCi> isPrime 6
+Right False
+GHCi> isPrime 100
+Left "Число слишком велико для проверки"
+GHCi> isPrime (-29)
+Left "Числа меньше 2 не проверяются на простоту"
+
+Листинг 38.8 Тип PrimeError для представления ошибок
+data PrimeError = TooLarge | InvalidValue
+
+Листинг 38.9 Экземпляр Show для PrimeError
+instance Show PrimeError where
+show TooLarge = "Число слишком велико"
+show InvalidValue = "Число не подходит для проверки"
+
+Листинг 38.10 Функция isPrime с использованием PrimeError
+isPrime :: Int -> Either PrimeError Bool
+isPrime n
+    | n < 2 = Left InvalidValue
+    | n > maxN = Left TooLarge
+    | otherwise = Right (n ‘ elem ‘ primes)
+
+GHCi> isPrime 5
+Right True
+GHCi> isPrime 6
+Right False
+GHCi> isPrime 99
+Left Число слишком велико
+GHCi> isPrime 0
+Left Число не подходит для проверки
+
+
+Листинг 38.11 Перевод результата isPrime в читаемый формат
+displayResult :: Either PrimeError Bool -> String
+displayResult (Right True) = "Это простое число"
+displayResult (Right False) = "Это составное число"
+displayResult (Left primeError) = show primeError
+
+Листинг 38.12 Проверка на простоту вводимых пользователем чисел
+main :: IO ()
+main = do
+   putStrLn "Введите число для проверки на простоту:"
+   n <- read <$> getLine
+   let result = isPrime n
+   putStrLn (displayResult result)
+
+$ stack build
+$ stack exec primechecker-exe
+Введите число для проверки на простоту:
+6
+Это составное число
+$ stack exec headaches-exe
+Введите число для проверки на простоту:
+5
+Это простое число
+$ stack exec headaches-exe
+Введите число для проверки на простоту:
+213
+Число слишком велико
+$ stack exec headaches-exe
+Введите число для проверки на простоту:
+0
+Число не подходит для проверки
+
+Создание HTTP-запросов в Haskell
+На сайте с описанием этого API (https://
+www.ncdc.noaa.gov/cdo-web/webservices/v2#gettingStarted) вы можете найти список всех оконечных точек, предлагаемых API. Вот несколько из них:
+‚ /datasets — сообщает о том, какие наборы данных доступны;
+‚ /locations — показывает, какие местности доступны для просмотра;
+‚ /stations — предоставляет информацию о доступных метеостанциях;
+‚ /data — предоставляет доступ к сырым данным.
+"uid":"gov.noaa.ncdc:C00822",
+"mindate":"2010-01-01",
+"maxdate":"2010-12-01",
+"name":"Normals Monthly",
+"datacoverage":1,
+"id":"NORMAL_MLY"
+
+Вам нужно будет создать проект http-lesson. В качестве напоминания
+тут приведена пошаговая инструкция по созданию и сборке проекта:
+$ stack update
+$ stack new http-lesson
+$ cd http-lesson
+$ stack setup
+$ stack build
+
+Листинг 39.1 Объявления импорта в файле app/Main.hs
+module Main where
+import qualified Data.ByteString as B
+import qualified Data.ByteString.Char8 as BC
+import qualified Data.ByteString.Lazy as L
+import qualified Data.ByteString.Lazy.Char8 as LC
+import Network.HTTP.Simple
+
+Листинг 39.2 Изменение cabal-файла проекта
+executable http-lesson-exe
+hs-source-dirs: app
+main-is: Main.hs
+ghc-options: -threaded -rtsopts -with-rtsopts=-N
+build-depends: base
+, http-lesson
+, bytestring
+, http-conduit
+default-language: Haskell2010
+extensions: OverloadedStrings
+
+Листинг 39.3 Полезные при создании HTTP-запросов значения
+myToken :: BC.ByteString
+myToken = "<ваш API-токен>"
+noaaHost :: BC.ByteString
+noaaHost = "www.ncdc.noaa.gov"
+apiPath :: BC.ByteString
+apiPath = "/cdo-web/api/v2/datasets"
+
+Листинг 39.4 Заглушка для main
+main :: IO ()
+main = putStrLn "привет"
+
+Проверка 39.1. Если бы вы не стали указывать в cabal-файле расширение OverloadedStrings, 
+то какие бы изменения пришлось внести
+в Main.hs для поддержки этого расширения?
+
+Ответ 39.1. Вы могли бы воспользоваться директивой LANGUAGE:
+{-# LANGUAGE OverloadedStrings #-}
+
+
+GHCi> import Network.HTTP.Simple
+GHCi> response = httpLBS "http://news.ycombinator.com"
+
+GHCi> response
+<длинный ответ>
+
+Часто встречающиеся HTTP-коды
+Если вы незнакомы с кодами состояния HTTP, вот самые часто встречающиеся:
+‚ 200 OK — запрос был успешен;
+‚ 301 Moved Permanently — запрашиваемый ресурс перемещён;
+‚ 404 Not Found — ресурс не был найден.
+
+GHCi> getResponseStatusCode response
+<interactive>:6:23: error:
+No instance for (Control.Monad.IO.Class.MonadIO Response)
+arising from a use of ’response’
+
+getResponseStatusCode :: Response a -> Int
+а Network.HTTP.Simple
+
+GHCi> getResponseStatusCode <$> response
+200
+
+GHCi> :t getResponseStatusCode <$> response
+getResponseStatusCode <$> response
+:: Control.Monad.IO.Class.MonadIO f => f Int
+
+GHCi> response <- httpLBS "http://news.ycombinator.com"
+GHCi> getResponseStatusCode response
+200
+
+Проверка 39.2. В библиотеке есть функция getResponseHeader. Используя её вместе с <$> и <-, получите заголовок ответа.
+Ответ 39.2 Первый метод:
+  GHCi> import Network.HTTP.Simple
+  GHCi> response = httpLBS "http://news.ycombinator.com"
+  GHCi> getResponseHeader <$> response
+Второй метод:
+  GHCi> response <- httpLBS "http://news.ycombinator.com"
+  GHCi> getResponseHeader response
+
+Листинг 39.5 Код для создания HTTPS-запроса к API
+buildRequest :: BC.ByteString -> BC.ByteString
+                -> BC.ByteString -> BC.ByteString
+                -> Request
+buildRequest token host method path =
+     setRequestMethod method
+  $ setRequestHost host
+  $ setRequestHeader "token" [token]
+  $ setRequestPath path
+  $ setRequestSecure True
+  $ setRequestPort 443
+  $ defaultRequest
+
+request :: Request
+request = buildRequest myToken noaaHost "GET" apiPath
+
+GHCi> (*2) 2 + 2
+6
+GHCi> (*2) (2 + 2)
+8
+
+GHCi> (*2) $ 2 + 2
+8
+
+GHCi> head (map (++"!") ["dog","cat"])
+"dog!"
+GHCi> head $ map (++"!") ["dog","cat"]
+"dog!"
+($) :: (a -> b) -> a -> b
+
+GHCi> :t setRequestMethod
+setRequestMethod :: BC.ByteString -> Request -> Request
+
+GHCi> :t setRequestHeader
+setRequestHeader:: HeaderName -> [BC.ByteString] -> Request
+                                                 -> Request
+
+Листинг 39.6 Функция buildRequest с явным состоянием
+buildRequest token host method path =
+  let state1 = setRequestPort 443 defaultRequest
+  in let state2 = setRequestSecure True state1
+     in let state3 = setRequestPath path state2
+        in let state4 = setRequestHeader "token" [token] state3
+           in setRequestHost host state4
+
+Листинг 39.7 Финальная версия main с записью запроса в JSON-файл
+main :: IO ()
+main = do
+  response <- httpLBS request
+  let status = getResponseStatusCode response
+  if status == 200
+     then do
+        putStrLn "Результаты запроса были сохранены в файл"
+        let jsonBody = getResponseBody response
+        L.writeFile "data.json" jsonBody
+     else
+        putStrLn "Запрос не удалось совершить из-за ошибки"
+
+Работа с данными JSON с использованием Aeson
+
+{
+"reportRequests":[
+{
+"viewId":"XXXX",
+"dateRanges":[
+{
+"startDate":"2015-06-15",
+"endDate":"2015-06-30"
+}],
+"metrics":[
+{
+"expression":"ga:sessions"
+}],
+"dimensions": [
+{
+"name":"ga:browser"
+}]
+}]
+}
+
+data User =
+   User
+   { userId :: Int
+   , userName :: T.Text
+   , email :: T.Text
+   }
+
+Листинг 40.1 Файл Main.hs
+
+module Main where
+
+import Data.Aeson
+import Data.Text as T
+import Data.ByteString.Lazy as B
+import Data.ByteString.Lazy.Char8 as BC
+import GHC.Generics
+
+main :: IO ()
+main = print "привет"
+
+Листинг 40.2 Добавление зависимостей и включение расширений
+build-depends: base
+              , json-lesson
+              , aeson
+              , bytestring
+              , text
+default-language: Haskell2010
+extensions: OverloadedStrings
+            , DeriveGeneric
+
+decode :: FromJSON a => ByteString -> Maybe a
+eitherDecode :: FromJSON a => ByteString -> Either String a
+
+encode :: ToJSON a => a -> ByteString
+
+Экземпляры FromJSON и ToJSON для своих типов
+data Book = Book
+    { title :: T.Text
+    , author :: T.Text
+    , year :: Int
+    } deriving Show
+
+Листинг 40.4 Добавление deriving Generic к типу Book
+data Book = Book
+  { title :: T.Text
+  , author :: T.Text
+  , year :: Int
+  } deriving (Show,Generic)
+
+Листинг 40.5 Объявление Book экземпляром ToJSON и FromJSON
+instance FromJSON Book
+instance ToJSON Book
+
+Листинг 40.6 Преобразование Book в JSON
+myBook :: Book
+myBook = Book { author="Уилл Курт"
+              , title="Программируй на Haskell"
+              , year=2019}
+
+myBookJSON :: BC.ByteString
+myBookJSON = encode myBook
+
+GHCi> myBook
+Book {title = "Программируй на Haskell", author = "Уилл Курт",
+                                                               Ç year = 2019}
+GHCi> myBookJSON
+"{\"author\":\"Уилл Курт\",\"title\":
+Ç \"Программируй на Haskell\",\"year\":2019}"
+
+Листинг 40.7 Преобразование JSON книги в значение типа Book
+rawJSON :: BC.ByteString
+rawJSON = "{\"author\":\"Эмиль Чоран\",\"title\":
+                       \"Трактат о разложении основ\",\"year=1949}"
+
+bookFromJSON :: Maybe Book
+bookFromJSON = decode rawJSON
+
+GHCi> bookFromJSON
+Just (Book { title = "Трактат о разложении основ"
+             , author = "Эмиль Чоран"
+             , year = 1949})
+
+Листинг 40.8 Объект JSON, который не соответствует нужному типу
+wrongJSON :: BC.ByteString
+wrongJSON = "{\"writer\":\"Эмиль Чоран\",\"title\":
+                Ç \"Трактат о разложении основ\",\"year\"=1949}"
+
+bookFromWrongJSON :: Maybe Book
+bookFromWrongJSON = decode wrongJSON
+
+GHCi> bookFromWrongJSON
+Nothing
+
+GHCi> eitherDecode wrongJSON :: Either String Book
+Left "Error in $: The key \"author\" was not found"
+
+Проверка 40.2. Воспользуйтесь Generic для реализации ToJSON
+и FromJSON для этого типа:
+data Name = Name
+  { firstName :: T.Text
+  , lastName :: T.Text
+  } deriving (Show)
+
+Ответ 40.2
+data Name = Name
+   { firstName :: T.Text
+   , lastName :: T.Text
+   } deriving (Show,Generic)
+instance FromJSON Name
+instance ToJSON Name
+
+Написание собственных экземпляров FromJSON и ToJSON
+Листинг 40.9 Пример неподконтрольного вам объекта JSON
+sampleError :: BC.ByteString
+sampleError = "{\"message\":\"упс!\",\"error\": 123}"
+
+Листинг 40.10 Проблема с созданием JSON-модели на Haskell
+data ErrorMessage = ErrorMessage
+   { message :: T.Text
+   , error :: Int
+   } deriving Show
+
+Листинг 40.11 Тип, который не соответствует оригинальному JSON
+data ErrorMessage = ErrorMessage
+   { message :: T.Text
+   , errorCode :: Int
+   } deriving Show
+
+Листинг 40.12 Реализация экземпляра FromJSON для ErrorMessage
+instance FromJSON ErrorMessage where
+   parseJSON (Object v) =
+       ErrorMessage <$> v .: "message"
+                    <*> v .: "error"
+
+parseJSON (Object v)
+
+ErrorMessage <$> значение <*> значение
+Листинг 40.13 Создаём ErrorMessage в контексте Maybe
+exampleMessage :: Maybe T.Text
+exampleMessage = Just "упс!"
+
+exampleError :: Maybe Int
+exampleError = Just 123
+
+GHCi> ErrorMessage <$> exampleMessage <*> exampleError
+Just (ErrorMessage {message = "упс!", errorCode = 123})
+
+(.:) :: FromJSON a => Object -> Text -> Parser a
+v .: "message"
+
+Проверка 40.3. Сделайте Name экземпляром FromJSON без Generic:
+data Name = Name
+     { firstName :: T.Text
+     , lastName :: T.Text
+     } deriving (Show)
+
+Ответ 40.3
+instance FromJSON Name where
+parseJSON (Object v) =
+Name <$> v .: "firstName"
+<*> v .: "lastName"
+
+Листинг 40.14 Разбор JSON в тип ErrorMessage
+
+sampleErrorMessage :: Maybe ErrorMessage
+sampleErrorMessage = decode sampleError
+
+В GHCi вы можете убедиться, что всё работает так, как предполагалось:
+
+GHCi> sampleErrorMessage
+Just (ErrorMessage {message = "упс!", errorCode = 123})
+
+Теперь нужно проделать обратное преобразование. Синтаксис для создания сообщений немного другой:
+
+instance ToJSON ErrorMessage where
+   toJSON (ErrorMessage message errorCode) =
+       object [ "message" .= message
+              , "error" .= errorCode
+              ]
+
+toJSON (ErrorMessage message errorCode)
+
+object [ "message" .= message
+         , "error" .= errorCode
+       ]
+
+Проверка 40.4. Наконец, сделайте Name экземпляром ToJSON без использования Generic:
+data Name = Name
+  { firstName :: T.Text
+   , lastName :: T.Text
+  } deriving (Show)
+
+Ответ 40.4
+instance ToJSON Name where
+    toJSON (Name firstName lastName) =
+    object [ "firstName" .= firstName
+             , "lastName" .= lastName
+           ]
+
+Листинг 40.15 Сообщение об ошибке для преобразования в JSON
+anErrorMessage :: ErrorMessage
+anErrorMessage = ErrorMessage "Всё прекрасно" 0
+
+GHCi> encode anErrorMessage
+"{\"error\":0,\"message\":\"Всё прекрасно\"}"
+
+Чтение данных, полученных от NOAA
+Листинг 40.16 JSON, полученный от NOAA
+{
+"metadata":{
+"resultset":{
+"offset":1,
+"count":11,
+"limit":25
+}
+},
+"results":[
+{
+"uid":"gov.noaa.ncdc:C00861",
+"mindate":"1763-01-01",
+"maxdate":"2017-02-01",
+"name":"Daily Summaries",
+"datacoverage":1,
+"id":"GHCND"
+},
+.....
+
+Листинг 40.17 Тип NOAAResult с названиями наборов данных
+data NOAAResult = NOAAResult { uid :: T.Text
+                               , mindate :: T.Text
+                               , maxdate :: T.Text
+                               , name :: T.Text
+                               , datacoverage :: Int
+                               , resultId :: T.Text
+                              } deriving Show
+
+Листинг 40.18 Определение экземпляра FromJSON для NOAAResult
+instance FromJSON NOAAResult where
+   parseJSON (Object v) =
+      NOAAResult <$> v .: "uid"
+                 <*> v .: "mindate"
+                 <*> v .: "maxdate"
+                 <*> v .: "name"
+                 <*> v .: "datacoverage"
+                 <*> v .: "id"
+
+Листинг 40.19 Тип Resultset с порождением экземпляра FromJSON
+data Resultset = Resultset { offset :: Int
+                             , count :: Int
+                             , limit :: Int
+                           } deriving (Show,Generic)
+instance FromJSON Resultset
+
+Листинг 40.20 Тип Metadata с порождением экземпляра FromJSON
+data Metadata = Metadata { resultset :: Resultset
+                         } deriving (Show,Generic)
+instance FromJSON Metadata
+
+Листинг 40.21 Соединение описанных типов в NOAAResponse
+data NOAAResponse = NOAAResponse
+                    { metadata :: Metadata
+                      , results :: [NOAAResult]
+                    } deriving (Show,Generic)
+instance FromJSON NOAAResponse
+
+Листинг 40.22 Вывод результатов
+printResults :: Maybe [NOAAResult] -> IO ()
+printResults Nothing = putStrLn "ошибка загрузки данных"
+printResults (Just results) = forM_ results (print . name)
+
+Листинг 40.23 Соединение всего написанного в функциии main
+main :: IO ()
+main = do
+  jsonData <- B.readFile "data.json"
+  let noaaResponse = decode jsonData :: Maybe NOAAResponse
+  let noaaResults = results <$> noaaResponse
+  printResults noaaResults
+
+GHCi> main
+"Daily Summaries"
+"Global Summary of the Month"
+"Global Summary of the Year"
+"Weather Radar (Level II)"
+"Weather Radar (Level III)"
+"Normals Annual/Seasonal"
+"Normals Daily"
+"Normals Hourly"
+"Normals Monthly"
+"Precipitation 15 Minute"
+"Precipitation Hourly"
+
+Использование баз данных в Haskell
+CRUD, которые обычно ассоциируются с работой с БД и включают в себя:
+‚ create — добавление новых данных в базу;
+‚ read — запрос данных из базы;
+‚ update — модификация существующей в базе данных информации;
+‚ delete — удаление данных из базы.
+
+Листинг 41.1 Первоначальная версия app/Main.hs
+module Main where
+
+import Control.Applicative
+import Database.SQLite.Simple
+import Database.SQLite.Simple.FromRow
+import Data.Time
+
+main :: IO ()
+main = print "db-lesson"
+
+Листинг 41.2 Изменение списка зависимостей в db-lesson.cabal
+build-depends: base
+               , db-notes
+               , time
+               , sqlite-simple
+
+Листинг 41.3 Расширение OverloadedStrings в db-lesson.cabal
+extensions: OverloadedStrings
+
+Листинг 41.4 Код для создания базы данных
+DROP TABLE IF EXISTS checkedout;
+DROP TABLE IF EXISTS tools;
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+id INTEGER PRIMARY KEY,
+username TEXT
+);
+CREATE TABLE tools (
+id INTEGER PRIMARY KEY,
+name TEXT,
+description TEXT,
+lastReturned TEXT,
+timesBorrowed INTEGER
+);
+CREATE TABLE checkedout (
+user_id INTEGER,
+tool_id INTEGER
+);
+INSERT INTO users (username) VALUES (’уиллкурт’);
+INSERT INTO tools (name,description,lastReturned,timesBorrowed)
+VALUES (’молоток’,’забивает всякое’,’2017-01-01’,0);
+INSERT INTO tools (name,description,lastReturned,timesBorrowed)
+VALUES (’пила’,’пилит разное’,’2017-01-01’,0);
+
+$ sqlite3 tools.db < build_db.sql
+
+$ sqlite3 tools.db
+sqlite> select * from tools;
+1|молоток|забивает всякое|2017-01-01|0
+2|пила|пилит разное|2017-01-01|0
+
+Листинг 41.5 Определение типа Tool из app/Main.hs
+data Tool = Tool { toolId :: Int
+                 , name :: String
+                 , description :: String
+                 , lastReturned :: Day
+                 , timesBorrowed :: Int
+                 }
+
+GHCi> getCurrentTime
+2017-02-26 07:05:12.218684 UTC
+GHCi> utctDay <$> getCurrentTime
+2017-02-26
+
+Листинг 41.6 Тип User
+data User = User { userId :: Int
+                   , userName :: String
+                 }
+
+Листинг 41.7 Написание экземпляров User и Tool для Show
+instance Show User where
+show user = mconcat [ show $ userId user
+, ".) "
+, userName user]
+instance Show Tool where
+show tool = mconcat [ show $ toolId tool
+                      , ".) "
+                      , name tool
+                      , "\n описание: "
+                      , description tool
+                      , "\n последний раз возвращено: "
+                      , show $ lastReturned tool
+                      , "\n количество раз сдано в аренду: "
+                      , show $ timesBorrowed tool
+                      , "\n"]
+
+1.) уиллкурт
+1.) молоток
+описание: забивает всякое
+последний раз возвращено: 2017-01-01
+количество раз сдано в аренду: 0
+
+Листинг 41.8 Соединение с БД и вставка данных пользователя
+addUser :: String -> IO ()
+addUser userName = do
+    conn <- open "tools.db"
+    execute conn "INSERT INTO users (username) VALUES (?)"
+            (Only userName)
+    putStrLn "пользователь добавлен"
+    close conn
+
+Листинг 41.9 Абстрагирование соединения с базой данных
+withConn :: String -> (Connection -> IO ()) -> IO ()
+withConn dbName action = do
+   conn <- open dbName
+   action conn
+   close conn
+
+Проверка 41.2. Перепишите addUser, воспользовавшись withConn.
+Ответ 41.2
+addUser :: String -> IO ()
+addUser userName =
+   withConn "tools.db" $
+    \conn -> do
+       execute conn "INSERT INTO users (username) VALUES (?)"
+               (Only userName)
+   putStrLn "пользователь добавлен"
+
+Листинг 41.10 Вставка записи об аренде
+checkout :: Int -> Int -> IO ()
+checkout userId toolId =
+   withConn "tools.db" $
+     \conn ->
+        execute conn "INSERT INTO checkedout (user_id, tool_id)
+                      VALUES (?,?)" (userId, toolId)
+
+Чтение данных из БД и класс типов FromRow
+
+Листинг 41.11 Определение класса типов FromRow
+class FromRow a where
+   fromRow :: RowParser a
+
+Листинг 41.12 Написание реализаций FromRow для User и Tool
+instance FromRow User where
+fromRow = User <$> field
+               <*> field
+
+instance FromRow Tool where
+fromRow = Tool <$> field
+               <*> field
+               <*> field
+               <*> field
+               <*> field
+
+Получение списков пользователей и инструментов
+query :: (FromRow r, ToRow q) =>
+Ç Connection -> Query -> q -> IO [r]
+query_ :: FromRow r => Connection -> Query -> IO [r]
+
+Проверка 41.3. Зачем требуется две функции query и query_?
+Ответ 41.3. В основном из-за того, как Haskell работает с типами,
+в нём не поддерживается переменное количество аргументов. Альтернативой написанию нескольких функций может служить тип-сумма
+для представления обоих наборов аргументов и сопоставлением с образцом в определении функции.
+
+Листинг 41.13 Печать пользователей из базы данных
+printUsers :: IO ()
+printUsers =
+  withConn "tools.db" $
+    \conn -> do
+       resp <- query_ conn "SELECT * FROM users;" :: IO [User]
+       mapM_ print resp
+
+GHCi> printUsers
+1.) уиллкурт
+GHCi> addUser "тестовый пользователь"
+пользователь добавлен
+GHCi> printUsers
+1.) уиллкурт
+2.) тестовый пользователь
+
+
+Листинг 41.14 Функции запросов на вывод списков инструментов
+printToolQuery :: Query -> IO ()
+printToolQuery q = withConn "tools.db" $
+                   \conn -> do
+                      resp <- query_ conn q :: IO [Tool]
+                      mapM_ print resp
+
+printTools :: IO ()
+printTools = printToolQuery "SELECT * FROM tools;"
+
+printAvailable :: IO ()
+printAvailable = printToolQuery $
+     mconcat [ "select * from tools "
+               , "where id not in "
+               , "(select tool_id from checkedout);"]
+
+printCheckedout :: IO ()
+printCheckedout = printToolQuery $
+mconcat [ "select * from tools "
+        , "where id in "
+        , "(select tool_id from checkedout);"]
+
+GHCi> printTools
+1.) молоток
+описание: забивает всякое
+последний раз возвращено: 2017-01-01
+количество раз сдано в аренду: 0
+2.) пила
+описание: пилит разное
+последний раз возвращено: 2017-01-01
+количество раз сдано в аренду: 0
+GHCi> checkout 1 2
+GHCi> printCheckedout
+2.) пила
+описание: пилит разное
+последний раз возвращено: 2017-01-01
+количество раз сдано в аренду: 0
+
+Листинг 41.15 Безопасная выборка значения Tool, найденного по ID
+selectTool :: Connection -> Int -> IO (Maybe Tool)
+selectTool conn toolId = do
+    resp <- query conn
+            "SELECT * FROM tools WHERE id = (?)"
+            (Only toolId) :: IO [Tool]
+    return $ firstOrNothing resp
+
+firstOrNothing :: [a] -> Maybe a
+firstOrNothing [] = Nothing
+firstOrNothing (x:_) = Just x
+
+Листинг 41.16 Обновление информации об инструменте
+updateTool :: Tool -> Day -> Tool
+updateTool tool date = tool
+  { lastReturned = date
+  , timesBorrowed = 1 + timesBorrowed tool
+  }
+
+Листинг 41.17 Безопасное обновление базы данных
+updateOrWarn :: Maybe Tool -> IO ()
+updateOrWarn Nothing = putStrLn "id не был найден"
+updateOrWarn (Just tool) =
+  withConn "tools.db" $
+    \conn -> do
+      let q = mconcat [ "UPDATE TOOLS SET "
+                      , "lastReturned = ?,"
+                      , " timesBorrowed = ? "
+                      , "WHERE ID = ?;"]
+      execute conn q (lastReturned tool,
+                      timesBorrowed tool,
+                      toolId tool)
+      putStrLn "данные об инструменте обновлены"
+
+Листинг 41.18 Функция updateToolTable обновляет БД
+updateToolTable :: Int -> IO ()
+updateToolTable toolId =
+  withConn "tools.db" $
+    \conn -> do
+       tool <- selectTool conn toolId
+       currentDay <- utctDay <$> getCurrentTime
+       let updatedTool = updateTool <$> tool
+                                    <*> pure currentDay
+       updateOrWarn updatedTool
+
+instance ToRow Tool where
+toRow tool =
+  [ SQLInteger $ fromIntegral $ toolId tool
+  , SQLText $ T.pack $ name tool
+  , SQLText $ T.pack $ description tool
+  , SQLText $ T.pack $ show $ lastReturned tool
+  , SQLInteger $ fromIntegral $ timesBorrowed tool ]
+
+Листинг 41.19 Возвращение инструмента в функции checkin
+checkin :: Int -> IO ()
+checkin toolId =
+   withConn "tools.db" $ \conn ->
+      execute conn
+              "DELETE FROM checkedout WHERE tool_id = (?);"
+              (Only toolId)
+
+Листинг 41.20 Полное обновление информации об инструменте
+checkinAndUpdate :: Int -> IO ()
+checkinAndUpdate toolId = do
+   checkin toolId
+   updateToolTable toolId
+
+Листинг 41.21 Организация взаимодействия с БД
+promptAndAddUser :: IO ()
+promptAndAddUser = do
+    putStrLn "Введите имя нового пользователя:"
+    userName <- getLine
+    addUser userName
+
+promptAndCheckout :: IO ()
+promptAndCheckout = do
+    putStrLn "Введите ID пользователя:"
+    userId <- pure read <*> getLine
+    putStrLn "Введите ID инструмента:"
+    toolId <- pure read <*> getLine
+    checkout userId toolId
+
+promptAndCheckin :: IO ()
+promptAndCheckin = do
+   putStrLn "Введите ID инструмента:"
+   toolId <- pure read <*> getLine
+   checkinAndUpdate toolId
+
+Листинг 41.22 Пользовательский интерфейс в командной строке
+performCommand :: String -> IO ()
+performCommand "users" = printUsers >> main
+performCommand "tools" = printTools >> main
+performCommand "adduser" = promptAndAddUser >> main
+performCommand "checkout" = promptAndCheckout >> main
+performCommand "checkin" = promptAndCheckin >> main
+performCommand "in" = printAvailable >> main
+performCommand "out" = printCheckedout >> main
+performCommand "quit" = putStrLn "Чао!"
+performCommand _ = putStrLn "Команда не найдена" >> main
+
+Листинг 41.23 Окончательная версия IO-действия main
+main :: IO ()
+main = do
+  putStrLn "Введите команду:"
+  command <- getLine
+  performCommand command
+
+$ stack exec db-lesson-exe
+Введите команду:
+users
+1.) уиллкурт
+Введите команду:
+adduser
+Введите имя нового пользователя:
+test user
+пользователь добавлен
+Введите команду:
+tools
+1.) молоток
+описание: забивает всякое
+последний раз возвращено: 2017-01-01
+количество раз сдано в аренду: 0
+2.) пила
+описание: пилит разное
+последний раз возвращено: 2017-01-01
+количество раз сдано в аренду: 0
+Введите команду:
+checkout
+Введите ID пользователя:
+1
+Введите ID инструмента:
+2
+Введите команду:
+out
+2.) пила
+описание: пилит разное
+последний раз возвращено: 2017-01-01
+количество раз сдано в аренду: 0
+Введите команду:
+checkin
+Введите ID инструмента:
+2
+данные об инструменте обновлены
+Введите команду:
+in
+1.) молоток
+описание: забивает всякое
+последний раз возвращено: 2017-01-01
+количество раз сдано в аренду: 0
+2.) пила
+описание: пилит разное
+последний раз возвращено: 2017-02-26
+количество раз сдано в аренду: 1
+Введите команду:
+quit
+Чао!
+
+Эффективные массивы с изменением состояния
+в Haskell
+
+data MyList a = EmptyList | Cons a (MyList a)
+
+Листинг 42.1 Пример списка из 10 миллионов элементов
+  aLargeList :: [Int]
+  aLargeList = [1 .. 10000000]
+
+GHCi> :set +s
+GHCi> aLargeList !! 9999999
+10000000
+(0.05 secs, 460,064 bytes)
+
+Листинг 42.2 Массив типа UArray с 10 миллионами элементов
+aLargeArray :: UArray Int Int
+aLargeArray = array (0,9999999) []
+
+GHCi> aLargeArray ! 9999999
+0
+(0.00 secs, 456,024 bytes)
+
+Листинг 42.3 Удвоение значений в списке и производительность
+aLargeListDoubled :: [Int]
+aLargeListDoubled = map (*2) aLargeList
+
+GHCi> length aLargeListDoubled
+10000000
+(1.58 secs, 1,680,461,376 bytes)
+
+GHCi> length aLargeListDoubled
+10000000
+(0.07 secs, 459,840 bytes)
+
+Листинг 42.4 Создание массива Bool, индексируемого с нуля
+zeroIndexArray :: UArray Int Bool
+zeroIndexArray = array (0,9) [(3,True)]
+
+GHCi> zeroIndexArray ! 5
+False
+GHCi> zeroIndexArray ! 3
+True
+
+Листинг 42.5 Массив, индексируемый с единицы
+oneIndexArray :: UArray Int Bool
+oneIndexArray = array (1,10) $ zip [1 .. 10] $ cycle [True]
+
+GHCi> oneIndexArray ! 1
+True
+GHCi> oneIndexArray ! 10
+True
+
+GHCi> oneIndexArray ! 0
+*** Exception: Ix{Int}.index: Index (0) out of range ((1,10))
+
+Проверка 42.1. Создайте массив qcArray типа UArray Int Bool, содержащий пять элементов, индексируемый с нуля и такой, чтобы его
+второй и третий элементы были равны True.
+
+Ответ 42.1
+qcArray :: UArray Int Bool
+qcArray = array (0,4) [(1,True),(2,True)]
+
+Листинг 42.6 Массив UArray, представляющий бобы в корзинках
+beansInBuckets :: UArray Int Int
+beansInBuckets = array (0,3) []
+
+GHCi> beansInBuckets ! 0
+0
+GHCi> beansInBuckets ! 2
+0
+
+Проверка 42.2. Не полагаясь на умолчания, явно укажите, что массив
+следует инициализировать нулями.
+Ответ 42.2
+beansInBuckets’ :: UArray Int Int
+beansInBuckets’ = array (0,3) $ zip [0 .. 3] $ cycle [0]
+
+Листинг 42.7 Изменение UArray с помощью операции //
+updatedBiB :: UArray Int Int
+updatedBiB = beansInBuckets // [(1,5),(3,6)]
+
+GHCi> updatedBiB ! 1
+5
+GHCi> updatedBiB ! 2
+0
+GHCi> updatedBiB ! 3
+6
+
+GHCi> accum (+) updatedBiB $ zip [0 .. 3] $ cycle [2]
+array (0,3) [(0,2),(1,7),(2,2),(3,8)]
+
+Проверка 42.3. Увеличьте число бобов в каждой корзинке втрое.
+Ответ 42.3
+accum (*) updatedBiB $ zip [0 .. 3] $ cycle [3]
+
+Изменение состояния с помощью STUArray
+import Data.Array.ST
+import Control.Monad
+import Control.Monad.ST
+
+Листинг 42.8 Первый набросок listToSTUArray
+listToSTUArray :: [Int] -> ST s (STUArray s Int Int)
+listToSTUArray vals = do
+   let end = length vals - 1
+   stArray <- newArray (0,end) 0
+   return stArray
+
+Листинг 42.9 Копирование содержимого списка в STUArray
+listToSTUArray :: [Int] -> ST s (STUArray s Int Int)
+listToSTUArray vals = do
+  let end = length vals - 1
+  myArray <- newArray (0,end) 0
+  forM_ [0 .. end] $ \i -> do
+     let val = vals !! i
+     writeArray myArray i val
+  return myArray
+
+GHCi> listToSTUArray [1,2,3]
+<<ST action>>
+
+runSTUArray :: ST s (STUArray s i e) -> UArray i e
+Листинг 42.10 Чистая функция listToUArray
+
+listToUArray :: [Int] -> UArray Int Int
+listToUArray vals = runSTUArray $ listToSTUArray vals
+
+GHCi> listToUArray [1,2,3]
+array (0,2) [(0,1),(1,2),(2,3)]
+
+Листинг 42.11 Обычный метод работы с STUArray и runSTUArray
+listToUArray :: [Int] -> UArray Int Int
+listToUArray vals = runSTUArray $ do
+  let end = length vals - 1
+  myArray <- newArray (0,end) 0
+  forM_ [0 .. end] $ \i -> do
+      let val = vals !! i
+      writeArray myArray i val
+  return myArray
+
+swapST :: (Int,Int) -> (Int,Int)
+swapST (x,y) = runST $ do
+  x’ <- newSTRef x
+  y’ <- newSTRef y
+  writeSTRef x’ y
+  writeSTRef y’ x
+  xfinal <- readSTRef x’
+  yfinal <- readSTRef y’
+  return (xfinal,yfinal)
+
+Листинг 42.12 Тестовый массив, созданный с помощью listArray
+myData :: UArray Int Int
+myData = listArray (0,5) [7,6,4,8,10,2]
+
+Проверка 42.4. Определите myData, пользуясь listToUArray
+Ответ 42.4
+myData’ :: UArray Int Int
+myData’ = listToUArray [7,6,4,8,10,2]
+
+Листинг 42.13 Реализация сортировки методом пузырька
+bubbleSort :: UArray Int Int -> UArray Int Int
+bubbleSort myArray = runSTUArray $ do
+    stArray <- thaw myArray
+    let end = (snd . bounds) myArray
+    forM_ [1 .. end] $ \i -> do
+        forM_ [0 .. (end - i)] $ \j -> do
+            val <- readArray stArray j
+            nextVal <- readArray stArray (j + 1)
+            let outOfOrder = val > nextVal
+            when outOfOrder $ do
+                 writeArray stArray j nextVal
+                 writeArray stArray (j + 1) val
+    return stArray
+
+GHCi> bubbleSort myData
+array (0,5) [(0,2),(1,4),(2,6),(3,7),(4,8),(5,10)]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
