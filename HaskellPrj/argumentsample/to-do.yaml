@@ -1,0 +1,23 @@
+TODO:
+- improve output of tables in results:
+    expecting a permutation of "five", 2 and 1, but got {1=1, 2=2, 3="five"} bzzt
+    expecting a permutation of "five", 2 and 1, but got {1, 2, "five"} ding ding ding!
+- add a have matcher, with support for items etc
+    expect (set).should_have (10).members
+    expect (coven).should_have (13).witches
+- add less_than matcher (with automatic greater_than support
+  in expect?)
+- add support for shared_examples: |
+    shared_examples for any pizza:
+      it has lots of cheese: expect (cheese).should_be ("lots")
+    describe new york pizza:
+      it behaves like: any pizza
+- add support for automatic subject: |
+    Stack:
+      [[implied -> before: subject = Stack {}]]
+- add support for automatic require: |
+    module:
+      [[implied -> before: module = require "module"]]
+- report line numbers of pending and failed examples:
+    it is quite likely libyaml will need patching to make this happen
+- add an lfs implementation of util.files if luaposix is not loadable
