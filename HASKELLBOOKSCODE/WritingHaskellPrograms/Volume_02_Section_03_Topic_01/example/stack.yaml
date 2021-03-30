@@ -1,0 +1,6 @@
+resolver: lts-7.8
+packages:
+- .
+- ../local-package
+extra-deps:
+- blockhash-0.1.0.0
