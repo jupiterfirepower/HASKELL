@@ -52,17 +52,28 @@ GHCi> :l first_prog.hs
 [1 of 1] Compiling Main ( first_prog.hs, interpreted)
 Ok, modules loaded: Main.
 
+messyMain :: IO ()
+messyMain = do
+putStrLn "Кто получатель этого письма?"
+recipient <- getLine
+putStrLn "Название книги:"
+title <- getLine
+putStrLn "Кто автор этого письма?"
+author <- getLine
+putStrLn ("Дорогой " ++ recipient ++ "!\n"
+++ "Спасибо за то, что купили \""
+
 GHCi> messyMain
 Кто получатель этого письма?
-×èòàòåëü
-Íàçâàíèå êíèãè:
-Ïðîãðàììèðóé íà Haskell
-Êòî àâòîð ýòîãî ïèñüìà?
-Óèëë
-Äîðîãîé ×èòàòåëü!
-Ñïàñèáî çà òî, ÷òî êóïèëè "Ïðîãðàììèðóé íà Haskell"!
-Ñ óâàæåíèåì,
-Óèëë
+Читатель
+Название книги:
+Программируй на Haskell
+Кто автор этого письма?
+Уилл
+Дорогой Читатель!
+Спасибо за то, что купили "Программируй на Haskell"!
+С уважением,
+Уилл
 
 simple x = x
 
@@ -300,7 +311,7 @@ Prelude Data.List> addressLetter ("Bob", "Smith") "PO Box 1234, San Francisco, C
 "Bob Smith - PO Box 1234, San Francisco, CA 94111"
 
 sfOffice name =
-   if lastName < "Ë"
+   if lastName < "Л"
    then nameText ++
         " - А/я 1234, Сан-Франциско, штат Калифорния, 94111"
    else nameText ++
@@ -456,17 +467,17 @@ GHCi> (1,2):(3,4):(5,6):[]
 GHCi> 1:[2,3,4]
 [1,2,3,4]
 
-GHCi>[’п’,’р’,’и’,’в’,’е’,’т’]
+GHCi>['п','р','и','в','е','т']
 "привет"
-GHCi> ’п’:’р’:’и’:’в’:’е’:’т’:[]
+GHCi> 'п':'р':'и':'в':'е':'т':[]
 "привет"
 
-GHCi> ’п’:"ривет"
+GHCi> 'п':"ривет"
 "привет"
 
 GHCi> "п":"ривет"
-GHCi> [’п’]:[’р’,’и’,’в’,’е’,’т’]
-GHCi> ’п’:[]:’р’:’и’:’в’:’е’:’’т":[]
+GHCi> ['п']:['р','и','в','е','т']
+GHCi> 'п':[]:'р':'и':'в':'е':'т']:[]
 
 GHCi> "п" ++ "ривет"
 "привет"
@@ -495,7 +506,7 @@ GHCi> backwardsInfinity problem
 GHCi> [1,2,3] !! 0
 1
 GHCi> "щенки" !! 3
-’к’
+'к'
 GHCi> [1..10] !! 11
 *** Exception: Prelude.!!: index too large
 
@@ -504,11 +515,11 @@ GHCi> (!!) [1,2,3] 0
 
 GHCi> paExample1 = (!!) "собака"
 GHCi> paExample1 2
-’б’
+'б'
 сечение
 GHCi> paExample2 = ("собака" !!)
 GHCi> paExample2 2
-’б’
+'б'
 
 GHCi> length [1..20]
 20
@@ -534,10 +545,10 @@ True
 
 GHCi> elem 13 [0,13 .. 100]
 True
-GHCi> elem ’п’ " сыр"
+GHCi> elem 'п' " сыр"
 False
 
-respond phrase = if ’!’ ‘elem‘ phrase
+respond phrase = if '!' 'elem' phrase
                  then "Ого!"
                  else "Ну, ок"
 GHCi> respond "привет"
@@ -554,6 +565,7 @@ GHCi> take 1000000 [1]
 [1]
 
 takeLast n aList = reverse (take n (reverse aList))
+
 GHCi> takeLast 10 [1..100]
 [91,92,93,94,95,96,97,98,99,100]
 
@@ -564,10 +576,12 @@ GHCi> drop 6 "Очень здорово"
 
 GHCi> zip [1,2,3] [2,4,6]
 [(1,2),(2,4),(3,6)]
-GHCi> zip "пёс" "кролик"
-[(’п’,’к’),(’ё’,’р’),(’с’,’о’)]
-GHCi> zip [’a’ .. ’f’] [1 .. ]
-[(’a’,1),(’b’,2),(’c’,3),(’d’,4),(’e’,5),(’f’,6)]
+
+GHCi> zip "dog" "rabbit"
+[('d','r'),('o','a'),('g','b')]
+
+GHCi> zip ['a' .. 'f'] [1 .. ]
+[('a',1),('b',2),('c',3),('d',4),('e',5),('f',6)]
 
 ones n = take n (cycle [1])
 GHCi> ones 2
@@ -576,15 +590,16 @@ GHCi> ones 4
 [1,1,1,1]
 
 assignToGroups n aList = zip groups aList
-where groups = cycle [1..n]
-GHCi> assignToGroups 3 ["файл1.txt","файл2.txt","файл3.txt"
- ,"файл4.txt","файл5.txt","файл6.txt"
- ,"файл7.txt","файл8.txt","файл9.txt"]
-[(1,"файл1.txt"),(2,"файл2.txt"),(3,"файл3.txt"),
-Ç (1,"файл4.txt"),(2,"файл5.txt"),(3,"файл6.txt"),
-Ç (1,"файл7.txt"),(2,"файл8.txt"),(3,"файл9.txt")]
-GHCi> assignToGroups 2 ["Боб","Кэт","Сью","Джоан","Майк"]
-[(1,"Боб"),(2,"Кэт"),(1,"Сью"),(2,"Джоан"),(1,"Майк")]
+      where groups = cycle [1..n]
+
+GHCi> assignToGroups 3 ["file1.txt","file2.txt","file3.txt","file4.txt","file5.txt","file6.txt","file7.txt","file8.txt","file9.txt"]
+
+[(1,"file1.txt"),(2,"file2.txt"),(3,"file3.txt"),
+ (1,"file4.txt"),(2,"file5.txt"),(3,"file6.txt"),
+ (1,"file7.txt"),(2,"file8.txt"),(3,"file9.txt")]
+
+GHCi> assignToGroups 2 ["Bob", "Cat", "Sue", "Joan", "Mike"]
+[(1,"Bob"),(2,"Cat"),(1,"Sue"),(2,"Joan"),(1,"Mike")]
 
 GHCi> take 3 [1,2,3,4]
 [1,2,3]
@@ -633,9 +648,12 @@ myLength (x:xs) = 1 + myLength xs
 myTake _ [] = []
 myTake 0 _ = []
 myTake n (x:xs) = x:rest
-where rest = myTake (n - 1) xs
+   where rest = myTake (n - 1) xs
 
 finiteCycle (first:rest) = first:rest ++ [first]
+Prelude> finiteCycle [1,2,3,4]
+[1,2,3,4,1]
+
 myCycle (first:rest) = first : myCycle (rest++[first])
 
 ackermann 0 n = n + 1
@@ -655,9 +673,9 @@ GHCi> ackermann 3 9
 
 collatz 1 = 1
 collatz n =
-if even n
-then 1 + collatz (n ‘div‘ 2)
-else 1 + collatz (n*3 + 1)
+      if even n
+      then 1 + collatz (n ‘div‘ 2)
+      else 1 + collatz (n*3 + 1)
 
 GHCi> collatz 9
 20
@@ -682,14 +700,29 @@ mul3ByAll (x:xs) = (3 * x) : mul3ByAll xs
 
 GHCi> map reverse ["собака", "кот", "лось"]
 ["акабос","ток","ьсол"]
+
+Prelude> map reverse ["dog", "cat", "elk"]
+["god","tac","kle"]
+
 GHCi> map head ["собака", "кот", "лось"]
 "скл"
+
+Prelude> map head ["dog", "cat", "elk"]
+"dce"
+
 GHCi> map (take 4) ["тыква", "пирог", "арахисовое масло"]
 ["такв","пиро","арах"]
 
+Prelude> map (take 4) ["pumpkin", "pie", "peanut butter"]
+["pump","pie","pean"]
+
 GHCi> map (++"!") ["поезд","самолёт","лодка"]
 ["поезд!","самолёт!","лодка!"]
-GHCi> map (^2) [1,2,3] [1,4,9]
+
+Prelude> map (++ "!") ["train", "plane", "boat"]
+["train!","plane!","boat!"]
+
+Prelude> map (^2) [1,2,3]
 [1,4,9]
 
 addBang [] = []
@@ -703,8 +736,11 @@ myMap f (x:xs) = (f x) : myMap f xs
 
 GHCi> filter even [1,2,3,4]
 [2,4]
-GHCi> filter (\(x:xs) -> x == ’a’) ["арбуз","банан","авокадо"]
+GHCi> filter (\(x:xs) -> x == 'a') ["арбуз","банан","авокадо"]
 ["арбуз","авокадо"]
+
+Prelude> filter (\ (x: xs) -> x == 'b') ["watermelon", "banana", "avocado"]
+["banana"]
 
 myFilter test [] = []
 myFilter test (x:xs) = if test x
@@ -726,12 +762,18 @@ foldl (+) 10 [] = 10
 
 concatAll xs = foldl (++) "" xs
 
+Prelude> concatAll xs = foldl (++) "" xs
+Prelude> concatAll ["one", "two"]
+"onetwo"
+
 remove test [] = []
 remove test (x:xs) = if test x
                      then remove test xs
                      else x:remove test xs
 
-sumOfSquares xs = foldl (+) 0 (map (^2) xs)
+Prelude> sumOfSquares xs = foldl (+) 0 (map (^2) xs)
+Prelude> sumOfSquares [1,2,3]
+14
 
 rcons xs y = y:xs
 myReverse xs = foldl rcons [] xs
@@ -769,11 +811,21 @@ foldl
 foldl’ — неленивая версия
 foldr
 
+Объект с одним свойством: кружка кофе
 cup ml = \_ -> ml
 cup ml = \message -> message ml
+
 GHCi> aCup = cup 180
 coffeeCup = cup 500
+
+Добавление к объекту функций-аксессоров
+Листинг 10.3 Сообщение getMl
+
 getMl aCup = aCup (\ml -> ml)
+
+Чтобы использовать эту функцию, нужно передать это сообщение в объект:
+GHCi> getMl coffeeCup
+500
 GHCi> getMl coffeeCup
 500
 
@@ -944,7 +996,7 @@ GHCi> y^2000
 435528800822842770817965453762184851149029376
 
 letter :: Char
-letter = ’a’
+letter = 'a'
 
 interestRate :: Double
 interestRate = 0.375
@@ -959,7 +1011,7 @@ testScores :: [Double]
 testScores = [0.99,0.7,0.8]
 
 letters :: [Char]
-letters = [’a’,’b’,’c’]
+letters = ['a','b','c']
 
 GHCi> letters == "abc"
 True
@@ -990,12 +1042,12 @@ GHCi> 5/2
 2.5
 
 halve :: Integer -> Integer
-halve value = value ‘div‘ 2
+halve value = value `div` 2
 
 GHCi> show 6
 "6"
-GHCi> show ’c’
-"’c’"
+GHCi> show 'c'
+"'c'"
 GHCi> show 6.0
 "6.0"
 
@@ -1020,7 +1072,7 @@ makeAddress number street town = (number, street, town)
 
 makeAddressLambda = (\number ->
                       (\street ->
-                       (\town -> (number, street, town)))
+                         (\town -> (number, street, town))))
 
 GHCi> (((makeAddressLambda 123) "ул. Счастья") "Хаскельтаун")
 (123,"ул. Счастья","Хаскельтаун")
@@ -1121,8 +1173,8 @@ patientInfoV2 (fname, lname) age height = name ++ " " ++
 
 data Bool = True | False
 sexInitial :: Sex -> Char
-sexInitial Male = ’M’
-sexInitial Female = ’F’
+sexInitial Male = 'M'
+sexInitial Female = 'F'
 
 data RhType = Pos | Neg
 data ABOType = A | B | AB | O
@@ -1187,9 +1239,9 @@ GHCi> showName name2
 
 patientInfo :: String -> String -> Int -> Int -> String
 patientInfo fname lname age height = name ++ " " ++ ageHeight
-where name = lname ++ ", " ++ fname
-ageHeight = "(Возраст: " ++ show age ++
-            "; рост: " ++ show height ++ "см)"
+     where name = lname ++ ", " ++ fname
+                  ageHeight = "(Возраст: " ++ show age ++
+                  "; рост: " ++ show height ++ "см)"
 
 data Patient = Patient Name Sex Int Int Int BloodType
 
@@ -1310,8 +1362,10 @@ class Bounded a where
 
 GHCi> minBound :: Int
 -9223372036854775808
+
 GHCi> maxBound :: Int
 9223372036854775807
+
 GHCi> minBound :: Char
 ’\NUL’
 GHCi> maxBound :: Char
@@ -1371,6 +1425,14 @@ instance Show SixSidedDie where
    show S5 = "пять"
    show S6 = "шесть"
 
+instance Show SixSidedDie where
+   show S1 = "one"
+   show S2 = "two"
+   show S3 = "three"
+   show S4 = "four"
+   show S5 = "five"
+   show S6 = "six"
+
 GHCi> S1
 один
 GHCi> S2
@@ -1396,6 +1458,14 @@ show S4 = "четыре"
 show S5 = "пять"
 show S6 = "шесть"
 
+show :: SixSidedDie -> String
+show S1 = "one"
+show S2 = "two"
+show S3 = "three"
+show S4 = "four"
+show S5 = "five"
+show S6 = "six"
+
 "Ambiguous occurrence ’show’"
 
 data TwoSidedDie = One | Two
@@ -1404,10 +1474,16 @@ show :: TwoSidedDie -> String
 show One = "один"
 show Two = "два"
 
+show :: TwoSidedDie -> String
+show One = "one"
+show Two = "two"
+
 Multiple declarations of ’show’
 
-read "10" :: Int 10
-read "10" :: Double 10.0
+read "10" :: Int 
+10
+read "10" :: Double 
+10.0
 
 class Eq a where
   (==) :: a -> a -> Bool
@@ -1465,7 +1541,7 @@ GHCi> AAA < ZZZ
 False
 
 data SixSidedDie = S1 | S2 | S3 | S4 | S5 | S6
-   deriving (Show,Eq,Ord)
+   deriving (Show, Eq, Ord)
 
 class Enum a where
   succ :: a -> a
@@ -1494,20 +1570,20 @@ instance Enum SixSidedDie where
   fromEnum S6 = 5
 
 GHCi> [S1 .. S6]
-[îäèí,äâà,òðè,÷åòûðå,ïÿòü,øåñòü]
+[один,два,три,четыре,пять,шесть]
 
 GHCi> [S2,S4 .. S6]
-[äâà,÷åòûðå,øåñòü]
+[два,четыре,шесть]
 GHCi> [S4 .. S6]
-[÷åòûðå,ïÿòü,øåñòü]
+[четыре,пять,шесть]
 
 GHCi> [S1..]
-[îäèí,äâà,òðè,÷åòûðå,ïÿòü,øåñòü***
-                Exception: Òàêîãî çíà÷åíèÿ íåò
+[один,два,три,четыре,пять,шесть***
+          Exception: Такого значения нет
 
 data SixSidedDie = S1 | S2 | S3 | S4 | S5 | S6 deriving (Enum)
 GHCi> [S1..]
-[îäèí,äâà,òðè,÷åòûðå,ïÿòü,øåñòü]
+[один,два,три,четыре,пять,шесть]
 
 
 type Name = (String,String)
@@ -1517,10 +1593,21 @@ names = [("Иэн","Кертис"),
          ("Питер","Хук"),
          ("Стивен","Моррис")]
 
+type Name = (String, String)
+names :: [Name]
+names = [("Ian", "Curtis"),
+          ("Bernard", "Sumner"),
+          ("Peter", "Hook"),
+          ("Stephen", "Morris")]
+
 GHCi> import Data.List
 GHCi> sort names
 [("Бернард","Самнер"),("Иэн","Кертис"),("Питер","Хук"),
  ("Стивен","Моррис")]
+
+Prelude> import Data.List
+Prelude Data.List> sort names
+[("Bernard","Sumner"),("Ian","Curtis"),("Peter","Hook"),("Stephen","Morris")]
 
 instance Ord Name where
    compare (f1,l1) (f2,l2) = compare (l1,f1) (l2,f2)
@@ -1532,26 +1619,36 @@ instance Ord Name where
                                          compare (l1,f1) (l2,f2)
 
 names :: [Name]
-names = [("Иэн","Кертис"),
-         ("Бернард","Самнер"),
-         ("Питер","Хук"),
-         ("Стивен","Моррис")]
+names = [Name ("Иэн","Кертис"),
+         Name ("Бернард","Самнер"),
+         Name ("Питер","Хук"),
+         Name ("Стивен","Моррис")]
 
 GHCi> import Data.List
 GHCi> sort names
 [Name ("Иэн","Кертис"), Name ("Стивен","Моррис"),
  Name ("Бернард","Самнер"), Name ("Питер","Хук")]
 
+names :: [Name]
+names = [Name ("Ian", "Curtis"),
+         Name ("Bernard", "Sumner"),
+         Name ("Peter", "Hook"),
+         Name ("Stephen", "Morris")]
+
+Prelude> import Data.List
+Prelude Data.List> sort names
+[Name ("Ian","Curtis"), Name ("Peter","Hook"), Name ("Stephen","Morris"), Name ("Bernard","Sumner")]
+
 newtype Name = Name (String, String) deriving (Show, Eq)
 
 data FourLetterAlphabet = L1 | L2 | L3 | L4
-   deriving (Show,Enum,Bounded)
+        deriving (Show,Enum,Bounded)
 
 rotN :: (Bounded a, Enum a) => Int -> a -> a
 rotN alphabetSize c = toEnum rotation
-  where halfAlphabet = n ‘div‘ 2
+  where halfAlphabet = n `div` 2
       offset = fromEnum c + halfAlphabet
-      rotation = offset ‘mod‘ alphabetSize
+      rotation = offset `mod` alphabetSize
 
 GHCi> rotN 4 L1
 L3
@@ -1701,8 +1798,8 @@ intToBits’ 1 = [True]
 intToBits’ n = if (remainder == 0)
                then False : intToBits’ nextVal
                else True : intToBits’ nextVal
-where remainder = n ‘mod‘ 2
-      nextVal = n ‘div‘ 2
+where remainder = n `mod` 2
+      nextVal = n `div` 2
 
 GHCi> intToBits’ 2
 [False,True]
@@ -1736,12 +1833,12 @@ GHCi> bitsToInt (intToBits maxBound)
 bitsToChar :: Bits -> Char
 bitsToChar bits = toEnum (bitsToInt bits)
 
-GHCi> bitsToChar (charToBits ’a’)
-’a’
+GHCi> bitsToChar (charToBits 'a')
+'a'
 GHCi> bitsToChar (charToBits maxBound)
-’\1114111’
+'\1114111'
 GHCi> bitsToChar (charToBits minBound)
-’\NUL’
+'\NUL'
 
 myPad :: String
 myPad = "Shhhhhh"
@@ -1751,7 +1848,7 @@ myPlainText = "Haskell"
 
 applyOTP’ :: String -> String -> [Bits]
 applyOTP’ pad plaintext = map (\pair ->
-                                (fst pair) ‘xor‘ (snd pair))
+                                (fst pair) `xor` (snd pair))
                           (zip padBits plaintextBits)
 where padBits = map charToBits pad
       plaintextBits = map charToBits plaintext
@@ -1783,8 +1880,7 @@ instance Cipher Rot where
 
 GHCi> encode Rot "Haskell"
 "\557128\557153\557171\557163\557157\557164\557164"
-GHCi> decode Rot "\557128\557153\557171\557163\557157\557164
-Ç \557164"
+GHCi> decode Rot "\557128\557153\557171\557163\557157\557164\557164"
 "Haskell"
 
 data OneTimePad = OTP String
@@ -1805,7 +1901,7 @@ GHCi> decode myOTP "tikp$lu’i)fdbjk}0bw}‘pxt}5:R<uqoE\SOHKW \EOT@HDGMOX"
 "this is a longer sentence, I hope it encodes"
 
 prng :: Int -> Int -> Int -> Int -> Int
-prng a b maxNumber seed = (a*seed + b) ‘mod‘ maxNumber
+prng a b maxNumber seed = (a*seed + b) `mod` maxNumber
 
 examplePRNG :: Int -> Int
 examplePRNG = prng 1337 7 100
@@ -1972,25 +2068,36 @@ madeBy (BookItem book) = show (author book)
 madeBy (RecordItem record) = show (artist record)
 madeBy _ = "unknown"
 
-import Data.List (for sort)
+import Data.List --(for sort)
 myLast :: [a] -> a
 myLast = head . reverse
+
 myMin :: Ord a => [a] -> a
 myMin = head . sort
+
 myMax :: Ord a => [a] -> a
 myMax = myLast . sort
-myAll :: (a -> Bool) -> [a] -> Bool
-myAll testFunc = (foldr (&) True) . (map testFunc)
 
-instance Semigroup Integer where
-(<>) x y = x + y
-(<>) :: Semigroup a => a -> a -> a
+myAll :: (a -> Bool) -> [a] -> Bool
+myAll testFunc = (foldr (&&) True) . (map testFunc)
+
+Prelude Data.List> myAll (\x -> x `div` 2 == 0) [1,2,3,4,5,6,7,8,9]
+False
+Prelude Data.List> myAll (\x -> x `div` 2 == 0) [1]
+True
 
 myAny :: (a -> Bool) -> [a] -> Bool
 myAny testFunc = (foldr (||) False) . (map testFunc)
 
 GHCi> myAny even [1, 2, 3]
 True
+
+Prelude Data.List> myAny even [1, 2, 3]
+True
+
+instance Semigroup Integer where
+(<>) x y = x + y
+(<>) :: Semigroup a => a -> a -> a
 
 data Color = Red | Yellow | Blue | Green | Purple
              | Orange | Brown deriving (Show, Eq)
@@ -2024,6 +2131,11 @@ howMuch n | n > 10 = "целая куча"
           | n > 0 = "немного"
           | otherwise = "мы в долгах!"
 
+howMuch :: Int -> String
+howMuch n | n> 10 = "whole heap"
+           | n> 0 = "a little"
+           | otherwise = "we are in debt!"
+
 instance Semigroup Color where
    (<>) Red Blue = Purple
    (<>) Blue Red = Purple
@@ -2033,9 +2145,9 @@ instance Semigroup Color where
    (<>) Red Yellow = Orange
    (<>) a b
         | a == b = a
-        | all (‘elem‘ [Red, Blue, Purple]) [a, b] = Purple
-        | all (‘elem‘ [Blue, Yellow, Green]) [a, b] = Green
-        | all (‘elem‘ [Red, Yellow, Orange]) [a, b] = Orange
+        | all (`elem` [Red, Blue, Purple]) [a, b] = Purple
+        | all (`elem` [Blue, Yellow, Green]) [a, b] = Green
+        | all (`elem` [Red, Yellow, Orange]) [a, b] = Orange
         | otherwise = Brown
 
 GHCi> (Green <> Blue) <> Yellow
@@ -2046,7 +2158,7 @@ Green
 class Semigroup a => Monoid a where
    identity :: a
 
-Monoid Semigroup + identity
+Monoid: Semigroup + identity
 
 class Monoid a where
       mempty :: a
@@ -2057,7 +2169,7 @@ GHCi> [1, 2, 3] ++ []
 [1, 2, 3]
 GHCi> [1, 2, 3] <> []
 [1, 2, 3]
-GHCi> [1, 2, 3] ‘mappend‘ []
+GHCi> [1, 2, 3] `mappend` []
 [1, 2, 3]
 
 mappend l/<> Integer
@@ -2068,7 +2180,11 @@ mconcat :: Monoid a => [a] -> [a]
 GHCi> mconcat ["в", " этом", " есть", " смысл?"]
 "в этом есть смысл?"
 
+GHCi> mconcat ["It", "makes", "sense"]
+"It makes sense?"
+
 mconcat = foldr mappend mempty
+
 Законы моноидов
 mappend mempty x = x
 [] ++ [1, 2, 3] = [1, 2, 3];
@@ -2079,7 +2195,7 @@ mappend x (mappend y z) = mappend (mappend x y) z
 mconcat = foldr mappend mempty
 
 type Events = [String]
-type Probs = [Double]
+type Probs  = [Double]
 data PTable = PTable Events Probs
 
 Создание корректной таблицы вероятностей
@@ -2098,7 +2214,7 @@ instance Show PTable where
   show (PTable events probs) = mconcat pairs
     where pairs = zipWith showPair events probs
 
-GHCi> createPTable ["îð¼ë", "ðåøêà"] [0.5, 0.5]
+GHCi> createPTable ["орёл", "решка"] [0.5, 0.5]
 орёл|0.5
 решка|0.5
 
@@ -2128,8 +2244,8 @@ instance Semigroup PTable where
   (<>) (PTable [] []) ptable2 = ptable2
   (<>) (PTable e1 p1) (PTable e2 p2) =
                        createPTable newEvents newProbs
-  where newEvents = combineEvents e1 e2
-        newProbs = combineProbs p1 p2
+        where newEvents = combineEvents e1 e2
+              newProbs = combineProbs p1 p2
 
 instance Monoid PTable where
   mempty = PTable [] []
@@ -2142,6 +2258,13 @@ spinner :: PTable
 spinner = createPTable ["красный", "синий", "зёлёный"]
                        [0.1, 0.2, 0.7]
 
+coin :: PTable
+coin = createPTable ["eagle", "tails"] [0.5, 0.5] --tail of coin решка
+
+spinner :: PTable
+spinner = createPTable ["red", "blue", "green"]
+                       [0.1, 0.2, 0.7]
+
 GHCi> coin <> spinner
 орёл-красный|5.0e-2
 орёл-синий|0.1
@@ -2150,15 +2273,34 @@ GHCi> coin <> spinner
 решка-синий|0.1
 решка-зёлёный|0.35
 
+Prelude Data.List> coin <> spinner
+eagle-red|5.0e-2
+eagle-blue|0.1
+eagle-green|0.35
+tails-red|5.0e-2
+tails-blue|0.1
+tails-green|0.35
+
 GHCi> mconcat [coin, coin, coin]
-орёл-орёл-орёл|0.125
-орёл-орёл-решка|0.125
-орёл-решка-орёл|0.125
-орёл-решка-решка|0.125
-решка-орёл-орёл|0.125
-решка-орёл-решка|0.125
-решка-решка-орёл|0.125
-решка-решка-решка|0.125
+
+Prelude Data.List> mconcat [coin, coin, coin]
+eagle-eagle-eagle|0.125
+eagle-eagle-tails|0.125
+eagle-tails-eagle|0.125
+eagle-tails-tails|0.125
+tails-eagle-eagle|0.125
+tails-eagle-tails|0.125
+tails-tails-eagle|0.125
+tails-tails-tails|0.125
+
+-- орёл-орёл-орёл|0.125
+-- орёл-орёл-решка|0.125
+-- орёл-решка-орёл|0.125
+-- орёл-решка-решка|0.125
+-- решка-орёл-орёл|0.125
+-- решка-орёл-решка|0.125
+-- решка-решка-орёл|0.125
+-- решка-решка-решка|0.125
 
 Типы, которые принимают аргументы
 data Box a = Box a deriving Show
@@ -2166,12 +2308,15 @@ data Box a = Box a deriving Show
 GHCi> n = 6 :: Int
 GHCi> :t Box n
 Box n :: Box Int
+
 GHCi> word = "строка"
 GHCi> :t Box word
 Box word :: Box [Char]
+
 GHCi> f x = x
 GHCi> :t Box f
 Box f :: Box (t -> t)
+
 GHCi> otherBox = Box n
 GHCi> :t Box otherBox
 Box otherBox :: Box (Box Int)
@@ -2183,11 +2328,13 @@ wrap x = Box x
 unwrap :: Box a -> a
 unwrap (Box x) = x
 
-wrap (Box ’a’)?
+wrap (Box 'a')?
 Box (Box Char)
 
 data Triple a = Triple a a a deriving Show
+
 type Point3D = Triple Double
+
 aPoint :: Point3D
 aPoint = Triple 0.1 53.2 12.3
 
@@ -2195,9 +2342,12 @@ type FullName = Triple String
 aPerson :: FullName
 aPerson = Triple "Говард" "Филлипс" "Лавкрафт"
 
+aPerson :: FullName
+aPerson = Triple "Howard" "Phillips" "Lovecraft"
+
 type Initials = Triple Char
 initials :: Initials
-initials = Triple ’H’ ’P’ ’L’
+initials = Triple 'H' 'P' 'L'
 
 first :: Triple a -> a
 first (Triple x _ _) = x
@@ -2221,36 +2371,48 @@ GHCi> transform reverse aPerson
 Triple "дравоГ" "спиллиФ" "тфаркваЛ"
 
 GHCi> transform toLower initials
-Triple ’h’ ’p’ ’l’
+Triple 'h' 'p' 'l'
 
 GHCi> toList (transform toLower initials)
 "hpl"
 
 data [] a = [] | a:[a]
 data List a = Empty | Cons a (List a) deriving Show
+
 Cписок типа a либо пуст, либо конструируется из значений типа a с другим списком типа a
 
 builtinEx1 :: [Int]
 builtinEx1 = 1:2:3:[]
+
 ourListEx1 :: List Int
 ourListEx1 = Cons 1 (Cons 2 (Cons 3 Empty))
+
 builtinEx2 :: [Char]
-builtinEx2 = ’к’:’о’:’т’:[]
+builtinEx2 = 'к':'о':'т':[]
+
 ourListEx2 :: List Char
-ourListEx2 = Cons ’к’ (Cons ’о’ (Cons ’т’ Empty))
+ourListEx2 = Cons 'к' (Cons 'о' (Cons 'т' Empty))
 
 ourMap :: (a -> b) -> List a -> List b
 ourMap _ Empty = Empty
 ourMap func (Cons a rest) = Cons (func a) (ourMap func rest)
+
 GHCi> ourMap (*2) ourListEx1
 Cons 2 (Cons 4 (Cons 6 Empty))
 
+Prelude Data.List> (,) 3 5
+(3,5)
 data (,) a b = (,) a b
 
 itemCount1, itemCount2, itemCount3 :: (String,Int)
 itemCount1 = ("Стёрки",25)
 itemCount2 = ("Карандаши",25)
 itemCount3 = ("Ручки",13)
+
+itemCount1, itemCount2, itemCount3 :: (String,Int)
+itemCount1 = ("Erase", 25)
+itemCount2 = ("Pencils", 25)
+itemCount3 = ("Pens", 13)
 
 itemInventory :: [(String,Int)]
 itemInventory = [itemCount1, itemCount2, itemCount3]
@@ -2275,6 +2437,7 @@ Triple Char :: *
 (,,) :: * -> * -> * -> *
 
 import qualified Data.Map as Map
+
 data Organ = Heart | Brain | Kidney | Spleen
    deriving (Show, Eq)
 
@@ -2300,29 +2463,39 @@ Just Heart
 Map.lookup :: Ord k => k -> Map.Map k a -> Maybe a
 
 groceries :: Map.Map String Int
-groceries = Map.fromList [("Молоко", 1), ("Конфеты", 10),
-("Сыр", 2)]
+--groceries = Map.fromList [("Молоко", 1), ("Конфеты", 10), ("Сыр", 2)]
+groceries = Map.fromList [("Milk", 1), ("Candy", 10), ("Cheese", 2)]
 
 import qualified Data.Map as Map
 data Organ = Heart | Brain | Kidney | Spleen deriving (Eq)
 instance Show Organ where
-show Heart = "Сердце"
-show Brain = "Мозги"
-show Kidney = "Почки"
-show Spleen = "Селезёнка"
+--show Heart = "Сердце"
+--show Brain = "Мозги"
+--show Kidney = "Почки"
+--show Spleen = "Селезёнка"
+show Heart = "Heart"
+show Brain = "Brains"
+show Kidney = "Kidneys"
+show Spleen = "Spleen"
+
+
 organs :: [Organ]
 organs = [Heart, Heart, Brain, Spleen, Spleen, Kidney]
+
 ids :: [Int]
 ids = [2, 7, 13, 14, 21, 24]
+
 organPairs :: [(Int, Organ)]
 organPairs = zip ids organs
+
 organCatalog :: Map.Map Int Organ
 organCatalog = Map.fromList organPairs
 
 data Maybe a = Nothing | Just a
 
 GHCi> Map.lookup 13 organCatalog
-Just Мозги
+--Just Мозги
+Just Brains
 
 Map.lookup 13 organCatalog :: Maybe Organ
 
@@ -2352,7 +2525,7 @@ GHCi> countOrgan Heart availableOrgans
 2
 
 GHCi> show availableOrgans [Nothing, Just Сердце, Nothing,
-Ç Nothing, Nothing, Nothing, Just Сердце, Nothing, Nothing, ...
+  Nothing, Nothing, Nothing, Just Сердце, Nothing, Nothing, ...
 
 isSomething :: Maybe Organ -> Bool
 isSomething Nothing = False
@@ -2362,8 +2535,10 @@ justTheOrgans :: [Maybe Organ]
 justTheOrgans = filter isSomething availableOrgans
 
 GHCi> justTheOrgans
-[Just Сердце,Just Сердце,Just Мозги,Just Селезёнка,
- Just Селезёнка,Just Почка]
+-- [Just Сердце,Just Сердце,Just Мозги,Just Селезёнка,
+-- Just Селезёнка,Just Почка]
+[Just Heart, Just Heart, Just Brains, Just Spleen, Just Spleen, Just Kidney]
+
 
 Data.Maybe
 justTheOrgans = filter isJust availableOrgans
@@ -2372,8 +2547,10 @@ showOrgan :: Maybe Organ -> String
 showOrgan (Just organ) = show organ
 showOrgan Nothing = ""
 
+--GHCi> showOrgan (Just Heart)
+--"Сердце"
 GHCi> showOrgan (Just Heart)
-"Сердце"
+"Heart"
 GHCi> showOrgan Nothing
 ""
 
@@ -2383,7 +2560,8 @@ organList = map showOrgan justTheOrgans
 cleanList :: String
 cleanList = intercalate ", " organList
 GHCi> cleanList
-"Сердце, Сердце, Мозги, Селезёнка, Селезёнка, Почка"
+--"Сердце, Сердце, Мозги, Селезёнка, Селезёнка, Почка"
+"Heart, Heart, Brains, Spleen, Spleen, Kidney"
 
 numOrZero :: Maybe Int -> Int
 numOrZero Nothing = 0
@@ -2391,16 +2569,22 @@ numOrZero (Just n) = n
 
 data Container = Vat Organ | Cooler Organ | Bag Organ
 instance Show Container where
-  show (Vat organ) = show organ ++ " в ванночке"
-  show (Cooler organ) = show organ ++ " в холодильнике"
-  show (Bag organ) = show organ ++ " в сумке"
+--show (Vat organ) = show organ ++ " в ванночке"
+--show (Cooler organ) = show organ ++ " в холодильнике"
+--show (Bag organ) = show organ ++ " в сумке"
+  show (Vat organ) = show organ ++ "in the bath"
+  show (Cooler organ) = show organ ++ "in the refrigerator"
+  show (Bag organ) = show organ ++ "in the bag"
 
 data Location = Lab | Kitchen | Bathroom
 
 instance Show Location where
- show Lab = "лаборатория"
- show Kitchen = "кухня"
- show Bathroom = "душевая"
+ --show Lab = "лаборатория"
+ --show Kitchen = "кухня"
+ --show Bathroom = "душевая"
+ show Lab = "laboratory"
+ show Kitchen = "kitchen"
+ show Bathroom = "shower room"
 
 organToContainer :: Organ -> Container
 organToContainer Brain = Vat Brain
@@ -2417,21 +2601,22 @@ process organ = placeInLocation (organToContainer organ)
 report :: (Location, Container) -> String
 report (location, container) =
    show container ++
-   " (место: " ++
+-- " (место: " ++
+   " (place: " ++
    show location ++ ")"
 
 GHCi> process Brain
-(ëàáîðàòîðèÿ,Ìîçãè â âàííî÷êå)
+(лаборатория,Мозги в ванночке)
 GHCi> process Heart
-(ëàáîðàòîðèÿ,Ñåðäöå â õîëîäèëüíèêå)
+(лаборатория,Сердце в холодильнике)
 GHCi> process Spleen
-(êóõíÿ,Ñåëåç¼íêà â ñóìêå)
+(кухня,Селезёнка в сумке)
 GHCi> process Kidney
-(êóõíÿ,Ïî÷êà â ñóìêå)
+(кухня,Почка в сумке)
 GHCi> report (process Brain)
-"Ìîçãè â âàííî÷êå (ìåñòî: ëàáîðàòîðèÿ)"
+"Мозги в ванночке (место: лаборатория)"
 GHCi> report (process Spleen)
-"Ñåëåç¼íêà â ñóìêå (ìåñòî: êóõíÿ)"
+"Селезёнка в сумке (место: кухня)"
 
 processRequest :: Int -> Map.Map Int Organ -> String
 processRequest id catalog = report (process organ)
@@ -2439,19 +2624,21 @@ where organ = Map.lookup id catalog
 
 processAndReport :: (Maybe Organ) -> String
 processAndReport (Just organ) = report (process organ)
-processAndReport Nothing = "ошибка, идентификатор не найден"
+--processAndReport Nothing = "ошибка, идентификатор не найден"
+processAndReport Nothing = "error, identifier not found"
 
 processRequest :: Int -> Map.Map Int Organ -> String
 processRequest id catalog = processAndReport organ
 where organ = Map.lookup id catalog
 
 GHCi> processRequest 13 organCatalog
-"Ìîçãè â âàííî÷êå (ìåñòî: ëàáîðàòîðèÿ)"
+"Мозги в ванночке (место: лаборатория)"
 GHCi> processRequest 12 organCatalog
-"îøèáêà, èäåíòèôèêàòîð íå íàéäåí"
+"ошибка, идентификатор не найден"
 
 report :: Maybe (Location, Container) -> String
-report Nothing = "контейнер не найден"
+--report Nothing = "контейнер не найден"
+report Nothing = "container not found"
 report (Just (location, container)) = show container ++
 " (место: " ++ show location ++ ")"
 
@@ -2484,7 +2671,7 @@ createTS :: [Int] -> [a] -> TS a
 createTS times values = TS completeTimes extendedValues
    where
      completeTimes = [minimum times .. maximum times]
-   timeValueMap = Map.fromList (zip times values)
+     timeValueMap = Map.fromList (zip times values)
      extendedValues = map (\v -> Map.lookup v timeValueMap)
                         completeTimes
 
@@ -2515,19 +2702,81 @@ GHCi> fileToTS file1
 11|NA
 12|202.9
 
+Prelude> import Data.List
+Prelude Data.List> import qualified Data.Map as Map
+Prelude Data.List Map> import Data.Semigroup
+Prelude Data.List Map Data.Semigroup> import Data.Maybe
+Prelude Data.List Map Data.Semigroup Data.Maybe> :{
+Prelude Data.List Map Data.Semigroup Data.Maybe| file1 :: [(Int,Double)]
+Prelude Data.List Map Data.Semigroup Data.Maybe| file1 = [ (1, 200.1), (2, 199.5), (3, 199.4), (4, 198.9)
+Prelude Data.List Map Data.Semigroup Data.Maybe|           , (5, 199.0), (6, 200.2), (9, 200.3), (10, 201.2)
+Prelude Data.List Map Data.Semigroup Data.Maybe|           , (12, 202.9)]
+Prelude Data.List Map Data.Semigroup Data.Maybe| 
+Prelude Data.List Map Data.Semigroup Data.Maybe| file2 :: [(Int,Double)]
+Prelude Data.List Map Data.Semigroup Data.Maybe| file2 = [ (11, 201.6), (12, 201.5), (13, 201.5), (14, 203.5)
+Prelude Data.List Map Data.Semigroup Data.Maybe|           , (15, 204.9), (16, 207.1), (18, 210.5), (20, 208.8)]
+Prelude Data.List Map Data.Semigroup Data.Maybe| 
+Prelude Data.List Map Data.Semigroup Data.Maybe| file3 :: [(Int,Double)]
+Prelude Data.List Map Data.Semigroup Data.Maybe| file3 = [ (10, 201.2), (11, 201.6), (12, 201.5), (13, 201.5)
+Prelude Data.List Map Data.Semigroup Data.Maybe|           , (14, 203.5), (17, 210.5), (24, 215.1), (25, 218.7)]
+Prelude Data.List Map Data.Semigroup Data.Maybe| 
+Prelude Data.List Map Data.Semigroup Data.Maybe| file4 :: [(Int,Double)]
+Prelude Data.List Map Data.Semigroup Data.Maybe| file4 = [ (26, 219.8), (27, 220.5), (28, 223.8), (29, 222.8)
+Prelude Data.List Map Data.Semigroup Data.Maybe|           , (30, 223.8), (31, 221.7), (32, 222.3), (33, 220.8)
+Prelude Data.List Map Data.Semigroup Data.Maybe|           , (34, 219.4), (35, 220.1), (36, 220.6)]
+Prelude Data.List Map Data.Semigroup Data.Maybe| 
+Prelude Data.List Map Data.Semigroup Data.Maybe| data TS a = TS [Int] [Maybe a]
+Prelude Data.List Map Data.Semigroup Data.Maybe| 
+Prelude Data.List Map Data.Semigroup Data.Maybe| createTS :: [Int] -> [a] -> TS a
+Prelude Data.List Map Data.Semigroup Data.Maybe| createTS times values = TS completeTimes extendedValues
+Prelude Data.List Map Data.Semigroup Data.Maybe|    where
+Prelude Data.List Map Data.Semigroup Data.Maybe|      completeTimes = [minimum times .. maximum times]
+Prelude Data.List Map Data.Semigroup Data.Maybe|      timeValueMap = Map.fromList (zip times values)
+Prelude Data.List Map Data.Semigroup Data.Maybe|      extendedValues = map (\v -> Map.lookup v timeValueMap)
+Prelude Data.List Map Data.Semigroup Data.Maybe|                         completeTimes
+Prelude Data.List Map Data.Semigroup Data.Maybe| 
+Prelude Data.List Map Data.Semigroup Data.Maybe| fileToTS :: [(Int,a)] -> TS a
+Prelude Data.List Map Data.Semigroup Data.Maybe| fileToTS tvPairs = createTS times values
+Prelude Data.List Map Data.Semigroup Data.Maybe|    where (times, values) = unzip tvPairs
+Prelude Data.List Map Data.Semigroup Data.Maybe| 
+Prelude Data.List Map Data.Semigroup Data.Maybe| showTVPair :: Show a => Int -> Maybe a -> String
+Prelude Data.List Map Data.Semigroup Data.Maybe| showTVPair time (Just value) = mconcat [ show time, "|"
+Prelude Data.List Map Data.Semigroup Data.Maybe|                                          , show value, "\n" ]
+Prelude Data.List Map Data.Semigroup Data.Maybe| showTVPair time Nothing = mconcat [show time,"|NA\n"]
+Prelude Data.List Map Data.Semigroup Data.Maybe| 
+Prelude Data.List Map Data.Semigroup Data.Maybe| instance Show a => Show (TS a) where
+Prelude Data.List Map Data.Semigroup Data.Maybe|     show (TS times values) = mconcat rows
+Prelude Data.List Map Data.Semigroup Data.Maybe|        where rows = zipWith showTVPair times values
+Prelude Data.List Map Data.Semigroup Data.Maybe| :}
+Prelude Data.List Map Data.Semigroup Data.Maybe> fileToTS file1
+1|200.1
+2|199.5
+3|199.4
+4|198.9
+5|199.0
+6|200.2
+7|NA
+8|NA
+9|200.3
+
+
 ts1 :: TS Double
 ts1 = fileToTS file1
+
 ts2 :: TS Double
 ts2 = fileToTS file2
+
 ts3 :: TS Double
 ts3 = fileToTS file3
+
 ts4 :: TS Double
 ts4 = fileToTS file4
 
-TS a -> TS a -> TS a
-(<>) :: Semigroup a => a -> a -> a
+--Сшивание временных рядов
+--TS a => TS a -> TS a
+--(<>) :: Semigroup a => a -> a -> a
 
-insertMaybePair :: Ord k => Map.Map k v -> (k, Maybe v)
+insertMaybePair :: Ord k => Map.Map k v -> (k, Maybe v) 
                                         -> Map.Map k v
 insertMaybePair myMap (_, Nothing) = myMap
 insertMaybePair myMap (key, Just value) =
@@ -2668,36 +2917,37 @@ diffPair (Just x) (Just y) = Just (x - y)
 diffTS :: Num a => TS a -> TS a
 diffTS (TS [] []) = TS [] []
 diffTS (TS times values) = TS times (Nothing:diffValues)
-where shiftValues = tail values
-diffValues = zipWith diffPair shiftValues values
+   where shiftValues = tail values
+         diffValues = zipWith diffPair shiftValues values
 
 GHCi> meanTS (diffTS tsAll)
 Just 0.6076923076923071
 
 mean :: (Real a) => [a] -> Double
 movingAverageTS :: (Real a) => TS a -> Int -> TS Double
+
 meanMaybe :: (Real a) => [Maybe a] -> Maybe Double
 meanMaybe vals = if any (== Nothing) vals
                  then Nothing
                  else (Just avg)
-   where avg = mean (map fromJust vals)
+    where avg = mean (map fromJust vals)
 
 movingAvg :: (Real a) => [Maybe a] -> Int -> [Maybe Double]
 movingAvg [] n = []
 movingAvg vals n =
-     if length nextVals == n
-     then meanMaybe nextVals : movingAvg restVals n
-     else []
-where nextVals = take n vals
-     restVals = tail vals
+       if length nextVals == n
+       then meanMaybe nextVals : movingAvg restVals n
+       else []
+   where nextVals = take n vals
+        restVals = tail vals
 
 movingAverageTS :: (Real a) => TS a -> Int -> TS Double
 movingAverageTS (TS [] []) n= TS [] []
 movingAverageTS (TS times values) n = TS times smoothedValues
     where
-      ma = movingAvg values n
-      nothings = replicate (n ‘div‘ 2) Nothing
-      smoothedValues = mconcat [nothings,ma,nothings]
+        ma = movingAvg values n
+        nothings = replicate (n `div` 2) Nothing
+        smoothedValues = mconcat [nothings,ma,nothings]
 
 public class Example {
 public static int mystery1(int val1, int val2) {
@@ -2720,7 +2970,7 @@ return Math.pow(val1 + val2 + val3,2);
 Функции mystery1 и mystery2, переписанные на Haskell
 mystery1 :: Int -> Int -> Int
 mystery1 val1 val2 = (val1 + val2 + val3) ^ 2
-  where val3 = 3
+     where val3 = 3
 
 mystery2 :: Int -> Int -> IO Int
 mystery2 val1 val2 = do
@@ -2732,7 +2982,7 @@ mystery2 val1 val2 = do
 safeValue = (mystery1 2 4) + (mystery1 5 6)
 
 unsafeValue = (mystery2 2 4) + (mystery2 2 4)
-"No instance for (Num (IO Int)) arising from a use of ’+’"
+"No instance for (Num (IO Int)) arising from a use of '+'"
 
 helloPerson :: String -> String
 helloPerson name = "Привет, " ++ name ++ "!"
@@ -2815,7 +3065,7 @@ $ ./pizza
 Введите стоимость второй пиццы
 220
 Пицца размера 50.0 дешевле по цене 0.11204507993669431 за
-Ç квадратный сантиметр
+  квадратный сантиметр
 
 Вычисление площади пиццы по заданному диаметру
 areaGivenDiameter :: Double -> Double
@@ -2828,17 +3078,17 @@ costPerCm (size, cost) = cost / areaGivenDiameter size
 
 comparePizzas :: Pizza -> Pizza -> Pizza
 comparePizzas p1 p2 = if costP1 < costP2
-then p1
-else p2
-where costP1 = costPerCm p1
-costP2 = costPerCm p2
+                      then p1
+                      else p2
+        where costP1 = costPerCm p1
+              costP2 = costPerCm p2
 
 describePizza :: Pizza -> String
 describePizza (size, cost) = "Пицца размера " ++ show size ++
                              " дешевле по цене " ++
                              show costSqCm ++
                              " за квадратный сантиметр"
-  where costSqCm = costPerCm (size, cost)
+        where costSqCm = costPerCm (size, cost)
 
 main :: IO ()
 main = do
@@ -2863,18 +3113,18 @@ sizeData = Map.fromList [(1, 30), (2, 50)]
 
 maybeMain :: Maybe String
 maybeMain = do
-  size1 <- Map.lookup 1 sizeData
-  cost1 <- Map.lookup 1 costData
-  size2 <- Map.lookup 2 sizeData
-  cost2 <- Map.lookup 2 costData
-  let pizza1 = (size1, cost1)
-  let pizza2 = (size2, cost2)
-  let betterPizza = comparePizzas pizza1 pizza2
-  return (describePizza betterPizza)
+   size1 <- Map.lookup 1 sizeData
+   cost1 <- Map.lookup 1 costData
+   size2 <- Map.lookup 2 sizeData
+   cost2 <- Map.lookup 2 costData
+   let pizza1 = (size1, cost1)
+   let pizza2 = (size2, cost2)
+   let betterPizza = comparePizzas pizza1 pizza2
+   return (describePizza betterPizza)
 
 GHCi> maybeMain
 Just "Пицца размера 50.0 дешевле по цене 0.11204507993669431
-Ç за квадратный сантиметр"
+  за квадратный сантиметр"
 
 getArgs :: IO [String]
 
@@ -2907,7 +3157,10 @@ $ ./sum 2 3 4 5
 4
 5
 
-Проверка 22.1. Напишите функцию main, использующую mapM, чтобы трижды вызвать getLine, а затем используйте mapM_, чтобы напечатать введённые значения (подсказка: вам нужно отбросить аргумент при использовании mapM с getLine, для достижения этого используйте (\_ -> ...)).
+Проверка 22.1. Напишите функцию main, использующую mapM, чтобы трижды вызвать getLine, а затем используйте mapM_, 
+чтобы напечатать введённые значения (подсказка: 
+вам нужно отбросить аргумент при использовании mapM с getLine, 
+для достижения этого используйте (\_ -> ...)).
 
 exampleMain :: IO ()
 exampleMain = do
@@ -2958,7 +3211,8 @@ $ ./sum 4
 410
 416
 
-mapM Принимает на вход действие ввода-вывода и обычный список, выполняет действие на каждом элементе списка и возвращает список в контексте IO
+mapM Принимает на вход действие ввода-вывода и обычный список, выполняет действие на каждом элементе списка 
+и возвращает список в контексте IO
 mapM_ Работает как mapM, но отбрасывает результат (обратите внимание на _)
 replicateM Принимает на вход действие ввода-вывода и целое число n,
 повторяет действие n раз и возвращает результаты в виде
@@ -2971,24 +3225,24 @@ myReplicateM n func = mapM (\_ -> func) [1 .. n]
 Изучение особенностей ленивого ввода-вывода
 main :: IO ()
 main = do
-userInput <- getContents
-mapM_ print userInput
+   userInput <- getContents
+   mapM_ print userInput
 
 $ ./sum_lazy
 hi
-’h’
-’i’
-’\n’
+'h'
+'i'
+'\n'
 what?
-’w’
-’h’
-’a’
-’t’
-’?’
-’\n’
+'w'
+'h'
+'a'
+'t'
+'?'
+'\n'
 
 Тестовые данные как строка входных символов
-sampleData = [’6’, ’2’, ’\n’, ’2’, ’1’, ’\n’]
+sampleData = ['6', '2', '\n', '2', '1', '\n']
 
 GHCi> lines sampleData
 ["62", "21"]
@@ -3025,6 +3279,7 @@ $ ./sum_lazy
 
 Проверка 22.4. Напишите программу, возвращающую сумму квадратов введённых пользователем чисел.
 Ответ 22.4
+
 mainSumSquares :: IO ()
 mainSumSquares = do
   userInput <- getContents
@@ -3039,7 +3294,8 @@ T.unpack :: T.Text -> String
 
 Листинг 23.1 Преобразование между типами String и Text
 firstWord :: String
-firstWord = "пессимизм"
+--firstWord = "пессимизм"
+firstWord = "pessimism"
 
 secondWord :: T.Text
 secondWord = T.pack firstWord
@@ -3073,11 +3329,14 @@ $ ghc text.hs -XOverloadedStrings
 {-# LANGUAGE <Extension Name> #-}
 
 Листинг 23.4 Расширение OverloadedStrings и литералы типа Text
+
 {-# LANGUAGE OverloadedStrings #-}
+
 import qualified Data.Text as T
 
 aWord :: T.Text
-aWord = "Сыр"
+--aWord = "Сыр"
+aWord = "Cheese"
 
 main :: IO ()
 main = do
@@ -3098,39 +3357,50 @@ ViewPatterns — более продвинутое сопоставление с
 
 Листинг 23.5 Некий текст типа Text
 sampleInput :: T.Text
-sampleInput = "это\nнекий\nтекст"
+--sampleInput = "это\nнекий\nтекст"
+sampleInput = T.pack "this is\nsome\ntext"
 
 GHCi> T.lines sampleInput
-["это","некий","текст"]
+--["это","некий","текст"]
+["this is","some","text"]
 
 
 Листинг 23.6 Какой-то другой текст как пример ввода для words
 someText :: T.Text
-someText = "Какой-то\nсовсем другой\t текст"
+--someText = T.pack "Какой-то\nсовсем другой\t текст"
+someText = T.pack "Some\ncompletely different\t text"
 
    Вы легко можете увидеть, как это работает, в GHCi:
 
 GHCi> T.words someText
-["Какой-то","совсем","другой","текст"]
+--["Какой-то","совсем","другой","текст"]
+["Some","completely","different","text"]
 
 Листинг 23.7 Пример использования splitOn
 breakText :: T.Text
-breakText = "просто"
+--breakText = T.pack "просто"
+breakText = T.pack "easy"
 
 newText :: T.Text
-newText = "Это просто сделать"
+--newText = T.pack "Это просто сделать"
+newText = T.pack "It's easy to do"
 
 И в GHCi:
 GHCi> T.splitOn breakText newText
-["Это "," сделать"]
+--["Это "," сделать"]
+["It's "," to do"]
+
 
 GHCi> T.unlines (T.lines sampleInput)
-"это\nнекий\nтекст"
+--"это\nнекий\nтекст"
+"this is\nsome\ntext\n"
 GHCi> T.unwords (T.words someText)
-"Какой-то совсем другой текст"
+--"Какой-то совсем другой текст"
+"Some completely different text"
 
 GHCi> T.intercalate breakText (T.splitOn breakText newText)
-"Это просто сделать"
+--"Это просто сделать"
+"It's easy to do"
 
 Проверка 23.3. Напишите собственные реализации двух функций
 T.lines и T.unlines, используя функции splitOn и T.intercalate.
@@ -3145,15 +3415,30 @@ myUnlines textLines = T.intercalate "\n" textLines
 combined :: String
 combined = "some" ++ " " ++ "strings"
 
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings #-} 
+
 import qualified Data.Text as T
 import Data.Semigroup
 
 combinedTextMonoid :: T.Text
-combinedTextMonoid = mconcat ["некий"," ","текст"]
+--combinedTextMonoid = mconcat ["некий"," ","текст"]
+combinedTextMonoid = mconcat ["some", "", "text"]
 
 combinedTextSemigroup :: T.Text
-combinedTextSemigroup = "некий" <> " " <> "текст"
+--combinedTextSemigroup = "некий" <> " " <> "текст"
+combinedTextSemigroup = "some" <> "" <> "text"
+
+--(T.pack - не нужно for Prelude}
+import qualified Data.Text as T
+import Data.Semigroup
+
+combinedTextMonoid :: T.Text
+--combinedTextMonoid = mconcat ["некий"," ","текст"]
+combinedTextMonoid = mconcat [T.pack "some", T.pack "", T.pack "text"]
+
+combinedTextSemigroup :: T.Text
+--combinedTextSemigroup = T.pack "некий" <> T.pack " " <> T.pack "текст"
+combinedTextSemigroup = T.pack "some" <> T.pack "" <> T.pack "text"
 
 Листинг 23.8 Слово «дхарма» как значение типа Text (деванагари)
 dharma :: T.Text
@@ -3161,14 +3446,18 @@ dharma = "Dm
 "
 
 Листинг 23.10 Подсвечивание сегментов текста функцией highlight
+
 highlight :: T.Text -> T.Text -> T.Text
 highlight query fullText = T.intercalate highlighted pieces
    where pieces = T.splitOn query fullText
-         highlighted = mconcat ["{",query,"}
+         highlighted = mconcat ["{",query,"}]
 
 import qualified Data.Text.IO as TIO
+
 Листинг 23.11 Программа для подсвечивания результатов поиска
+
 {-# LANGUAGE OverloadedStrings #-}
+
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
 dharma :: T.Text
@@ -3185,14 +3474,12 @@ highlight :: T.Text -> T.Text -> T.Text
 highlight query fullText = T.intercalate highlighted pieces
    where pieces = T.splitOn query fullText
          highlighted = mconcat ["{",query,"}"]
+
 main = do
-   TIO.putStrLn (highlight dharma bgTex
+   TIO.putStrLn (highlight dharma bgTex)
+
 $./bg_highlight
-yA-v{Dm
-}ao EvgZ, pr{Dm
-}aA(-vnE¤tAt^ -v{Dm
-}e EnDn\ y, pr{Dm
-}ao ByAv
+
 
 
 Задача 23.1. Перепишите программу hello_world.hs из урока 21 (воспроизведена здесь), заменив String на Text.
@@ -3209,32 +3496,39 @@ main = do
 Задача 23.2. Пользуясь типом Text и импортируя модули Data.Text.Lazy
 и Data.Text.Lazy.IO, перепишите программу суммирования вводимых
 пользователем чисел из урока 22 (раздел по ленивому вводу-выводу).
+
+
 toInts :: String -> [Int]
 toInts = map read . lines
 
 main :: IO ()
 main = do
-  userInput <- getContents
-  let numbers = toInts userInput
-  print (sum numbers
+   userInput <- getContents
+   let numbers = toInts userInput
+   print (sum numbers)
 
 import System.IO
+
 openFile :: FilePath -> IOMode -> IO Handle
 type FilePath = String
 
 data IOMode = ReadMode | WriteMode | AppendMode | ReadWriteMode
 
 Листинг 24.2 Функция main, открывающая и закрывающая файл
+
 main :: IO ()
 main = do
   myFile <- openFile "hello.txt" ReadMode
   hClose myFile
-  putStrLn "готово!"
+  --putStrLn "готово!"
+  putStrLn "done!"
 
 Ответ 24.1
+
 openFile "stuff.txt" ReadMode
 
 Листинг 24.3 Чтение из файла и запись в stdout и другой файл
+
 main :: IO ()
 main = do
   helloFile <- openFile "hello.txt" ReadMode
@@ -3244,21 +3538,27 @@ main = do
   goodbyeFile <- openFile "goodbye.txt" WriteMode
   hPutStrLn goodbyeFile secondLine
   hClose goodbyeFile
-  putStrLn "готово!"
+  --putStrLn "готово!"
+  putStrLn "done!"
 
 Листинг 24.4 Проверка файла на непустоту перед чтением из него
+
 main :: IO ()
 main = do
   helloFile <- openFile "hello.txt" ReadMode
   hasLine <- hIsEOF helloFile
   firstLine <- if not hasLine
   then hGetLine helloFile
-  else return "пустой файл"
-  putStrLn "готово!"
+  --else return "пустой файл"
+  --putStrLn "готово!"
+  else return "empty file"
+  putStrLn "done!"
+
 
 Проверка 24.2. Проверьте наличие в файле второй строки.
 
 Ответ 24.2. Если второй строки нет, возвращаем пустую строку:
+
 hasSecondLine <- hIsEOF helloFile
 secondLine <- if not hasSecondLine
               then hGetLine helloFile
@@ -3269,10 +3569,12 @@ writeFile :: FilePath -> String -> IO ()
 appendFile :: FilePath -> String -> IO ()
 
 Листинг 24.5 Пример содержимого файла stats.dat
+
 hello.txt символов: 29 слов: 5 строк: 2
 what.txt символов: 30000 слов: 2404 строк: 1
 
 Листинг 24.6 Функция getCounts собирает статистику в кортеж
+
 getCounts :: String -> (Int, Int, Int)
 getCounts input = (charCount, wordCount, lineCount)
   where charCount = length input
@@ -3280,18 +3582,30 @@ getCounts input = (charCount, wordCount, lineCount)
         lineCount = (length . lines) input
 
 Листинг 24.7 Функция countsText и данные в читаемом виде
-countsText :: (Int, Int, Int) -> String
-countsText (cc, wc, lc) = unwords ["символов: "
-                                   , show cc
-                                   , " слов: "
-                                   , show wc
-                                   , " строк: "
-                                   , show lc]
 
-GHCi> (countsText . getCounts) "это какой-то\n текст"
-"символов: 20 слов: 3 строк: 2"
+--countsText :: (Int, Int, Int) -> String
+--countsText (cc, wc, lc) = unwords ["символов: "
+--                                   , show cc
+--                                   , " слов: "
+--                                   , show wc
+--                                   , " строк: "
+--                                   , show lc]
+
+countsText :: (Int, Int, Int) -> String
+countsText (cc, wc, lc) = unwords [ "characters:"
+                                    , show cc
+                                    , "words:"
+                                    , show wc
+                                    , "lines:"
+                                    , show lc]
+
+--GHCi> (countsText . getCounts) "это какой-то\n текст"
+Prelude System.IO> (countsText. getCounts) "this is some \n text"
+"characters: 19 words: 4 lines: 2"
+
 
 Листинг 24.8 Совмещаем код в функции main
+
 main :: IO ()
 main = do
   args <- getArgs
@@ -3340,11 +3654,11 @@ main = do
 
 $ ./fileCounts stats.dat
 fileCounts: stats.dat: hGetContents: illegal operation
-Ç (delayed read on closed handle)
+ (delayed read on closed handle)
 
 $ ./fileCounts hello.txt
 fileCounts: stats.dat: hGetContents: illegal operation
-Ç (delayed read on closed handle)
+ (delayed read on closed handle)
 
 main :: IO ()
 main = do
@@ -3358,6 +3672,7 @@ main = do
   putStrLn summary
 
 Листинг 24.10 Функция main с исправлениями
+
 main :: IO ()
 main = do
    args <- getArgs
@@ -3372,6 +3687,7 @@ main = do
                " ", summary, "\n"])
 
 {-# LANGUAGE OverloadedStrings #-}
+
 import System.IO
 import System.Environment
 import qualified Data.Text as T
@@ -3384,12 +3700,12 @@ getCounts input = (charCount, wordCount, lineCount)
         lineCount = (length . T.lines) input
 
 countsText :: (Int, Int, Int) -> T.Text
-countsText (cc, wc, lc) = T.pack (unwords ["chars: "
-                                    , show cc
-                                    , " words: "
-                                    , show wc
-                                    , " lines: "
-                                    , show lc])
+countsText (cc, wc, lc) = T.pack ( unwords ["chars: "
+                                   , show cc
+                                   , " words: "
+                                   , show wc
+                                   , " lines: "
+                                   , show lc])
 main :: IO ()
 main = do
   args <- getArgs
@@ -3407,11 +3723,14 @@ tatsuhikoTakimoto = "滝本 竜彦"
 import qualified Data.ByteString as B
 
 Листинг 25.1 Значение ByteString, определённое с OverloadedStrings
-sampleBytes :: B.ByteString
-sampleBytes = "Привет!"
 
+{-# LANGUAGE OverloadedStrings #-}
+sampleBytes :: B.ByteString
+--sampleBytes = "Привет!"
+sampleBytes = "Hello!"
 
 Листинг 25.2 Распаковываем ByteString в String — ошибка!
+
 sampleString :: String
 sampleString = B.unpack sampleBytes
 
@@ -3423,11 +3742,14 @@ B.unpack :: BC.ByteString -> [GHC.Word.Word8]
 BC.unpack :: BC.ByteString -> [Char]
 
 Проверка 25.1. Напишите функцию, которая принимает число в виде
-строки из ASCII-символов и переводит его в Int. Для примера преобразуйте следующее значение в Int:
+строки из ASCII-символов и переводит его в Int. 
+Для примера преобразуйте следующее значение в Int:
+
 bcInt :: BC.ByteString
 bcInt = "6"
 
 Ответ 25.1
+
 bcInt :: BC.ByteString
 bcInt = "6"
 bcToInt :: BC.ByteString -> Int
@@ -3447,21 +3769,25 @@ main = do
   glitched <- return imageFile
   let glitchedFileName = mconcat ["glitched_",fileName]
   BC.writeFile glitchedFileName glitched
-  putStrLn "Готово!"
+  --putStrLn "Готово!"
+  putStrLn "Done!"
 
 Листинг 25.4 Функция intToChar преобразует байт в Int
+
 intToChar :: Int -> Char
 intToChar int = toEnum safeInt
-   where safeInt = int ‘mod‘ 255
+   where safeInt = int `mod` 255
 
 Ответ 25.2
 let glitched = imageFile
 
 Листинг 25.5 intToBC преобразует Int в односимвольную ByteString
+
 intToBC :: Int -> BC.ByteString
 intToBC int = BC.pack [intToChar int]
 
 Листинг 25.6 Функция replaceByte заменяет байт на новый
+
 replaceByte :: Int -> Int -> BC.ByteString -> BC.ByteString
 replaceByte loc chV bytes = mconcat [before,newChar,after]
   where (before,rest) = BC.splitAt loc bytes
@@ -3469,6 +3795,7 @@ replaceByte loc chV bytes = mconcat [before,newChar,after]
       newChar = intToBC chV
 
 Листинг 25.7 Получение случайных чисел в randomReplaceByte
+
 randomReplaceByte :: BC.ByteString -> IO BC.ByteString
 randomReplaceByte bytes = do
    let bytesLength = BC.length bytes
@@ -3484,14 +3811,17 @@ main = do
   glitched <- randomReplaceByte imageFile
   let glitchedFileName = mconcat ["glitched_",fileName]
   BC.writeFile glitchedFileName glitched
-  putStrLn "Готово!"
+  --putStrLn "Готово!"
+  putStrLn "Done!"
 
 $ ghc glitcher.hs
 $ ./glitcher lovecraft.jpg
-Готово!
+--Готово!
+"Done!"
 
 
 Листинг 25.8 Сортировка фрагмента данных
+
 sortSection :: Int -> Int -> BC.ByteString -> BC.ByteString
 sortSection start size bytes =
 mconcat [before,changed,after]
@@ -3500,12 +3830,14 @@ mconcat [before,changed,after]
          changed = BC.reverse (BC.sort target)
 
 Ответ 25.3
+
 randomChar :: IO Char
 randomChar = do
    randomInt <- randomRIO (0,255)
    return (toEnum randomInt)
 
 Листинг 25.9 Элемент случайности в sortSection
+
 randomSortSection :: BC.ByteString -> IO BC.ByteString
 randomSortSection bytes = do
     let sectionSize = 25
@@ -3514,6 +3846,7 @@ randomSortSection bytes = do
     return (sortSection start sectionSize bytes)
 
 Листинг 25.10 Новая версия main с randomSortSection
+
 main :: IO ()
 main = do
   args <- getArgs
@@ -3525,6 +3858,7 @@ main = do
   print "all done"
 
 Листинг 25.11 Выполнение набора действий: громоздкий подход
+
 main :: IO ()
 main = do
   args <- getArgs
@@ -3537,9 +3871,11 @@ main = do
   glitched5 <- randomReplaceByte glitched4
   let glitchedFileName = mconcat ["glitched_",fileName]
   BC.writeFile glitchedFileName glitched5
-  putStrLn "Готово!"
+  --putStrLn "Готово!"
+  putStrLn "Done!"
 
 Листинг 25.12 Улучшенная версия с использованием foldM
+
 main :: IO ()
 main = do
   args <- getArgs
@@ -3551,9 +3887,11 @@ main = do
                     , randomReplaceByte]
   let glitchedFileName = mconcat ["glitched_",fileName]
   BC.writeFile glitchedFileName glitched
-  putStrLn "Готово!"
+  --putStrLn "Готово!"
+  putStrLn "Done!"
 
 Проверка 25.4. Создайте за пределами функции main переменную
+
 glitchActions, содержащую список всех требуемых действий. Не забудьте указать для неё корректный тип.
 
 Ответ 25.4
@@ -3564,6 +3902,7 @@ glitchActions = [randomReplaceByte ,randomSortSection
 
 
 Листинг 25.15 Попытка преобразовать Text в ByteString
+
 nagarjunaB :: B.ByteString
 nagarjunaB = (BC.pack . T.unpack) nagarjunaTe
 
@@ -3576,6 +3915,7 @@ E.encodeUtf8 :: T.Text -> BC.ByteString
 E.decodeUtf8 :: BC.ByteString -> T.Text
 
 Листинг 25.16 Преобразования между Text и ByteString
+
 nagarjunaSafe :: B.ByteString
 nagarjunaSafe = E.encodeUtf8 nagarjunaText
 
@@ -3592,18 +3932,22 @@ import qualified Data.Text.Encoding as E
 import Data.Maybe
 
 Листинг 26.2 Синонимы типов Author и Title
+
 type Author = T.Text
 type Title = T.Text
 
 Листинг 26.3 Тип Book
+
 data Book = Book {
-author :: Author
-, title :: Title} deriving Show
+    author :: Author
+    , title :: Title } deriving Show
 
 Листинг 26.4 Синоним типа Html
+
 type Html = T.Text
 
 Листинг 26.5 Создание фрагмента HTML-кода для описания книги
+
 bookToHtml :: Book -> Html
 bookToHtml book = mconcat ["<p>\n"
                      , titleInTags
@@ -3615,6 +3959,7 @@ bookToHtml book = mconcat ["<p>\n"
                                , "</em>\n"]
 
 Листинг 26.6 Несколько примеров книг
+
 book1 :: Book
 book1 = Book {
    title = "Заговор против человека"
@@ -3635,6 +3980,7 @@ GHCi> bookToHtml book1
 Ç Томас</em>\n</p>\n"
 
 Листинг 26.7 Преобразование списка книг в HTML-документ
+
 booksToHtml :: [Book] -> Html
 booksToHtml books =
   mconcat [ "<html>\n"
